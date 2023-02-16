@@ -1,44 +1,75 @@
 pragma solidity ^0.6.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "abdk-libraries-solidity/ABDKMath64x64.sol";
 
  contract MusicRightsContract {
 
-     //gas fee reduction stuff idk
-    using ABDKMath64x64 for int128;
-    using ABDKMath64x64 for uint16;
+     address public owner;
 
-    bytes32 public constant CLIENT_ROLE = keccak256("CLIENT_ROLE");
-    bytes32 public constant LABEL_ROLE = keccak256("LABEL_ROLE");
-    bytes32 public constant ARTIST_ROLE = keccak256("ARTIST_ROLE");
+    constructor() public {
+         owner = msg.sender;
+    }
+    
 
     // Struct
     struct MRC {
         uint percent_label;
-        uint16 percent_artist;
+        uint percent_artist;
         uint total_fee;
-        uint schedule;
+        // Auint schedule; //need pa ba? nakalagay sa paper 6mnths, 1yr, 1.5yrs or sumn
         uint creation_date;
 
-        //should these be changed to address?
-        uint client_id; 
-        uint label_id;
-        uint artist_id;
+
+        address client; //address of client
+        address label; //address of label
+        address artist; //address of artist
 
         string contract_type; //commercial or streaming
         string status; //pending, completed, cancelled
 
-        address owner; //address of label
+        address owner; //address of network kung san nadeploy yung smc
     }
 
     // Mapping array of mrc
-    mapping(uint8 => MRC) private mrc_array;
+    MRC[] public mrc_array;
 
-    // ownership: study openzeppelin
+    // ownership + MODIFIERS
+    mapping(address => bool) public LABEL_ROLE;
+    mapping(address => bool) public CLIENT_ROLE;
+    mapping(address => bool) public ARTIST_ROLE;
+
+    //add roles to users, storing the address sa mapping then classifying them as a certain role
+    function addLabel ( address _address) public {
+        require(msg.sender == owner, "Owner only");
+        LABEL_ROLE[_address] = true;
+    }
+
+    function addClient ( address _address) public {
+        require(msg.sender == owner, "Owner only");
+        CLIENT_ROLE[_address] = true;
+    }
+
+    function addArtist ( address _address) public {
+        require(msg.sender == owner, "Owner only");
+        ARTIST_ROLE[_address] = true;
+    }
+
+    //modifiers
+     modifier onlyLabel(){
+        require(LABEL_ROLE[msg.sender], "Label only.");
+        _;
+    }
+
+    modifier onlyClient(){
+        require(CLIENT_ROLE[msg.sender], "Client only.");
+        _;
+    }
+
+     modifier onlyArtist(){
+        require(ARTIST_ROLE[msg.sender], "Artist only.");
+        _;
+    }
+
+    
 
 
 
@@ -47,32 +78,48 @@ import "abdk-libraries-solidity/ABDKMath64x64.sol";
     //CreateMRC: onlyLabel
     function createContract(uint _percent_label, 
                             uint _percent_artist,
-                            uint _total_fee,
-                            uint _schedule,
-                            uint _creation_date,
-                            uint _client_id,
-                            uint _label_id,
-                            uint _artist_id,
-                            string memory _contract_type,
-                            string memory _status) public {
-
-        MRC mrc = new MRC(  _percent_label, 
+                            // uint _schedule,
+                            address _label,
+                            address _artist,
+                            string memory _contract_type) public onlyLabel {
+                            
+        require (_percent_artist + _percent_label == 100, "Percent must be equal to 100");
+        MRC memory mrc = MRC(  _percent_label, 
                             _percent_artist,
-                            _total_fee,
-                            _schedule,
-                            _creation_date,
-                            _client_id,
-                            _label_id,
-                            _artist_id,
+                            0,
+                            // _schedule,
+                            block.timestamp,
+                            address(0),
+                            _label,
+                            _artist,
                             _contract_type,
-                            _status,
+                            "Listed", // listed means listed na sa marketplace
                             address(msg.sender));
-            mrc_array.push(contracts);
+        mrc_array.push(mrc);
         }
 
-    // SIGN MRS??
-    // RejectMRC
-    //BuyMRC: onlyClient
+    
+
+    //FUNCTION: CLIENT PROPOSES A TOTAL FEE
+
+    function proposeTotalFee (uint _id, uint _totalFee) public onlyClient {
+        //check if MRC exists
+
+        mrc_array[_id].total_fee = _totalFee;
+        mrc_array[_id].status = "Pending";
+        mrc_array[_id].client = msg.sender;
+    }
+
+    //FUNCTION: LABEL & ARTIST SIGNS PROPOSED MRC WITH TOTAL FEE
+
+    function signMRC(uint _id) public onlyLabel onlyArtist {
+        //check if mrc exists
+
+        //do agreedOnThatData
+
+        mrc_array[_id].status = "Complete";
+    }
+
 
 }
 
