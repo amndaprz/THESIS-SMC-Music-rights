@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color:  #282c34;
 }
 
 .App-logo {
@@ -35,4 +36,81 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.con_main{
+  background-color: #232226;
+  color: white;
+}
+
+.con_sub{
+  background-color: #2B2833;
+  color: white;
+}
+
+.con_radius{
+  border-radius: 20px;
+}
+
+.box_contractinfo{
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: lightgrey;
+  text-align: left;
+}
+
+.box_contractinfo_label{
+  font-weight: 500;
+  color: white;
+}
+
+.readtest_input{
+  min-width: 100%;
+  background-color: #2B2833;
+  color: whitesmoke;
+  border-color: gray;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+}
+
+.addtest_input{
+  min-width: 100%;
+  background-color: #232226;
+  color: whitesmoke;
+  border-color: gray;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+}
+
+.test_con{
+  width: 100%;
+  align-items: center;
+}
+
+.btn_mod {
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+}
+
+.table_text{
+  color: white;
+}
+
+.addtest_con{
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+.readtest_con{
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
 }
