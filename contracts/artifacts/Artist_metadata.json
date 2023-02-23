@@ -37,6 +37,30 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "songName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
+					}
+				],
+				"name": "addSong",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "count",
 				"outputs": [
@@ -70,6 +94,19 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sellSong",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -128,11 +165,11 @@
 	},
 	"sources": {
 		"contracts/Artist.sol": {
-			"keccak256": "0xf00d285642c1f1d81b8a77913f83486318f686475ce8349181f13e6623899e72",
+			"keccak256": "0xe62bbfe3bc28c6f5334ceb92980cc0b83766f25651aa241176fd078926341333",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3b32a416abebfeab7af3a53692cea8bc9b8638ab95f9f302c694ab5699b83ef9",
-				"dweb:/ipfs/QmcJU1BRdYMHRJxdpBq5HtuquwCbErk6s4ZdjHZL8hyRC2"
+				"bzz-raw://55654c431e393f2e00ca4d4ade4f2fcfc21323cea340359132ff9137e22fb717",
+				"dweb:/ipfs/QmTdmUDJ8v5WjfE2Um9DgRS2XRvEy9Z4hFYCPyTBTiThnL"
 			]
 		}
 	},
