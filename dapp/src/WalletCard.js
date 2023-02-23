@@ -29,7 +29,7 @@ const WalletCard = () => {
 		}
 	}
 
-    // update account, will cause component re-render
+    // update account
 	const accountChangedHandler = (newAccount) => {
 		setDefaultAccount(newAccount);
 		getAccountBalance(newAccount.toString());
@@ -46,12 +46,10 @@ const WalletCard = () => {
 	};
 
 	const chainChangedHandler = () => {
-		// reload the page to avoid any errors with chain change mid use of application
 		window.location.reload();
 	}
 
 
-	// listen for account changes
 	window.ethereum.on('accountsChanged', accountChangedHandler);
 
 	window.ethereum.on('chainChanged', chainChangedHandler);
