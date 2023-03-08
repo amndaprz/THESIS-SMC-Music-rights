@@ -40,6 +40,11 @@ function Register_form(){
                     className="login_input p-4"
                     placeholder="Confirm password"
                 />
+                <select className='p-4 login_input'>
+                    <option value="1">Client</option>
+                    <option value="2">Artist</option>
+                    <option value="3">Label</option>
+                </select>
                 <div className="login_btn_con">
                     <button
                         type="submit"
@@ -64,7 +69,7 @@ function Register() {
                 <Title/>
             </div>
             <div className="col-sm-6 login_con">
-                <div className="login_box">
+                <div className="register_box">
                     <Register_form/>
                 </div>
             </div>

@@ -28,7 +28,7 @@
 
 .login_box{
     background-color: #fff;
-    height: 600px;
+    height: 500px;
     width: 60%;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.6);
@@ -39,7 +39,7 @@
 
 .register_box{
     background-color: #fff;
-    height: 500px;
+    height: 600px;
     width: 60%;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
@@ -113,4 +113,10 @@
 .title_sub{
     padding-left: 300px;
     color: #595275;
+}
+
+select option {
+    padding: 40px;
+    color: #595275;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
