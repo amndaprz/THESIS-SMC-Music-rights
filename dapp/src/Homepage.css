@@ -1,0 +1,155 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+ 
+.bloc-tabs {
+  display: flex;
+}
+.tabs {
+    padding: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: center;
+    width: 100%;
+    background: #2B2833;
+    cursor: pointer;
+    outline: none;
+
+    color: white;
+  }
+
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 5px;
+}
+
+.active-tabs{
+  background-color: #2C264B;
+  border-right: solid 5px white;
+}
+  
+  
+button {
+  border: none;
+  
+}
+
+.content {
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.content h2 {
+  padding: 0px 0 5px 0px;
+}
+.content hr {
+  width: 100px;
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+.content p {
+  width: 100%;
+  height: 100%;
+}
+.active-content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+  
+.nav_con{
+  background-color: #2B2833;
+
+  height: 100vh;
+  border-radius: 0 20px 20px 0;
+  position: sticky;
+  left: 0px;
+  color: white;
+  width: 350px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.nav_btn_con{
+  margin-top: 100px;
+  color: white;
+}
+
+.content_con{
+  color: white;
+  position: absolute;
+  left: 350px;
+  max-width: 1550px;
+
+}
+
+.card-deck{
+  display: flex;
+  justify-content: center;
+}
+
+.card{
+  max-width: 400px;
+  height: 200px;
+  background-color: #2B2833;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.card-title, .card-text{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card_con{
+  max-width: 1900px;
+}
+
+.card-body{}
+
+.card-footer{
+  background: none;
+  border: none;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+}
+
+.card_button{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+
+  margin-top: -10px;
+}
+
+.card_owned{
+  height: 160px;
+}
+
+.logout_btn{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+  
+}
+
+.logout_btn_con{
+  margin-top: auto;
+  margin-bottom: 45px;
+}

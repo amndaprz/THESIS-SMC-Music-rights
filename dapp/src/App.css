@@ -1,7 +1,7 @@
 .App {
   text-align: center;
-  background-color:  #282c34;
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -15,7 +15,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -38,10 +37,24 @@
   }
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: white;
+}
+
 
 .con_main{
   background-color: #232226;
   color: white;
+  min-height: inherit;
 }
 
 .con_sub{
@@ -114,3 +127,11 @@
   max-width: 800px;
   width: 100%;
 }
+
+
+
+
+
+
+
+

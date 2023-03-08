@@ -1,0 +1,116 @@
+
+.bg-container{
+    width:250px;
+    height: 250px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: 200px;
+    background-position: center center;
+}
+
+.img_con{
+    background-image: url("./gradient.png");
+    width:100wh;
+    height: 100vh;
+    background-size: 40% 100vh;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.img_con_cen{
+    width: 1900px;
+}
+
+.login_box{
+    background-color: #fff;
+    height: 600px;
+    width: 60%;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+
+    margin-right: 300px;
+}
+
+.register_box{
+    background-color: #fff;
+    height: 500px;
+    width: 60%;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+
+    margin-right: 300px;
+}
+
+.login_con{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.input_con{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:  space-evenly;
+    flex-direction: column;
+}
+
+.login_input{
+    width: 100%;
+    background: none;
+    color: whitesmoke;
+    border-color: white;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    outline: none;
+
+    padding: 10px;
+}
+
+.login_btn_con{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text_white{
+    color: #fff;
+    text-align: center;
+}
+
+.text_sub{
+    color: #595275;
+}
+
+.text_pop{
+    color: #9988FF;
+}
+
+.title_con{
+    color: #fff;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.title_main{
+    font-size: 100px;
+    padding-left: 300px;
+}
+
+.title_sub{
+    padding-left: 300px;
+    color: #595275;
+}

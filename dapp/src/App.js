@@ -1,179 +1,26 @@
-import logo from './logo.svg';
+import Login from './Login';
+import Test from './Test';
+import Register from './Register';
+import Client from './Client';
+import Artist from './Artist';
 import './App.css';
-import WalletCard from './WalletCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function AddContract() {
-  // for testing 
-  return (
-    
-    <div className="d-flex justify-content-center flex-column ">
-      <div className="App">
-      <WalletCard/>
-      </div>
-      <div className="">
-        <h2 >Add music contract (for testing)</h2>
-      </div>
-      <div>
-        <form className="m-4" onSubmit="">
-          <div className="d-flex flex-column justify-content-center">
-            <div className="my-3">
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent label"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent artist"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter address of owner"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent artist"
-              />
-               <select className='my-3 p-3 readtest_input'>
-                <option value="">Commercial</option>
-                <option value="">Streaming</option>
-              </select>
-            </div>
-            
-            <div>
-              <button
-                type="submit"
-                className="submit-button py-3 px-5 btn_mod">
-                Add contract
-              </button>
-            </div>
-            
-          </div>
-        </form>
-      </div>
-    </div>
-    
-  );
-}
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function ReadContract() {
-  // for testing 
-
-  /*Percentage Cuts, address of Artist/Label, details of Contract related to the music/client. */
-  return (
-    <div className="d-flex justify-content-center flex-column">
-      <div className='readtest_con'>
-        <h2 >Read music contract (for testing)</h2>
-      </div>
-      <div>
-        <form className="m-4" onSubmit="">
-          <div className="d-flex justify-content-center flex-column">
-            <div className="my-3 px-5">
-              <input
-                type="text"
-                name="addr"
-                className="p-3 addtest_input"
-                placeholder="Enter music contract address"
-              />
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="submit-button my-3 py-3 px-5 btn_mod">
-                Get contract info
-              </button>
-            </div>
-          </div>
-        </form>
-        
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Percent label</div>
-          <div className="col-sm-9" >Percent label</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Percent artist</div>
-          <div className="col-sm-9" >Percent artist</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Total fee</div>
-          <div className="col-sm-9" >Total fee</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Creation date</div>
-          <div className="col-sm-9" >Creation date</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Client address</div>
-          <div className="col-sm-9" >Client address</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Artist address</div>
-          <div className="col-sm-9" >Artist address</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Label address</div>
-          <div className="col-sm-9" >Label address</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Contract type</div>
-          <div className="col-sm-9" >Contract type</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Status</div>
-          <div className="col-sm-9" >Status</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Owner address</div>
-          <div className="col-sm-9" >Owner address</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
+document.body.style.background = "#232226";
 function App() {
   return (
-    /*
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    */
-    
-  <div className="container-fluid p-4">
-    <style>{'body { background-color: #232226;}'}</style>
-    <div className='test_con d-flex flex-column justify-content-center'>
-      <div className='con_sub con_radius m-3 mb-4 p-5 addtest_con'>
-        <AddContract />
-      </div>
-      <div className='con_main con_radius m-3 mt-5 readtest_con'>
-        <ReadContract />
-      </div>
-    </div>
-    <div>
-      <a href=''> Label </a>
-    </div>
+    <div className>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Login />}/>
+          <Route path="/Test"element={<Test />}/>
+          <Route path="/Register"element={<Register />}/>
+          <Route path="/Client"element={<Client />}/>
+          <Route path="/Artist"element={<Artist />}/>
+        </Routes>
+      </BrowserRouter>
   </div>
   );
 }
