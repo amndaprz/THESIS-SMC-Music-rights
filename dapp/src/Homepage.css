@@ -1,9 +1,9 @@
+
 *, ::before, ::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
-  
  
 .bloc-tabs {
   display: flex;
@@ -19,7 +19,10 @@
     outline: none;
 
     color: white;
-  }
+
+    border: none;
+}
+
 
 .active-tabs::before {
   content: "";
@@ -71,10 +74,10 @@ button {
 
   height: 100vh;
   border-radius: 0 20px 20px 0;
-  position: sticky;
+  position: fixed;
   left: 0px;
   color: white;
-  width: 350px;
+  width: 19vw;
 
   display: flex;
   flex-direction: column;
@@ -88,8 +91,8 @@ button {
 .content_con{
   color: white;
   position: absolute;
-  left: 350px;
-  max-width: 1550px;
+  left: 19vw;
+  max-width: 80vw;
 
 }
 
@@ -105,6 +108,7 @@ button {
   margin: 20px;
   padding: 20px;
   border-radius: 20px;
+
 }
 
 .card-title, .card-text{
@@ -116,8 +120,6 @@ button {
 .card_con{
   max-width: 1900px;
 }
-
-.card-body{}
 
 .card-footer{
   background: none;
@@ -152,4 +154,148 @@ button {
 .logout_btn_con{
   margin-top: auto;
   margin-bottom: 45px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.active-modal {
+  overflow-y: hidden;
+}
+
+.btn-modal {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+}
+
+.modal, .overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49,49,49,0.8);
+}
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1f1f1;
+
+
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+
+  background: white;
+  
+}
+
+.modal-header, .modal-footer{
+  border: none;
+}
+
+.modal-body{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+
+.tabs:hover, .logout_btn:hover,
+.card_button:hover, .modal_btn:hover, 
+.modal_btn_sub:hover{
+  background-color: #2C264B;
+  border-color: white;
+  transition: 0.2s;
+}
+
+.modal_box_contract{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: 80vh;
+  width: 40vw;
+  padding: 30px;
+  padding-bottom: 40px;
+
+
+  color: white;
+}
+
+.modal_box_proposal{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: 90vh;
+  width: 40vw;
+  padding: 30px;
+
+
+  color: white;
+}
+
+.modal_btn{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+}
+
+.modal_btn_sub{
+  border-radius: 20px;
+  background:none;
+  color: white;
+  border: none;
+}
+
+.contract_con {
+  height: 60vh;
+  overflow-y: scroll;
+  white-space: nowrap;
+
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  padding-left: 25px;
+}
+
+.contract_info{
+  width: 600px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: lightgrey;
+  text-align: left;
+
+  border: solid 1px #595275;
+}
+
+.contractinfo_label{
+  font-weight: 500;
+  color: white;
+}
+
+.modal_contract_title{
+  padding-left: 15px;
 }

@@ -3,6 +3,8 @@ import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import gradient from "./gradient.png"
 
+import Button from 'react-bootstrap/Button';
+
 import { Link } from "react-router-dom";
 
 document.body.style.background = "#232226";
@@ -46,11 +48,11 @@ function Register_form(){
                     <option value="3">Label</option>
                 </select>
                 <div className="login_btn_con">
-                    <button
+                    <Button
                         type="submit"
                         className="submit-button py-3 px-5 btn_mod">
                         Create account
-                    </button>
+                    </Button>
                     <Link className="text_white pt-2" to="/">Back to login</Link>
                     
                 </div>
@@ -65,10 +67,10 @@ function Register() {
         {/*LOGIN <Link to="/Home"> Home</Link>*/}
         
         <div className="row m-0 p-0 img_con_cen">
-            <div className="col-sm-6 title_con">
+            <div className="col mx-5 title_con">
                 <Title/>
             </div>
-            <div className="col-sm-6 login_con">
+            <div className="col mx-5 login_con">
                 <div className="register_box">
                     <Register_form/>
                 </div>

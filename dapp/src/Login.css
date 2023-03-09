@@ -10,9 +10,9 @@
 
 .img_con{
     background-image: url("./gradient.png");
-    width:100wh;
+    width:100vw;
     height: 100vh;
-    background-size: 40% 100vh;
+    background-size: 40% 100vw;
     background-repeat: no-repeat;
     background-position: right center;
 
@@ -23,7 +23,7 @@
 }
 
 .img_con_cen{
-    width: 1900px;
+    max-width: 100vw;
 }
 
 .login_box{
@@ -42,7 +42,7 @@
     height: 600px;
     width: 60%;
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 20px;
 
     margin-right: 300px;

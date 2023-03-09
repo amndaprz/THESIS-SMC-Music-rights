@@ -107,10 +107,15 @@
 }
 
 .btn_mod {
-  border-radius: 20px;
-  background-color: #9988FF;
+  border-radius: 20px !important;
+  background-color: #9988FF !important;
   color: white;
-  border: none;
+  border: none !important;
+}
+
+.btn_mod:hover{
+  background-color: #2C264B !important;
+  transition: 0.2s;
 }
 
 .table_text{
@@ -127,6 +132,8 @@
   max-width: 800px;
   width: 100%;
 }
+
+
 
 
 
