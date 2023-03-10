@@ -151,10 +151,74 @@ function ContractPopup(props) {
     );
   }
 
+  function ClientProposalPopup(props) {
+
+    return (
+        <Modal
+        contentClassName="modal_box_clientlabel"
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter modal_view"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+                <div className='modal_contract_title'>
+                    Track title
+                </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <div className="client_proposal_con">
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Artist name</div>
+                    <div className="col-sm-9 text_sub" >Artist name</div>
+                </div>
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Total fee</div>
+                    <div className="col-sm-9 text_sub" >Total fee</div>
+                </div>
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Client name</div>
+                    <div className="col-sm-9 text_sub" >Client name</div>
+                </div>
+            </div>
+                
+        </Modal.Body>
+        <Modal.Footer>
+        <Button className="py-2 px-5 modal_btn_sub">
+                Decline
+            </Button>
+            <Button className="py-2 px-5 modal_btn">
+                Sign
+            </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
 function AddContract(){
     return(
         <form className="m-4" onSubmit="">
           <div className="my-3 input_con">
+            <input
+              type="text"
+              name="addr"
+              className="my-3 p-4 input_contract"
+              placeholder="Enter track title"
+            />
+            <input
+              type="text"
+              name="addr"
+              className="my-3 p-4 input_contract"
+              placeholder="Enter artist name"
+            />
+            <input
+              type="text"
+              name="addr"
+              className="my-3 p-4 input_contract"
+              placeholder="Enter address of artist"
+            />
             <input
               type="text"
               name="addr"
@@ -167,22 +231,16 @@ function AddContract(){
               className="my-3 p-4 input_contract"
               placeholder="Enter percent artist"
             />
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter address of owner"
-            />
-            <select className='my-3 p-4 input_contract'>
-                <option value="">Select payment schedule</option>
-                <option value="">3 months</option>
-                <option value="">6 months</option>
-                <option value="">1 year</option> 
-            </select>
             <select className='my-3 p-4 input_contract'>
                 <option value="">Select contract type</option>
                 <option value="">Commercial</option>
                 <option value="">Streaming</option>
+            </select>
+            <select className='my-3 p-4 input_contract'>
+                <option className="text_sub" value="" disabled selected>Select payment schedule</option>
+                <option value="">3 months</option>
+                <option value="">6 months</option>
+                <option value="">1 year</option> 
             </select>
           
           <div className="py-4">
@@ -194,6 +252,47 @@ function AddContract(){
           </div>
         </div>
       </form>
+    );
+}
+
+function ViewListedSongs() {
+    return(
+        <div class="row py-4 px-5 card-deck">
+            <Card>
+                <Card.Body>
+                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Text>
+                        Artist name
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                    <h5 class="text_sub">Status</h5>
+                </Card.Footer>
+            </Card>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Text>
+                        Label name
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                    <h5 class="text_sub">Status</h5>
+                </Card.Footer>
+            </Card>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Text>
+                        Label name
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                    <h5 class="text_sub">Status</h5>
+                </Card.Footer>
+            </Card>
+        </div>
+        
     );
 }
 
@@ -259,13 +358,70 @@ function ViewContracts(){
     );
 }
 
-function ViewProposals(){
+function ViewContractProposals(){
     
     const [modalShow, setModalShow] = React.useState(false);
 
     return(
         <div class="row py-4 px-5 card-deck">
             <ProposalPopup
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+            <Card>
+                <Card.Body>
+                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Text>
+                        Label name
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                    <h5 class="text_sub">Date</h5>
+                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
+                        View
+                    </Button>
+                </Card.Footer>
+            </Card>
+
+            <Card>
+            <Card.Body>
+                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Text>
+                    Label name
+                </Card.Text>
+            </Card.Body>
+            <Card.Footer className="text-muted">
+                <h5 class="text_sub">Date</h5>
+                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
+                    View
+                </Button>
+            </Card.Footer>
+        </Card>
+
+        <Card>
+            <Card.Body>
+                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Text>
+                    Label name
+                </Card.Text>
+            </Card.Body>
+            <Card.Footer className="text-muted">
+                <h5 class="text_sub">Date</h5>
+                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
+                    View
+                </Button>
+            </Card.Footer>
+        </Card>
+        </div>
+    );
+}
+
+function ViewClientProposals(){
+    const [modalShow, setModalShow] = React.useState(false);
+
+    return(
+        <div class="row py-4 px-5 card-deck">
+            <ClientProposalPopup
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
@@ -342,21 +498,34 @@ function Artist() {
                         onClick={() => toggleTab(1)}>
                     Add contract
                     </Button>
+
                     <Button
                         className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                         onClick={() => toggleTab(2)}>
-                    View contracts
+                    View listed songs
                     </Button>
 
                     <Button
-                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3)}>
-                    View proposals
+                        className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+                        onClick={() => toggleTab(3)}>
+                    View contracts
                     </Button>
 
                     <Button
                     className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(4)}>
+                    View contract proposals
+                    </Button>
+
+                    <Button
+                    className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
+                    onClick={() => toggleTab(5)}>
+                    View client proposals
+                    </Button>
+
+                    <Button
+                    className={toggleState === 6 ? "tabs active-tabs" : "tabs"}
+                    onClick={() => toggleTab(6)}>
                     Payout
                     </Button>
                     
@@ -373,17 +542,28 @@ function Artist() {
                     <h1>Add contract</h1>
                     <AddContract/>
                 </div>
+
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
+                    <h1>View listed songs</h1>
+                    <ViewListedSongs/>
+                </div>
+
+                <div className={toggleState === 3 ? "content  active-content" : "content"}>
                     <h1>View contracts</h1>
                     <ViewContracts/>
                 </div>
 
-                <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <h1>View proposals</h1>
-                    <ViewProposals/>
+                <div className={toggleState === 4 ? "content  active-content" : "content"}>
+                    <h1>View contract proposals</h1>
+                    <ViewContractProposals/>
                 </div>
 
-                <div className={toggleState === 4 ? "content  active-content" : "content"}>
+                <div className={toggleState === 5 ? "content  active-content" : "content"}>
+                    <h1>View client proposals</h1>
+                    <ViewClientProposals/>
+                </div>
+
+                <div className={toggleState === 6 ? "content  active-content" : "content"}>
                     <h1>Payout</h1>
                     <div>Payout</div>
                 </div>

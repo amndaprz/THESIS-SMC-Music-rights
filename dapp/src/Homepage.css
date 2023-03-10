@@ -10,9 +10,10 @@
 }
 .tabs {
     padding: 20px;
+    padding-left: 50px;
     padding-top: 25px;
     padding-bottom: 25px;
-    text-align: center;
+    text-align: left;
     width: 100%;
     background: #2B2833;
     cursor: pointer;
@@ -33,7 +34,7 @@
 
 .active-tabs{
   background-color: #2C264B;
-  border-right: solid 5px white;
+  border-right: solid 5px #9988FF;
 }
   
   
@@ -139,6 +140,15 @@ button {
   margin-top: -10px;
 }
 
+.card_button_delete{
+  border-radius: 20px;
+  background-color: #595275 ;
+  color: white;
+  border: none;
+
+  margin-top: -10px;
+}
+
 .card_owned{
   height: 160px;
 }
@@ -225,9 +235,9 @@ button {
 
 .tabs:hover, .logout_btn:hover,
 .card_button:hover, .modal_btn:hover, 
-.modal_btn_sub:hover{
+.modal_btn_sub:hover, .card_button_delete:hover{
   background-color: #2C264B;
-  border-color: white;
+  border-color: #9988FF;
   transition: 0.2s;
 }
 
@@ -256,7 +266,7 @@ button {
   color: white;
 }
 
-.modal_box_contract{
+.modal_box_offer{
   background-color: #232226;
   background-size: cover;
   border-radius: 20px !important;
@@ -267,6 +277,31 @@ button {
 
   color: white;
 }
+
+.modal_box_client{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: 50vh;
+  width: 40vw;
+  padding: 30px;
+
+
+  color: white;
+}
+
+.modal_box_clientlabel{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: 65vh;
+  width: 40vw;
+  padding: 30px;
+
+
+  color: white;
+}
+
 
 .modal_btn{
   border-radius: 20px;
@@ -322,7 +357,7 @@ button {
   width: 40vw;
   background-color: #2B2833;
   color: whitesmoke;
-  border-color: gray;
+  border-color:#595275;
   border-radius: 20px;
   border-style: solid;
   border-width: 1px;
@@ -341,9 +376,25 @@ button {
   width: 25vw;
   background-color: #2B2833;
   color: whitesmoke;
-  border-color: gray;
+  border-color: #595275;
   border-radius: 20px;
   border-style: solid;
   border-width: 1px;
   outline: none;
+}
+
+.input_offer::placeholder{
+  color: #595275;
+}
+
+.input_contract::placeholder{
+  color: #595275;
+}
+
+.client_proposal_con{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
 }

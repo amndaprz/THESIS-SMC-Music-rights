@@ -50,6 +50,14 @@
   color: white;
 }
 
+.text_sub{
+  color: #595275 !important;
+}
+
+.text_pop{
+  color: #9988FF;
+}
+
 
 .con_main{
   background-color: #232226;

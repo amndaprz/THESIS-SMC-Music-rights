@@ -13,7 +13,7 @@ function OfferPopup(props) {
     
     return (
       <Modal
-        contentClassName="modal_box_contract"
+        contentClassName="modal_box_offer"
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter modal_view"
