@@ -3,6 +3,7 @@ import Test from './Test';
 import Register from './Register';
 import Client from './Client';
 import Artist from './Artist';
+import Label from './Label';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Register"element={<Register />}/>
           <Route path="/Client"element={<Client />}/>
           <Route path="/Artist"element={<Artist />}/>
+          <Route path="/Label"element={<Label />}/>
         </Routes>
       </BrowserRouter>
   </div>

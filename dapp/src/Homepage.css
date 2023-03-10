@@ -256,6 +256,18 @@ button {
   color: white;
 }
 
+.modal_box_contract{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: 40vh;
+  width: 30vw;
+  padding: 30px;
+
+
+  color: white;
+}
+
 .modal_btn{
   border-radius: 20px;
   background-color: #9988FF;
@@ -298,4 +310,40 @@ button {
 
 .modal_contract_title{
   padding-left: 15px;
+}
+
+.input_con{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input_contract{
+  width: 40vw;
+  background-color: #2B2833;
+  color: whitesmoke;
+  border-color: gray;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+}
+
+.offer_con{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.input_offer{
+  width: 25vw;
+  background-color: #2B2833;
+  color: whitesmoke;
+  border-color: gray;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
 }
