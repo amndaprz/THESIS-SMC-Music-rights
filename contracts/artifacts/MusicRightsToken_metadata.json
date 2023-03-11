@@ -188,7 +188,46 @@
 			},
 			{
 				"inputs": [],
+				"name": "ARTIST_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "CLIENT_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "DEFAULT_ADMIN_ROLE",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "LABEL_ROLE",
 				"outputs": [
 					{
 						"internalType": "bytes32",
@@ -246,6 +285,58 @@
 						"internalType": "bytes32",
 						"name": "",
 						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "_isAdmin",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "_isArtist",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "_isClient",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "_isLabel",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -946,11 +1037,11 @@
 			]
 		},
 		"contracts/MusicRightsToken.sol": {
-			"keccak256": "0x221a744a4437a853c175b72dad3568f349d66bce3b47fcccf063f2a369b6ca41",
+			"keccak256": "0x084be6876956a357ce16dad2cdb2540e6f46f0453fc7cd44a70fb5b73387a831",
 			"license": "DLSU--TINA",
 			"urls": [
-				"bzz-raw://d4c7521a7db18726ad6cf5deb1947a13c39699b7250321b410f854e4d890659c",
-				"dweb:/ipfs/QmQUFdUAyWLaYf2x3r1o6ud8BzKAVBA62K1tR8qX24UibC"
+				"bzz-raw://fd76896b1d15c33c6a1c43a6a8263ed5c5b01b1dd0ac2bc71515ef72db5abdf6",
+				"dweb:/ipfs/Qmb9Bvmdp7FucXgJ1KGfdFJtD3JvNTF1FGEQLEmcg7uaXf"
 			]
 		}
 	},
