@@ -140,6 +140,128 @@ function ReadContract() {
   );
 }
 
+function DisplayInfo(){
+  return(
+    <div>
+      <h1>Display info</h1>
+        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Address</div>
+          <div className="col-sm-9" >Address</div>
+        </div>
+        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Token Balance</div>
+          <div className="col-sm-9" >Token Balance</div>
+        </div>
+        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
+          <div className="col-sm-3 box_contractinfo_label" >User Role</div>
+          <div className="col-sm-9" >User Role</div>
+        </div>
+    </div>
+  );
+}
+
+function Buttons(){
+  return(
+    <div>
+      <h1>Buttons</h1>
+      <button
+        type=""
+        className=" m-3 py-3 px-5 btn_mod">
+        Button 1
+      </button>
+      <button
+        type=""
+        className=" m-3 py-3 px-5 btn_mod">
+        Button 2
+      </button>
+      <button
+        type=""
+        className=" m-3 py-3 px-5 btn_mod">
+        Button 3
+      </button>
+    </div>
+  );
+}
+
+function InputOutput(){
+  return(
+    <div>
+      <h1>I/O</h1>
+      <form className="mx-4 mt-4" onSubmit="">
+          <div className="d-flex justify-content-center flex-column">
+            <h3>safeMint</h3>
+            <div className="my-3 px-5">
+              <input
+                type="text"
+                name="addr"
+                className="p-3 addtest_input"
+                placeholder="to: (address)"
+              />
+            </div>
+            <div>
+              <button
+                  type="submit"
+                  className="submit-button mb-3 py-3 px-5 btn_mod">
+                  Transact
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div className='con_sub con_radius box_contractinfo px-5 mb-5 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Output</div>
+          <div className="col-sm-9" >Output</div>
+        </div>
+
+        <form className="mx-4 mt-5" onSubmit="">
+          <div className="d-flex justify-content-center flex-column">
+            <h3>safeTransferFrom</h3>
+            <div className="my-3 px-5">
+              <input
+                type="text"
+                name="addr"
+                className="p-3 my-2 addtest_input"
+                placeholder="from: (address)"
+              />
+              <input
+                type="text"
+                name="addr"
+                className="p-3 my-2 addtest_input"
+                placeholder="to: (address)"
+              />
+              <input
+                type="text"
+                name="addr"
+                className="p-3 my-2 addtest_input"
+                placeholder="token ID:"
+              />
+            </div>
+            <div>
+              <button
+                  type="submit"
+                  className="submit-button mb-3 py-3 px-5 btn_mod">
+                  Transact
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Output</div>
+          <div className="col-sm-9" >Output</div>
+        </div>
+        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Output</div>
+          <div className="col-sm-9" >Output</div>
+        </div>
+        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
+          <div className="col-sm-3 box_contractinfo_label" >Output</div>
+          <div className="col-sm-9" >Output</div>
+        </div>
+    </div>
+  );
+}
+
 
 function Test() {
   return (
@@ -170,9 +292,16 @@ function Test() {
       <div className='con_main con_radius m-3 mt-5 readtest_con'>
         <ReadContract />
       </div>
-    </div>
-    <div>
-        <Link to="/"> Login</Link>
+      <div className="line">---------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+      <div className='con_main con_radius m-3 mt-5 displaytest_con'>
+        <DisplayInfo/>
+      </div>
+      <div className='con_main con_radius m-3 mt-5 displaytest_con'>
+        <InputOutput/>
+      </div>
+      <div className='con_main con_radius m-3 mt-5 displaytest_con'>
+        <Buttons/>
+      </div>
     </div>
   </div>
   );
