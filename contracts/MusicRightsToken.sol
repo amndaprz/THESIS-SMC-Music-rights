@@ -78,6 +78,16 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     // 5. Other Functions ------------------------------------------------------------------------------------
 
+    // --- Client to Label Transfer Form
+
+    function safeTransferFromLabelClient(address from, address to, uint256 tokenId) public {
+        require(hasRole(CLIENT_ROLE, msg.sender), "User must have CLIENT Role to transfer token");
+        require(hasRole(LABEL_ROLE, to), "Recipient Address must have LABEL Role to transfer");
+        safeTransferFrom(from, to, tokenId);
+    }
+
+
+
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
         internal
         whenNotPaused
@@ -106,6 +116,19 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     function _isArtist () public view returns (bool) {
         require(hasRole(ARTIST_ROLE, msg.sender), "User is not a CLIENT");
         return true;
+    }
+
+    // 7. Grant / Revoke Functions -------------
+
+    function _giveRoleLabel () public {
+        _grantRole(LABEL_ROLE, msg.sender);
+    }
+
+    function _removeRoles (address to) public {
+        _revokeRole(DEFAULT_ADMIN_ROLE, to);
+        _revokeRole(CLIENT_ROLE, to);
+        _revokeRole(LABEL_ROLE, to);
+        _revokeRole(ARTIST_ROLE, to);
     }
 
     // The following functions are overrides required by Solidity.

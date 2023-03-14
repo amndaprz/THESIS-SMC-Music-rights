@@ -292,6 +292,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "_giveRoleLabel",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "_isAdmin",
 				"outputs": [
 					{
@@ -340,6 +347,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
+				"name": "_removeRoles",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -631,6 +651,29 @@
 					}
 				],
 				"name": "safeTransferFrom",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "safeTransferFromLabelClient",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -1037,11 +1080,11 @@
 			]
 		},
 		"contracts/MusicRightsToken.sol": {
-			"keccak256": "0x084be6876956a357ce16dad2cdb2540e6f46f0453fc7cd44a70fb5b73387a831",
+			"keccak256": "0x1f2e6b050dcaa0608bc9cff2c895cb4f3440d6f6c140c0e8cc6d88141d91a4c5",
 			"license": "DLSU--TINA",
 			"urls": [
-				"bzz-raw://fd76896b1d15c33c6a1c43a6a8263ed5c5b01b1dd0ac2bc71515ef72db5abdf6",
-				"dweb:/ipfs/Qmb9Bvmdp7FucXgJ1KGfdFJtD3JvNTF1FGEQLEmcg7uaXf"
+				"bzz-raw://d011b0d6ad6a74bf4b24b0a559fa3a0fab877f9271d45a9852c7f8939d2c712f",
+				"dweb:/ipfs/QmSAyQtF5mNddx1RrdFZuUysAkjLY24erPnU8QirdgKrak"
 			]
 		}
 	},
