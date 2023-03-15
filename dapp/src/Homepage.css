@@ -338,9 +338,16 @@ button {
   border: solid 1px #595275;
 }
 
-.contractinfo_label{
+.contractinfo_label, .balanceinfo_label{
   font-weight: 500;
   color: white;
+}
+
+.balance_info{
+  width: 100%;
+  color: lightgrey;
+  text-align: left;
+  border: solid 1px #595275;
 }
 
 .modal_contract_title{

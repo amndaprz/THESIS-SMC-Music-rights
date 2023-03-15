@@ -9,49 +9,90 @@ import Card from 'react-bootstrap/Card';
 
 document.body.style.background = "#232226";
 
-function OfferPopup(props) {
-    
+function ConfirmOfferPopup(props) {
+
     return (
-      <Modal
-        contentClassName="modal_box_offer"
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter modal_view"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-                <div className='modal_contract_title'>
-                    Track title
-                </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <form className="m-4 offer_con" onSubmit="">
-                <input
-                type="text"
-                name="addr"
-                className="p-4 input_offer"
-                placeholder="Enter proposed total fee"
-                />
-                <div className="py-4">
-                    <button
-                    type="submit"
-                    className="submit-button py-3 px-5 btn_mod">
-                    Send offer
-                    </button>
-                </div>
-            </form>
-            
-        </Modal.Body>
-      </Modal>
+        <Modal
+          contentClassName="modal_box_offer"
+          {...props}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter modal_view"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                  <div className='modal_contract_title'>
+                      Send offer
+                  </div>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+                Are your sure you want to send this offer?
+            </div>
+            <div>
+                Track title:
+            </div>
+            <div>
+                Artist name:
+            </div>
+            <div>
+                Label title:
+            </div>
+            <div>
+                Offer:
+            </div>
+              
+          </Modal.Body>
+        </Modal>
+    );
+}
+  
+
+
+function OfferPopup(props) {  
+    return (
+        <Modal
+            contentClassName="modal_box_offer"
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter modal_view"
+            centered
+        >
+    
+            <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+                    <div className='modal_contract_title'>
+                        Track title
+                    </div>
+            </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <form className="m-4 offer_con" onSubmit="">
+                    <input
+                    type="text"
+                    name="addr"
+                    className="p-4 input_offer"
+                    placeholder="Enter proposed total fee"
+                    />
+                    <div className="py-4">
+                        <button
+                        type="submit"
+                        className="submit-button py-3 px-5 btn_mod">
+                        Send offer
+                        </button>
+                    </div>
+                </form>
+                
+            </Modal.Body>
+        </Modal>
+      
     );
   }
 
 
 function BuySongs(){
-    const [modalShow, setModalShow] = React.useState(false);
-    
+    const [modalShow, setModalShow] = React.useState(false);    
     return(
         <div class="row py-4 px-5 card-deck">
             <OfferPopup
@@ -78,7 +119,7 @@ function BuySongs(){
                         <div>Label name</div>
                     </Card.Text>
                 </Card.Body>
-                <Button variant="primary" className="py-2 px-5 mx-2 card_button">
+                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                     Buy
                 </Button>
             </Card>
@@ -90,7 +131,7 @@ function BuySongs(){
                         <div>Label name</div>
                     </Card.Text>
                 </Card.Body>
-                <Button variant="primary" className="py-2 px-5 mx-2 card_button">
+                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                     Buy
                 </Button>
             </Card>
