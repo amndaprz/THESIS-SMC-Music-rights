@@ -6,6 +6,7 @@ import Artist from './Artist';
 import Label from './Label';
 import Dev from './Dev';
 import ModalTest from './ModalTest';
+import NotifTest from './NotifTest';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/Label"element={<Label />}/>
           <Route path="/Dev"element={<Dev />}/>
           <Route path="/ModalTest"element={<ModalTest />}/>
+          <Route path="/NotifTest"element={<NotifTest />}/>
         </Routes>
       </BrowserRouter>
   </div>

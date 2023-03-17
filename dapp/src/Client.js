@@ -7,43 +7,57 @@ import Modal from 'react-bootstrap/Modal';
 
 import Card from 'react-bootstrap/Card';
 
+import "./Notif.css";
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+
 document.body.style.background = "#232226";
 
-function ConfirmOfferPopup(props) {
+function ConfirmPurchasePopup(props) {
 
     return (
         <Modal
-          contentClassName="modal_box_offer"
+          contentClassName="modal_box_confirm"
           {...props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter modal_view"
           centered
         >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-                  <div className='modal_contract_title'>
-                      Send offer
-                  </div>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-                Are your sure you want to send this offer?
-            </div>
-            <div>
-                Track title:
-            </div>
-            <div>
-                Artist name:
-            </div>
-            <div>
-                Label title:
-            </div>
-            <div>
-                Offer:
-            </div>
-              
-          </Modal.Body>
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    <div className='modal_confirm_title'>
+                        Purchase Confirmation
+                    </div>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="confirm_subtitle">
+                    Please confirm your purchase below.
+                </div>
+                <div className="confirm_con">
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Track title</div>
+                        <div className="col-sm-9 text_sub" >Track title</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Artist name</div>
+                        <div className="col-sm-9 text_sub" >Artist name</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Label name</div>
+                        <div className="col-sm-9 text_sub" >Label name</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Total fee</div>
+                        <div className="col-sm-9 text_sub" >Total fee</div>
+                    </div>
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide} className="py-2 px-5 modal_btn_sub">Cancel</Button>
+                <Button onClick={props.onHide} className="py-2 px-5 modal_btn">Confirm</Button>
+            </Modal.Footer>
         </Modal>
     );
 }
@@ -90,12 +104,92 @@ function OfferPopup(props) {
     );
   }
 
+class Example extends React.Component {
+    createNotification = (type) => {
+      return () => {
+        switch (type) {
+          case 'success':
+            NotificationManager.success( 'Purchase Successful!'); //Success
+            break;
+          case 'error':
+            NotificationManager.error('Purchase Failed!'); //Error
+            break;
+        }
+      };
+    };
+  
+    render() {
+      return (
+        <div>
+            
+            <Modal
+          contentClassName="modal_box_confirm"
+          {...this.props}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter modal_view"
+          centered
+        >
+            
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    <div className='modal_confirm_title'>
+                        Purchase Confirmation
+                    </div>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="confirm_subtitle">
+                    Please confirm your purchase below.
+                </div>
+                <div className="confirm_con">
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Track title</div>
+                        <div className="col-sm-9 text_sub" >Track title</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Artist name</div>
+                        <div className="col-sm-9 text_sub" >Artist name</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Label name</div>
+                        <div className="col-sm-9 text_sub" >Label name</div>
+                    </div>
+                    <div className='con_sub con_radius confirm_info px-5 my-3 row'>
+                        <div className="col-sm-3 contractinfo_label" >Total fee</div>
+                        <div className="col-sm-9 text_sub" >Total fee</div>
+                    </div>
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={this.props.onHide} className="py-2 px-5 modal_btn_sub">Cancel</Button>
+                <Button className='py-2 px-5 modal_btn'
+                    onClick={this.props.onHide}>Confirm
+                </Button>
+                
+                {/* ERROR
+                <button className='py-2 px-5 modal_btn'
+                    onClick={this.createNotification('error')}>Confirm
+                </button> 
+                SUCCESS
+                {this.createNotification('success')}                
+                */} 
+
+            </Modal.Footer>
+        </Modal>
+        </div>
+            
+          
+      );
+    }
+  }
+
 
 function BuySongs(){
     const [modalShow, setModalShow] = React.useState(false);    
+    
     return(
         <div class="row py-4 px-5 card-deck">
-            <OfferPopup
+            <Example
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
@@ -107,9 +201,14 @@ function BuySongs(){
                         <div>Label name</div>
                     </Card.Text>
                 </Card.Body>
-                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
-                    Buy
-                </Button>
+                <Card.Footer className="text-muted">
+                    <h5 className="text_pop">Total fee</h5>
+                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        Buy
+                    </Button>
+                    
+                </Card.Footer>
+                
             </Card>
             <Card>
                 <Card.Body>
@@ -119,9 +218,12 @@ function BuySongs(){
                         <div>Label name</div>
                     </Card.Text>
                 </Card.Body>
-                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
-                    Buy
-                </Button>
+                <Card.Footer className="text-muted">
+                    <h5 className="text_pop">Total fee</h5>
+                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        Buy
+                    </Button>
+                </Card.Footer>
             </Card>
             <Card>
                 <Card.Body>
@@ -131,9 +233,12 @@ function BuySongs(){
                         <div>Label name</div>
                     </Card.Text>
                 </Card.Body>
-                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
-                    Buy
-                </Button>
+                <Card.Footer className="text-muted">
+                    <h5 className="text_pop">Total fee</h5>
+                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        Buy
+                    </Button>
+                </Card.Footer>
             </Card>
         </div>
     );
@@ -175,7 +280,7 @@ function OwnedSongs(){
     );
 }
 
-function Homepage() {
+function Client() {
 
     const [toggleState, setToggleState] = useState(1);
 
@@ -185,6 +290,7 @@ function Homepage() {
 
   return (
     <div>
+        <NotificationContainer/>
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">
                 <div className="px-4">
@@ -234,4 +340,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Client;
