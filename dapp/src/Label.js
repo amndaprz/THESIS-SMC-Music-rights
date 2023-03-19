@@ -7,6 +7,7 @@ import 'reactjs-popup/dist/index.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 
 document.body.style.background = "#232226";
@@ -197,51 +198,167 @@ function ContractPopup(props) {
     );
   }
 
-function AddContract(){
+function AddStreamingContract(){
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substring(0,10);
     return(
         <form className="m-4" onSubmit="">
           <div className="my-3 input_con">
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter track title"
-            />
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter artist name"
-            />
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter address of artist"
-            />
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter percent label"
-            />
-            <input
-              type="text"
-              name="addr"
-              className="my-3 p-4 input_contract"
-              placeholder="Enter percent artist"
-            />
-            <select className='my-3 p-4 input_contract'>
-                <option value="">Select contract type</option>
-                <option value="">Commercial</option>
-                <option value="">Streaming</option>
-            </select>
-            <select className='my-3 p-4 input_contract'>
-                <option className="text_sub" value="" disabled selected>Select payment schedule</option>
-                <option value="">3 months</option>
-                <option value="">6 months</option>
-                <option value="">1 year</option> 
-            </select>
+          <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter percent label :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter percent artist :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Creation date :<input
+                    type="date"
+                    name="addr"
+                    disabled="true"
+                    className="inputfield_contract"
+                    defaultValue={date}
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">End date :<input
+                    type="date"
+                    name="addr"
+                    disabled="true"
+                    className="inputfield_contract"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter address of label :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter address of artist :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter fee per stream :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Select payment schedule :<select className='inputfield_contract'>
+                    <option value="">3 months</option>
+                    <option value="">6 months</option>
+                    <option value="">1 year</option> 
+                </select>
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Contract type :<select className='inputfield_contract'>
+                    <option disabled="true" value="">Commercial</option>
+                    <option selected="true" value="">Streaming</option>
+                </select>
+                </p>
+            </div>
+          
+          <div className="py-4">
+            <button
+              type="submit"
+              className="submit-button py-3 px-5 btn_mod">
+              Add contract
+            </button>
+          </div>
+        </div>
+      </form>
+    );
+}
+
+
+function AddCommercialContract(){
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substring(0,10);
+
+    return(
+        <form className="m-4" onSubmit="">
+          <div className="my-3 input_con">
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter percent label :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter percent artist :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Creation date :<input
+                    type="date"
+                    name="addr"
+                    disabled="true"
+                    className="inputfield_contract"
+                    defaultValue={date}
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter address of label :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Enter address of artist :<input
+                    type="text"
+                    name="addr"
+                    className="inputfield_contract"
+                    placeholder="Type here"
+                    />
+                </p>
+            </div>
+            <div className="my-3 p-4 input_contract">
+                <p className="text_sub p-0 m-0">Contract type :<select className='inputfield_contract'>
+                    <option value="">Commercial</option>
+                    <option disabled="true" value="">Streaming</option>
+                </select>
+                </p>
+            </div>
           
           <div className="py-4">
             <button
@@ -473,6 +590,34 @@ function ViewClientProposals(){
     );
 }
 
+function Payout() {
+    return(
+        <form className="m-4" onSubmit="">
+            <div className="my-3 input_con">
+                <div className='con_sub con_radius balance_info p-4 my-3 row'>
+                    <div className="col-sm-3 balanceinfo_label" >Balance</div>
+                    <div className="col-sm-9 text_sub" >Balance</div>
+                </div>
+                <input
+                type="text"
+                name="addr"
+                className="my-3 p-4 input_contract"
+                placeholder="Enter amount to withdraw"
+                />
+            
+            <div className="py-4">
+                <button
+                type="submit"
+                className="submit-button py-3 px-5 btn_mod">
+                Withdraw
+                </button>
+            </div>
+            </div>
+        </form>
+    );
+}
+
+
 function Artist() {
 
     const [toggleState, setToggleState] = useState(1);
@@ -480,6 +625,13 @@ function Artist() {
     const toggleTab = (index) => {
     setToggleState(index);
     };
+
+    const [toggleState2, setToggleState2] = useState(1);
+
+    const toggleTab2 = (index) => {
+    setToggleState2(index);
+    };
+
 
   return (
     <div>
@@ -540,7 +692,30 @@ function Artist() {
             <div className="col-sm-10 py-5  m-0 content_con">
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <h1>Add contract</h1>
-                    <AddContract/>
+                    <div className=" mt-5 mb-4">Please choose a contract type below:</div>
+                    <div className="row">
+                        <div className="col">
+                            <Button
+                                className={toggleState2 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab2(1)}>
+                                Commercial
+                            </Button>
+                        </div>
+                        <div className="col">
+                            <Button
+                                className={toggleState2 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab2(2)}>
+                                Streaming
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={toggleState2 === 1 ? "content  active-content" : "content"}>
+                        <AddCommercialContract/>
+                    </div>
+                    <div className={toggleState2 === 2 ? "content  active-content" : "content"}>
+                        <AddStreamingContract/>
+                    </div>
+                    
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
@@ -565,7 +740,7 @@ function Artist() {
 
                 <div className={toggleState === 6 ? "content  active-content" : "content"}>
                     <h1>Payout</h1>
-                    <div>Payout</div>
+                    <Payout/>
                 </div>
             </div>
 

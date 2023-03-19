@@ -1,0 +1,21 @@
+.notification-success{
+  border-radius: 20px !important;
+  background-color: #438b53 !important;
+}
+
+.notification-error {
+  border-radius: 20px !important;
+  background-color: #bb4a55 !important;
+}
+
+.notification-container{
+  width: 500px  !important;
+}
+
+.notification{
+  width: 400px  !important;
+  margin: 40px !important;
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+  box-shadow: none !important;
+}
