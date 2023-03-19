@@ -1,10 +1,17 @@
 import './App.css';
 import WalletCard from './WalletCard';
+import erc721abi from './erc721ABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ConnectContract from './ConnectContract';
+
 
 import { Link } from "react-router-dom";
 
+
+
 function AddContract() {
+
+  
   // for testing 
   return (
     
@@ -56,9 +63,9 @@ function AddContract() {
                 Add contract
               </button>
             </div>
-            
           </div>
         </form>
+
       </div>
     </div>
     
@@ -75,7 +82,8 @@ function ReadContract() {
         <h2 >Read music contract (for testing)</h2>
       </div>
       <div>
-        <form className="m-4" onSubmit="">
+        <h2>-- HERE -- </h2>
+        {/* <form className="m-4" onSubmit="">
           <div className="d-flex justify-content-center flex-column">
             <div className="my-3 px-5">
               <input
@@ -93,7 +101,8 @@ function ReadContract() {
               </button>
             </div>
           </div>
-        </form>
+        </form> */}
+        <ConnectContract/>
         
         <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
           <div className="col-sm-3 box_contractinfo_label" >Percent label</div>
