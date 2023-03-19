@@ -4,7 +4,7 @@ import ERC721 from './erc721ABI.json';
 import Web3 from "web3";
 
 // Contract Connection
-const contractAddress = "0x263EF42519702be879B1b415123999544841B015";
+const contractAddress = "0x4efE1A9FB95EB626D3e9dd73fEF05AF13c771AFf";
 
 // abi
 const contractABI = ERC721;

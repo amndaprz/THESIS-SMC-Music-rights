@@ -30,21 +30,21 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     constructor() ERC721("MusicRights Token", "MRT") {
         // -------- Restrict these to certain accounts only (ADMIN)----------------
         // _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(DEFAULT_ADMIN_ROLE, 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4);
+        _grantRole(DEFAULT_ADMIN_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
 
    
         // ------- Client Accounts ------
-        _grantRole(CLIENT_ROLE, msg.sender);
+        _grantRole(CLIENT_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
 
         // ------- Label Accounts ------
-        _grantRole(LABEL_ROLE, msg.sender);
+        _grantRole(LABEL_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
 
         // ------- Artist Accounts ------
-        _grantRole(ARTIST_ROLE, msg.sender);
+        _grantRole(ARTIST_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
 
         // ------- Pauser Accounts ------
-        _grantRole(PAUSER_ROLE, msg.sender);
-        _grantRole(MINTER_ROLE, msg.sender);
+        // _grantRole(PAUSER_ROLE, msg.sender);
+        // _grantRole(MINTER_ROLE, msg.sender);
         
         //  Start token ID incrementor
         _tokenIdCounter.increment();
@@ -98,23 +98,23 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     // 6. Checking Functions ------------------------------------------------------------------------------------
 
-    function _isAdmin () public view returns (bool) {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "User is not an ADMIN");
+    function _isAdmin (address from) public view returns (bool) {
+        require(hasRole(DEFAULT_ADMIN_ROLE, from), "User is not an ADMIN");
         return true;
     }
 
-    function _isClient () public view returns (bool) {
-        require(hasRole(CLIENT_ROLE, msg.sender), "User is not a CLIENT");
+    function _isClient (address from) public view returns (bool) {
+        require(hasRole(CLIENT_ROLE, from), "User is not a CLIENT");
         return true;
     }
 
-    function _isLabel () public view returns (bool) {
-        require(hasRole(LABEL_ROLE, msg.sender), "User is not a CLIENT");
+    function _isLabel (address from) public view returns (bool) {
+        require(hasRole(LABEL_ROLE, from), "User is not a LABEL");
         return true;
     }
 
-    function _isArtist () public view returns (bool) {
-        require(hasRole(ARTIST_ROLE, msg.sender), "User is not a CLIENT");
+    function _isArtist (address from) public view returns (bool) {
+        require(hasRole(ARTIST_ROLE, from), "User is not a ARTIST");
         return true;
     }
 
