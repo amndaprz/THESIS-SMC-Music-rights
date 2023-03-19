@@ -4,7 +4,7 @@ import ERC721 from './erc721ABI.json';
 import Web3 from "web3";
 
 // Contract Connection
-const contractAddress = "0x39A790dCD35D33b9B4503249b859C5abA8284102";
+const contractAddress = "0x263EF42519702be879B1b415123999544841B015";
 
 // abi
 const contractABI = ERC721;
@@ -14,6 +14,7 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 // Accounts
 let account;
+let result = " ";
 
 const ConnectContract = () => {
 
@@ -31,13 +32,45 @@ const ConnectContract = () => {
 	}
 	
 	async function displayRole() {
+		result = " " ;
 		try {
-			const result = await contract.methods._isArtist().call();
-			console.log("The result of _isArtist is:", result);
-			setRole(result);
+			// Admin
+			if(await contract.methods._isAdmin(account).call()){
+				result += "Admin ";
+			} 
 		} catch (error) {
 			console.error("An error occurred:", error);
 		}
+		
+		try{
+			// Client
+			if(await contract.methods._isClient(account).call()){
+				result += "Client ";
+			}
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
+
+		try{
+			// Label
+			if(await contract.methods._isLabel(account).call()){
+				result += "Label ";
+			} 
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
+
+		try{
+			// Artist
+			if(await contract.methods._isArtist(account).call()){
+				result += "Artist ";
+			}
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
+			console.log("Roles:", result);
+			setRole(result);
+		
 	}
 	
 	return (
@@ -59,10 +92,10 @@ const ConnectContract = () => {
 				<h3 id='role'> Role: {roleText}</h3>
 			</div>
 
-			<div className='balanceDisplay'>
+			{/* <div className='balanceDisplay'>
 				<button onClick={displayRole}>Display Role</button>
 				<h3 id='role'> Role: {roleText}</h3>
-			</div>
+			</div> */}
 
 			{}
 		</div>

@@ -292,7 +292,13 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
 		"name": "_isAdmin",
 		"outputs": [
 			{
@@ -305,7 +311,13 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
 		"name": "_isArtist",
 		"outputs": [
 			{
@@ -318,7 +330,13 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
 		"name": "_isClient",
 		"outputs": [
 			{
@@ -331,7 +349,13 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			}
+		],
 		"name": "_isLabel",
 		"outputs": [
 			{
