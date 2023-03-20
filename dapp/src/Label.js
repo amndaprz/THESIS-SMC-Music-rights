@@ -7,7 +7,6 @@ import 'reactjs-popup/dist/index.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
 
 
 document.body.style.background = "#232226";
@@ -548,12 +547,6 @@ function Artist() {
                     className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(5)}>
                     Payout
-                    </Button>
-                    
-                </div>
-                <div className="px-4 mx-4 logout_btn_con">
-                    <Button className="submit-button py-2 px-5 logout_btn">
-                        Logout
                     </Button>
                 </div>
             </div>

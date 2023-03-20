@@ -273,11 +273,6 @@ function Client() {
                     Owned songs
                     </Button>
                 </div>
-                <div className="px-4 mx-4 logout_btn_con">
-                    <Button className="submit-button py-2 px-5 logout_btn">
-                        Logout
-                    </Button>
-                </div>
                     
             </div>
             

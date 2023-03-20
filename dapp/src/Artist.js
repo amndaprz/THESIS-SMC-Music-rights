@@ -162,10 +162,7 @@ function ViewListedSongs() {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
-                    <Button variant="primary" className="py-2 px-5 card_button_delete">
-                        Delete
-                    </Button>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
             <Card>
@@ -176,10 +173,7 @@ function ViewListedSongs() {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
-                    <Button variant="primary" className="py-2 px-5 card_button_delete">
-                        Delete
-                    </Button>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
             <Card>
@@ -190,10 +184,7 @@ function ViewListedSongs() {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
-                    <Button variant="primary" className="py-2 px-5 card_button_delete">
-                        Delete
-                    </Button>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
         </div>
@@ -395,11 +386,6 @@ function Artist() {
                     Payout
                     </Button>
                     
-                </div>
-                <div className="px-4 mx-4 logout_btn_con">
-                    <Button className="submit-button py-2 px-5 logout_btn">
-                        Logout
-                    </Button>
                 </div>
             </div>
             

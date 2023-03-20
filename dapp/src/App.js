@@ -1,6 +1,4 @@
-import Login from './Login';
 import Test from './Test';
-import Register from './Register';
 import Client from './Client';
 import Artist from './Artist';
 import Label from './Label';
@@ -18,10 +16,8 @@ function App() {
     <div className>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Login />}/>
+          <Route exact path="/"element={<Client />}/>
           <Route path="/Test"element={<Test />}/>
-          <Route path="/Register"element={<Register />}/>
-          <Route path="/Client"element={<Client />}/>
           <Route path="/Artist"element={<Artist />}/>
           <Route path="/Label"element={<Label />}/>
           <Route path="/Dev"element={<Dev />}/>
