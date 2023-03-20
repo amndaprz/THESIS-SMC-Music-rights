@@ -109,7 +109,7 @@ button {
   margin: 20px;
   padding: 20px;
   border-radius: 20px;
-
+  min-width: 400px;
 }
 
 .card-title, .card-text{
@@ -278,31 +278,6 @@ button {
   color: white;
 }
 
-.modal_box_client{
-  background-color: #232226;
-  background-size: cover;
-  border-radius: 20px !important;
-  height: 50vh;
-  width: 40vw;
-  padding: 30px;
-
-
-  color: white;
-}
-
-.modal_box_clientlabel{
-  background-color: #232226;
-  background-size: cover;
-  border-radius: 20px !important;
-  height: 65vh;
-  width: 40vw;
-  padding: 30px;
-
-
-  color: white;
-}
-
-
 .modal_btn{
   border-radius: 20px;
   background-color: #9988FF;
@@ -411,23 +386,13 @@ button {
   color: #595275;
 }
 
-.client_proposal_con{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-direction: column;
-}
-
-.modal_box_confirm{
+.modal_purchase_confirm{
   background-color: #232226;
   background-size: cover;
   border-radius: 20px !important;
   height: max-content;
-  width: 40vw;
+  width: 38vw;
   padding: 30px;
-
-
   color: white;
 }
 

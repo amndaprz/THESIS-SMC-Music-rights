@@ -152,52 +152,6 @@ function ContractPopup(props) {
     );
   }
 
-  function ClientProposalPopup(props) {
-
-    return (
-        <Modal
-        contentClassName="modal_box_clientlabel"
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter modal_view"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-                <div className='modal_contract_title'>
-                    Track title
-                </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <div className="client_proposal_con">
-                <div className='con_sub con_radius contract_info px-5 my-3 row'>
-                    <div className="col-sm-3 contractinfo_label" >Artist name</div>
-                    <div className="col-sm-9 text_sub" >Artist name</div>
-                </div>
-                <div className='con_sub con_radius contract_info px-5 my-3 row'>
-                    <div className="col-sm-3 contractinfo_label" >Total fee</div>
-                    <div className="col-sm-9 text_sub" >Total fee</div>
-                </div>
-                <div className='con_sub con_radius contract_info px-5 my-3 row'>
-                    <div className="col-sm-3 contractinfo_label" >Client name</div>
-                    <div className="col-sm-9 text_sub" >Client name</div>
-                </div>
-            </div>
-                
-        </Modal.Body>
-        <Modal.Footer>
-        <Button className="py-2 px-5 modal_btn_sub">
-                Decline
-            </Button>
-            <Button className="py-2 px-5 modal_btn">
-                Sign
-            </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
 function AddStreamingContract(){
     var curr = new Date();
     curr.setDate(curr.getDate());
@@ -269,21 +223,6 @@ function AddStreamingContract(){
                     />
                 </p>
             </div>
-            <div className="my-3 p-4 input_contract">
-                <p className="text_sub p-0 m-0">Select payment schedule :<select className='inputfield_contract'>
-                    <option value="">3 months</option>
-                    <option value="">6 months</option>
-                    <option value="">1 year</option> 
-                </select>
-                </p>
-            </div>
-            <div className="my-3 p-4 input_contract">
-                <p className="text_sub p-0 m-0">Contract type :<select className='inputfield_contract'>
-                    <option disabled="true" value="">Commercial</option>
-                    <option selected="true" value="">Streaming</option>
-                </select>
-                </p>
-            </div>
           
           <div className="py-4">
             <button
@@ -352,13 +291,6 @@ function AddCommercialContract(){
                     />
                 </p>
             </div>
-            <div className="my-3 p-4 input_contract">
-                <p className="text_sub p-0 m-0">Contract type :<select className='inputfield_contract'>
-                    <option value="">Commercial</option>
-                    <option disabled="true" value="">Streaming</option>
-                </select>
-                </p>
-            </div>
           
           <div className="py-4">
             <button
@@ -377,35 +309,35 @@ function ViewListedSongs() {
         <div class="row py-4 px-5 card-deck">
             <Card>
                 <Card.Body>
-                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Title>Track title</Card.Title>
                     <Card.Text>
                         Artist name
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
             <Card>
                 <Card.Body>
-                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Title>Track title</Card.Title>
                     <Card.Text>
                         Label name
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
             <Card>
                 <Card.Body>
-                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Title>Track title</Card.Title>
                     <Card.Text>
                         Label name
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Status</h5>
+                    <h5 class="text_sub">Stream count</h5>
                 </Card.Footer>
             </Card>
         </div>
@@ -427,7 +359,7 @@ function ViewContracts(){
 
         <Card>
             <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Title>Track title</Card.Title>
                 <Card.Text>
                     Label name
                 </Card.Text>
@@ -442,7 +374,7 @@ function ViewContracts(){
 
         <Card>
             <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Title>Track title</Card.Title>
                 <Card.Text>
                     Label name
                 </Card.Text>
@@ -457,7 +389,7 @@ function ViewContracts(){
 
         <Card>
             <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Title>Track title</Card.Title>
                 <Card.Text>
                     Label name
                 </Card.Text>
@@ -487,7 +419,7 @@ function ViewContractProposals(){
             />
             <Card>
                 <Card.Body>
-                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                    <Card.Title>Track title</Card.Title>
                     <Card.Text>
                         Label name
                     </Card.Text>
@@ -502,7 +434,7 @@ function ViewContractProposals(){
 
             <Card>
             <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Title>Track title</Card.Title>
                 <Card.Text>
                     Label name
                 </Card.Text>
@@ -517,64 +449,7 @@ function ViewContractProposals(){
 
         <Card>
             <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
-                <Card.Text>
-                    Label name
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-                <h5 class="text_sub">Date</h5>
-                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
-                    View
-                </Button>
-            </Card.Footer>
-        </Card>
-        </div>
-    );
-}
-
-function ViewClientProposals(){
-    const [modalShow, setModalShow] = React.useState(false);
-
-    return(
-        <div class="row py-4 px-5 card-deck">
-            <ClientProposalPopup
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-            />
-            <Card>
-                <Card.Body>
-                    <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
-                    <Card.Text>
-                        Label name
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Date</h5>
-                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
-                        View
-                    </Button>
-                </Card.Footer>
-            </Card>
-
-            <Card>
-            <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
-                <Card.Text>
-                    Label name
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-                <h5 class="text_sub">Date</h5>
-                <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
-                    View
-                </Button>
-            </Card.Footer>
-        </Card>
-
-        <Card>
-            <Card.Body>
-                <Card.Title>Track title skdg okfnaonfan asokoakf</Card.Title>
+                <Card.Title>Track title</Card.Title>
                 <Card.Text>
                     Label name
                 </Card.Text>
@@ -672,12 +547,6 @@ function Artist() {
                     <Button
                     className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(5)}>
-                    View client proposals
-                    </Button>
-
-                    <Button
-                    className={toggleState === 6 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(6)}>
                     Payout
                     </Button>
                     
@@ -734,11 +603,6 @@ function Artist() {
                 </div>
 
                 <div className={toggleState === 5 ? "content  active-content" : "content"}>
-                    <h1>View client proposals</h1>
-                    <ViewClientProposals/>
-                </div>
-
-                <div className={toggleState === 6 ? "content  active-content" : "content"}>
                     <h1>Payout</h1>
                     <Payout/>
                 </div>

@@ -18,7 +18,7 @@ function ConfirmPurchasePopup(props) {
 
     return (
         <Modal
-          contentClassName="modal_box_confirm"
+          contentClassName="modal_purchase_confirm"
           {...props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter modal_view"
@@ -64,45 +64,6 @@ function ConfirmPurchasePopup(props) {
   
 
 
-function OfferPopup(props) {  
-    return (
-        <Modal
-            contentClassName="modal_box_offer"
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter modal_view"
-            centered
-        >
-    
-            <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-                    <div className='modal_contract_title'>
-                        Track title
-                    </div>
-            </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <form className="m-4 offer_con" onSubmit="">
-                    <input
-                    type="text"
-                    name="addr"
-                    className="p-4 input_offer"
-                    placeholder="Enter proposed total fee"
-                    />
-                    <div className="py-4">
-                        <button
-                        type="submit"
-                        className="submit-button py-3 px-5 btn_mod">
-                        Send offer
-                        </button>
-                    </div>
-                </form>
-                
-            </Modal.Body>
-        </Modal>
-      
-    );
-  }
 
 class Example extends React.Component {
     createNotification = (type) => {
@@ -123,7 +84,7 @@ class Example extends React.Component {
         <div>
             
             <Modal
-          contentClassName="modal_box_confirm"
+          contentClassName="modal_purchase_confirm"
           {...this.props}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter modal_view"
@@ -189,7 +150,7 @@ function BuySongs(){
     
     return(
         <div class="row py-4 px-5 card-deck">
-            <Example
+            <ConfirmPurchasePopup
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
