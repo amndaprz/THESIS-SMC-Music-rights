@@ -76,7 +76,7 @@ const ConnectContract = () => {
 	return (
 		<div>
 
-			{/* <h4> {"Connect to MetaMask"} </h4>	
+			<h4> {"Connect to MetaMask"} </h4>	
 			<button onClick={displayAddress}>Display Address </button>
 
 			<div className='accountDisplay'>
@@ -90,12 +90,12 @@ const ConnectContract = () => {
 			<div className='balanceDisplay'>
 				<button onClick={displayRole}>Display Role</button>
 				<h3 id='role'> Role: {roleText}</h3>
-			</div> */}
+			</div>
 
-			{/* <div className='balanceDisplay'>
+			<div className='balanceDisplay'>
 				<button onClick={displayRole}>Display Role</button>
 				<h3 id='role'> Role: {roleText}</h3>
-			</div> */}
+			</div>
 
 			{}
 

@@ -1,7 +1,7 @@
 import ERC721 from './erc721ABI.json';
 import Web3 from "web3";
 
-export const contractAddress = "0x9Ae2E22c651Df8B579b828F20AC49D895B1898C7";
+export const contractAddress = "0x075a409b79031A9E66401D6Cd22eDaD845729861";
 
 export const contractABI = ERC721;
 export const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");

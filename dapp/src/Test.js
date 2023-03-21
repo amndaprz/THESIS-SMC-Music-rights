@@ -6,6 +6,7 @@ import DisplayInfo from './components/DisplayInfo/DisplayInfo';
 import SafeMint from './components/safeMint/SafeMint'
 
 import { Link } from "react-router-dom";
+import SafeTransferFrom from './components/safeTransferFrom/SafeTransferFrom';
 
 
 
@@ -176,52 +177,8 @@ function InputOutput(){
       <h1>I/O</h1>
 
         <SafeMint/>
-
-        <form className="mx-4 mt-5" onSubmit="">
-          <div className="d-flex justify-content-center flex-column">
-            <h3>safeTransferFrom</h3>
-            <div className="my-3 px-5">
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="from: (address)"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="to: (address)"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="token ID:"
-              />
-            </div>
-            <div>
-              <button
-                  type="submit"
-                  className="submit-button mb-3 py-3 px-5 btn_mod">
-                  Transact
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
+        <SafeTransferFrom/>
+        
     </div>
   );
 }
