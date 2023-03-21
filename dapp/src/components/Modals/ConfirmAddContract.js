@@ -14,13 +14,13 @@ function ConfirmAddStreaming(props) {
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <div className='modal_confirm_title'>
-                        Purchase Confirmation
+                        Add Contract Confirmation
                     </div>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="confirm_subtitle">
-                    Please confirm your purchase below.
+                    Please confirm your contract information below.
                 </div>
                 <div className='contract_con py-0 m-0'>
                 <div className='con_sub con_radius contract_info px-5 my-3 row'>
