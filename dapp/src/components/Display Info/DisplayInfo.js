@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {ethers} from 'ethers'
-import ERC721 from './erc721ABI.json';
+import ERC721 from '../../erc721ABI.json';
 import Web3 from "web3";
 
 // Contract Connection
