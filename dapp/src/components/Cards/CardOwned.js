@@ -1,0 +1,19 @@
+import React from 'react';
+
+import Card from 'react-bootstrap/Card';
+
+function CardOwned(){
+    return(
+        <Card className="card_owned">
+            <Card.Body>
+                <Card.Title>Track title</Card.Title>
+                <Card.Text>
+                    <div>Artist name</div>
+                    <div>Label name</div>
+                </Card.Text>
+            </Card.Body>
+        </Card>
+    );
+}
+
+export default CardOwned;
