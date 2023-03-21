@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import {ethers} from 'ethers'
 import ERC721 from './erc721ABI.json';
 import Web3 from "web3";
+import properties from "./ContractProperties";
+
 
 // Contract Connection
 const contractAddress = "0x4efE1A9FB95EB626D3e9dd73fEF05AF13c771AFf";
@@ -20,8 +22,6 @@ const ConnectContract = () => {
 
 	const [addressText, setAddress] = useState(' ');
 	const [roleText, setRole] = useState(' ');
-
-
 
 	const displayAddress = async() => {
 		const accounts = await web3.eth.requestAccounts();
@@ -76,7 +76,7 @@ const ConnectContract = () => {
 	return (
 		<div>
 
-		<h4> {"Connect to MetaMask"} </h4>	
+			{/* <h4> {"Connect to MetaMask"} </h4>	
 			<button onClick={displayAddress}>Display Address </button>
 
 			<div className='accountDisplay'>
@@ -90,7 +90,7 @@ const ConnectContract = () => {
 			<div className='balanceDisplay'>
 				<button onClick={displayRole}>Display Role</button>
 				<h3 id='role'> Role: {roleText}</h3>
-			</div>
+			</div> */}
 
 			{/* <div className='balanceDisplay'>
 				<button onClick={displayRole}>Display Role</button>
@@ -98,6 +98,8 @@ const ConnectContract = () => {
 			</div> */}
 
 			{}
+
+			
 		</div>
 
 		

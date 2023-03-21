@@ -3,6 +3,7 @@ import WalletCard from './WalletCard';
 import erc721abi from './erc721ABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConnectContract from './ConnectContract';
+import DisplayInfo from './DisplayInfo';
 
 
 import { Link } from "react-router-dom";
@@ -145,26 +146,6 @@ function ReadContract() {
           <div className="col-sm-9" >Owner address</div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function DisplayInfo(){
-  return(
-    <div>
-      <h1>Display info</h1>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Address</div>
-          <div className="col-sm-9" >Address</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Token Balance</div>
-          <div className="col-sm-9" >Token Balance</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >User Role</div>
-          <div className="col-sm-9" >User Role</div>
-        </div>
     </div>
   );
 }
