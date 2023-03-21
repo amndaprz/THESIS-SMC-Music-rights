@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ConfirmAddStreaming(props) {
+function ConfirmAddContract(props) {
 
     return (
         <Modal
@@ -73,4 +73,4 @@ function ConfirmAddStreaming(props) {
     );
 }
 
-export default ConfirmAddStreaming;
+export default ConfirmAddContract;
