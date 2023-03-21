@@ -9,7 +9,7 @@
 }
 
 .img_con{
-    background-image: url("./gradient.png");
+    /*background-image: url("./gradient.png");*/
     width:100vw;
     height: 100vh;
     background-size: 40% 100vw;

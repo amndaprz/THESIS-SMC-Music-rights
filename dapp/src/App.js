@@ -1,13 +1,18 @@
-import Test from './Test';
-import Client from './Client';
-import Artist from './Artist';
-import Label from './Label';
-import Dev from './Dev';
-import Stream from './Stream';
-import ModalTest from './ModalTest';
-import NotifTest from './NotifTest';
-import './App.css';
+import Test from './pages/Test';
+import Client from './pages/Client';
+import Artist from './pages/Artist';
+import Label from './pages/Label';
+import Dev from './pages/Dev';
+import Stream from './pages/Stream';
+import ModalTest from './pages/ModalTest';
+import NotifTest from './pages/NotifTest';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./css/App.css"
+import "./css/Homepage.css"
+import "./css/Login.css"
+import "./css/Notif.css"
+
+
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

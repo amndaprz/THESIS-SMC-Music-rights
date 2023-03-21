@@ -1,6 +1,4 @@
-import './App.css';
 import WalletCard from './WalletCard';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Link } from "react-router-dom";
 
