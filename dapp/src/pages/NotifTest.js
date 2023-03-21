@@ -1,5 +1,4 @@
 import React from 'react';
-import "./Notif.css";
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
