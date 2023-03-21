@@ -1,4 +1,5 @@
 import './App.css';
+import ipfs from './ipfs';
 import WalletCard from './WalletCard';
 import erc721abi from './erc721ABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';

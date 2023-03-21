@@ -1,3 +1,4 @@
+import ipfs from './ipfs';
 import Login from './Login';
 import Test from './Test';
 import Register from './Register';
