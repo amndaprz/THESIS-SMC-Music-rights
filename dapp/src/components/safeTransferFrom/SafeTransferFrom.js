@@ -15,6 +15,30 @@ let account;
 
 const SafeTransferFrom = () => {
 
+    const [fromAddress, setFromAddress] = useState('');
+    const [toAddress, setToAddress] = useState('');
+    const [stf_tkID, setTokenID] = useState('');
+
+    const handleFromChange = (event) => {
+        setFromAddress(event.target.value);
+    }
+    
+    const handleToChange = (event) => {
+        setToAddress(event.target.value);
+    }
+    
+    const handleTokenID = (event) => {
+        setTokenID(event.target.value);
+    }
+    
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('From address:', fromAddress);
+        console.log('To address:', toAddress);
+        console.log('TokenID:', stf_tkID);
+      }
+
+
     const safeTransferFrom = async() => {
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
@@ -29,17 +53,17 @@ const SafeTransferFrom = () => {
 
     return(
         <div>
-            <form className="mx-4 mt-5" onSubmit="">
+            <form className="mx-4 mt-5" onSubmit={handleSubmit}>
                 <div className="d-flex justify-content-center flex-column">
                     <h3>safeTransferFrom</h3>
                     <div className="my-3 px-5">
-                        <input type="text" name="addr" id="STF_from" className="p-3 my-2 addtest_input" placeholder="from: (address)"/>
-                        <input type="text" name="addr" id="STF_to" className="p-3 my-2 addtest_input" placeholder="to: (address)"/>
-                        <input type="text" name="addr" id="STF_tkid" className="p-3 my-2 addtest_input" placeholder="token ID:"/>
+                        <input type="text" name="STF_from" className="p-3 my-2 addtest_input" placeholder= "from: (address)" value={fromAddress} onChange={handleFromChange}/>
+                        <input type="text" name="STF_to" className="p-3 my-2 addtest_input" placeholder= "to: (address)" value={toAddress} onChange={handleToChange}/>
+                        <input type="text" name="STF_tkid" className="p-3 my-2 addtest_input" placeholder="token ID:" value={stf_tkID} onChange={handleTokenID}/>
                     </div>
 
                     <div>
-                        <button type="button" className="submit-button mb-3 py-3 px-5 btn_mod" onClick={safeTransferFrom}> Transact </button>
+                        <button type="submit" className="submit-button mb-3 py-3 px-5 btn_mod"> Transact </button>
                     </div>
                 </div>
             </form>
