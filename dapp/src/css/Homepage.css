@@ -254,6 +254,17 @@ button {
   color: white;
 }
 
+.modal_box_add{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: max-content;
+  width: 40vw;
+  padding: 30px;
+  padding-bottom: 40px;
+  color: white;
+}
+
 .modal_box_proposal{
   background-color: #232226;
   background-size: cover;
