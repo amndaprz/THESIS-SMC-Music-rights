@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import ERC721 from '../../erc721ABI.json';
 import Web3 from "web3";
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
-
+//import ipfs from './ipfs';
+import { create } from 'ipfs-http-client'
 
 let account;
 
@@ -11,13 +12,19 @@ let account;
 // let to = document.getElementByID("STF_to");
 // let tkid = document.getElementByID("STF_tkid");
 
-
+const ipfs = create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https'
+  })
 
 const SafeTransferFrom = () => {
 
     const [fromAddress, setFromAddress] = useState('');
     const [toAddress, setToAddress] = useState('');
     const [stf_tkID, setTokenID] = useState('');
+
+    
 
     const handleFromChange = (event) => {
         setFromAddress(event.target.value);
@@ -36,6 +43,23 @@ const SafeTransferFrom = () => {
         console.log('From address:', fromAddress);
         console.log('To address:', toAddress);
         console.log('TokenID:', stf_tkID);
+
+        ipfs.add(fromAddress, (error, result) => {
+            console.log('ipfs results', result)
+            if(error){
+                console.error(error)
+                return
+            }
+        })
+        // ipfs.files.add(fromAddress, (error, result) => {
+        //     if(error){
+        //         console.error(error);
+        //         return
+        //     }
+
+        //     console.log(result[0].hash);
+
+        // })
       }
 
 
