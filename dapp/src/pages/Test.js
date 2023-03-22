@@ -1,8 +1,17 @@
+import '../css/App.css';
 import WalletCard from './WalletCard';
-
+import erc721abi from '../erc721ABI.json';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DisplayInfo from '../components/DisplayInfo/DisplayInfo';
+import SafeMint from '../components/safeMint/SafeMint'
 import { Link } from "react-router-dom";
+import SafeTransferFrom from '../components/safeTransferFrom/SafeTransferFrom';
+
+
 
 function AddContract() {
+
+  
   // for testing 
   return (
     
@@ -54,9 +63,9 @@ function AddContract() {
                 Add contract
               </button>
             </div>
-            
           </div>
         </form>
+
       </div>
     </div>
     
@@ -73,7 +82,7 @@ function ReadContract() {
         <h2 >Read music contract (for testing)</h2>
       </div>
       <div>
-        <form className="m-4" onSubmit="">
+        {/* <form className="m-4" onSubmit="">
           <div className="d-flex justify-content-center flex-column">
             <div className="my-3 px-5">
               <input
@@ -91,7 +100,7 @@ function ReadContract() {
               </button>
             </div>
           </div>
-        </form>
+        </form> */}
         
         <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
           <div className="col-sm-3 box_contractinfo_label" >Percent label</div>
@@ -138,26 +147,6 @@ function ReadContract() {
   );
 }
 
-function DisplayInfo(){
-  return(
-    <div>
-      <h1>Display info</h1>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Address</div>
-          <div className="col-sm-9" >Address</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Token Balance</div>
-          <div className="col-sm-9" >Token Balance</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
-          <div className="col-sm-3 box_contractinfo_label" >User Role</div>
-          <div className="col-sm-9" >User Role</div>
-        </div>
-    </div>
-  );
-}
-
 function Buttons(){
   return(
     <div>
@@ -185,77 +174,10 @@ function InputOutput(){
   return(
     <div>
       <h1>I/O</h1>
-      <form className="mx-4 mt-4" onSubmit="">
-          <div className="d-flex justify-content-center flex-column">
-            <h3>safeMint</h3>
-            <div className="my-3 px-5">
-              <input
-                type="text"
-                name="addr"
-                className="p-3 addtest_input"
-                placeholder="to: (address)"
-              />
-            </div>
-            <div>
-              <button
-                  type="submit"
-                  className="submit-button mb-3 py-3 px-5 btn_mod">
-                  Transact
-              </button>
-            </div>
-          </div>
-        </form>
 
-        <div className='con_sub con_radius box_contractinfo px-5 mb-5 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
-
-        <form className="mx-4 mt-5" onSubmit="">
-          <div className="d-flex justify-content-center flex-column">
-            <h3>safeTransferFrom</h3>
-            <div className="my-3 px-5">
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="from: (address)"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="to: (address)"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="p-3 my-2 addtest_input"
-                placeholder="token ID:"
-              />
-            </div>
-            <div>
-              <button
-                  type="submit"
-                  className="submit-button mb-3 py-3 px-5 btn_mod">
-                  Transact
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
-        <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-          <div className="col-sm-3 box_contractinfo_label" >Output</div>
-          <div className="col-sm-9" >Output</div>
-        </div>
+        <SafeMint/>
+        <SafeTransferFrom/>
+        
     </div>
   );
 }
@@ -306,4 +228,3 @@ function Test() {
 }
 
 export default Test;
-
