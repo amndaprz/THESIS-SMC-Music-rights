@@ -289,6 +289,26 @@ button {
   color: white;
 }
 
+.modal_purchase_confirm{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: max-content;
+  width: 38vw;
+  padding: 30px;
+  color: white;
+}
+
+.modal_stream_confirm{
+  background-color: #232226;
+  background-size: cover;
+  border-radius: 20px !important;
+  height: max-content;
+  width: 38vw;
+  padding: 30px;
+  color: white;
+}
+
 .modal_btn{
   border-radius: 20px;
   background-color: #9988FF;
@@ -396,16 +416,6 @@ button {
 
 .input_contract::placeholder{
   color: #595275;
-}
-
-.modal_purchase_confirm{
-  background-color: #232226;
-  background-size: cover;
-  border-radius: 20px !important;
-  height: max-content;
-  width: 38vw;
-  padding: 30px;
-  color: white;
 }
 
 .modal_confirm_title{
