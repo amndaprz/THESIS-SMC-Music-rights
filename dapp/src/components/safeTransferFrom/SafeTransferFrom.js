@@ -14,7 +14,7 @@ let account;
 
 const ipfs = create({
     host: 'ipfs.infura.io',
-    port: 5001,
+    port: 3000,
     protocol: 'https'
   })
 
@@ -24,8 +24,6 @@ const SafeTransferFrom = () => {
     const [toAddress, setToAddress] = useState('');
     const [stf_tkID, setTokenID] = useState('');
     const [balance, setBalance] = useState(' ');
-
-    
 
     const handleFromChange = (event) => {
         setFromAddress(event.target.value);
@@ -41,7 +39,7 @@ const SafeTransferFrom = () => {
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('From address:', fromAddress);
+        console.log('hi From address:', fromAddress);
         console.log('To address:', toAddress);
         console.log('TokenID:', stf_tkID);
 
