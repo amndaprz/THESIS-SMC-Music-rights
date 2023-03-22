@@ -23,6 +23,7 @@ const SafeTransferFrom = () => {
     const [fromAddress, setFromAddress] = useState('');
     const [toAddress, setToAddress] = useState('');
     const [stf_tkID, setTokenID] = useState('');
+    const [balance, setBalance] = useState(' ');
 
     
 
@@ -69,11 +70,19 @@ const SafeTransferFrom = () => {
 
         console.log("account is " );
         console.log("sending token id " );
-        if(await contract.methods.safeMint(account)){
+        if(await contract.methods.safeTransferFrom().send()){
             console.log("Minting successful");
             console.log("Balance = " + contract.methods.balanceOf(account));
         }
+
     }
+
+    const displayBalance = async(addressFrom) => {
+		const balance = await contract.methods.balanceOf(addressFrom).call();
+        setBalance(balance);
+        console.log("Balance = " + balance);
+	}
+
 
     return(
         <div>
@@ -93,8 +102,8 @@ const SafeTransferFrom = () => {
             </form>
 
             <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-                <div className="col-sm-3 box_contractinfo_label" >Output</div>
-                <div className="col-sm-9" >Output</div>
+                <div className="col-sm-3 box_contractinfo_label">Address {fromAddress} balance {displayBalance}{balance}</div>
+                <div className="col-sm-9"></div>
             </div>
             <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
                 <div className="col-sm-3 box_contractinfo_label" >Output</div>
