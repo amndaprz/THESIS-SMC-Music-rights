@@ -15,6 +15,7 @@ const DisplayInfo = () => {
 
 	const [addressText, setAddress] = useState('Address');
 	const [roleText, setRole] = useState(' -- ');
+	const [balance, setBalance] = useState(' -- ');
 
     const displayAddress = async() => {
         const accounts = await web3.eth.requestAccounts();
@@ -25,6 +26,13 @@ const DisplayInfo = () => {
         // console.log(account);
 	}
 	
+	const displayBalance = async() => {
+		const balance = await contract.methods.balanceOf(account).call();
+        setBalance(balance);
+        console.log("Balance = " + balance);
+	}
+
+
 
     async function displayRole() {
 		result = " " ;
@@ -64,13 +72,15 @@ const DisplayInfo = () => {
 		} catch (error) {
 			// console.error("An error occurred:", error);
 		}
+			setRole(result);
 			console.log("Roles:", result);		
 	}
 
     const displayInfo = async() => {
         displayAddress();
+		displayBalance();
         displayRole();
-
+		
         console.log('-----All Info has been displayed----');
     }
 
@@ -83,7 +93,7 @@ const DisplayInfo = () => {
             </div>
             <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
                 <div className="col-sm-3 box_contractinfo_label" >Token Balance</div>
-                <div className="col-sm-9">Token Balance</div>
+                <div className="col-sm-9">{balance} contracts</div>
             </div>
             <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
                 <div className="col-sm-3 box_contractinfo_label" >User Role</div>
