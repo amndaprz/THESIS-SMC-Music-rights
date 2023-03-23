@@ -86,7 +86,7 @@ const DisplayInfo = () => {
 
     return(
         <div>
-            <h1>Display info</h1>
+            {/* <h1>Display info</h1> */}
             <div className='con_sub con_radius box_contractinfo px-5 my-4 row'>
                 <div className="col-sm-3 box_contractinfo_label" >Address</div>
                 <div className="col-sm-9">{addressText}</div>

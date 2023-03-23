@@ -10,8 +10,6 @@ import SafeTransferFrom from '../components/safeTransferFrom/SafeTransferFrom';
 
 
 function AddContract() {
-
-  
   // for testing 
   return (
     
@@ -19,54 +17,7 @@ function AddContract() {
       <div className="App">
       <WalletCard/>
       </div>
-      <div className="">
-        <h2 >Add music contract (for testing)</h2>
-      </div>
-      <div>
-        <form className="m-4" onSubmit="">
-          <div className="d-flex flex-column justify-content-center">
-            <div className="my-3">
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent label"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent artist"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter address of owner"
-              />
-              <input
-                type="text"
-                name="addr"
-                className="my-3 p-3 readtest_input"
-                placeholder="Enter percent artist"
-              />
-               <select className='my-3 p-3 readtest_input'>
-                <option value="">Commercial</option>
-                <option value="">Streaming</option>
-              </select>
-            </div>
-            
-            <div>
-              <button
-                type="submit"
-                className="submit-button py-3 px-5 btn_mod">
-                Add contract
-              </button>
-            </div>
-          </div>
-        </form>
-
-      </div>
+      <SafeMint/>
     </div>
     
   );
@@ -175,7 +126,7 @@ function InputOutput(){
     <div>
       <h1>I/O</h1>
 
-        <SafeMint/>
+        {/* <SafeMint/> */}
         <SafeTransferFrom/>
         
     </div>
@@ -214,7 +165,7 @@ function Test() {
       </div>
       <div className="line">---------------------------------------------------------------------------------------------------------------------------------------------------------</div>
       <div className='con_main con_radius m-3 mt-5 displaytest_con'>
-        <DisplayInfo/>
+        {/* <DisplayInfo/> */}
       </div>
       <div className='con_main con_radius m-3 mt-5 displaytest_con'>
         <InputOutput/>
