@@ -17,9 +17,6 @@ const SafeMint = () => {
     const [percentArtist, setPArtist] = useState('');
     const [addrLabel, setAddrLabel] = useState('');
     const [addrArtist, setAddrArtist] = useState('');
-    const [addressGetRole, setAddressRole] = useState('');
-    const [roleOf, setRoleOf] = useState('');
-
 
     // Input listener for Label Address
     const handleAddrLabel = (event) => {
@@ -54,102 +51,15 @@ const SafeMint = () => {
 
     }
 
-    // Get Role of
-    const handleAddressGetRole = (event) => {
-        setAddressRole(event.target.value)
-        
-    }
-
-    async function getRoleOf() {
-		try {
-			// Admin
-			if(await contract.methods._isAdmin(addressGetRole).call()){
-				setRoleOf("Admin");
-                console.log("HERE ADMIN TRIGGERED");
-
-			} 
-		} catch (error) {
-			// console.error("An error occurred:", error);
-		}
-		
-		try{
-			// Client
-			if(await contract.methods._isClient(addressGetRole).call()){
-				setRoleOf("Client");
-                console.log("HERE CLIENT TRIGGERED");
-
-			}
-		} catch (error) {
-			// console.error("An error occurred:", error);
-		}
-
-		try{
-			// Label
-			if(await contract.methods._isLabel(addressGetRole).call()){
-				setRoleOf("Label");
-                console.log("HERE LABEL TRIGGERED");
-
-			} 
-		} catch (error) {
-			// console.error("An error occurred:", error);
-		}
-
-		try{
-			// Artist
-			if(await contract.methods._isArtist(addressGetRole).call()){
-				setRoleOf("Artist");
-                console.log("HERE ARTIST TRIGGERED");
-			}
-		} catch (error) {
-			// console.error("An error occurred:", error);
-		}
-	
-        console.log("Role of " + addressGetRole + " :" + roleOf);		
-        // String of Role
-        console.log(roleOf);
-
-
-	}
-
-
     // Minting -----------
     const mintERC721 = async() => {
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
 
         setAddrLabel(account);
-        console.log("AccString " + account.toString());
-        console.log("AddrLabelStr " + addrLabel.toString());
-        console.log(account.toString() == addrLabel.toString());
-
-        if(account.toString() === addrLabel.toString()){
-            console.log("HERE SAME ASME SAME");
-            console.log(account.toString());
-            console.log(addrLabel.toString());
-        }
-
-        console.log("account is " + account);
-        if(await contract.methods.safeMint(account).send({from: account})){
-            console.log("Minting successful");
-           
-        }
-
-        const balance = await contract.methods.balanceOf(account).call();
-        setBalance(balance);
-        console.log("Balance = " + balance);
-
-    }
-
-    const mintERC721_dev = async() => {
-        // const accounts = await web3.eth.requestAccounts();
-		// account = accounts[0];
-
-        // console.log("account is " + account);
-        console.log({addrLabel})
 
         if(await contract.methods.safeMint(account).send({from: account})){
             console.log("Minting successful");
-           
         }
 
         const balance = await contract.methods.balanceOf(account).call();
@@ -183,21 +93,11 @@ const SafeMint = () => {
                             <div>
                                 <button type="submit" className="submit-button mb-3 py-3 px-5 btn_mod"> Transact (Inputs REQUIRED)</button>
                                 <br></br>
-                                <button type="button" onClick={mintERC721_dev} className="submit-button mb-3 py-3 px-5 btn_mod"> Transact (Inputs NOT REQUIRED)</button>
+                                <button type="button" onClick={mintERC721} className="submit-button mb-3 py-3 px-5 btn_mod"> Transact (Inputs NOT REQUIRED)</button>
                             </div>
-
-
-                            
+                           
                         </div>
                     </form>
-                <form>
-                    <h3>Get role</h3>
-                    <div>
-                        <input type="text" name="addr" className="my-3 p-3 readtest_input" placeholder="Enter Address" value={addressGetRole} onChange={handleAddressGetRole}/>
-                        <button type="button" onClick={getRoleOf} className="submit-button mb-3 py-3 px-5 btn_mod"> Get Role </button>
-                    </div>
-                </form>
-                    
                 </div>
         </div>
     );
