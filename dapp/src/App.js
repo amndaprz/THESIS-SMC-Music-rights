@@ -23,23 +23,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/"element={<Home />}/>
-          {role === "client" ? (
           <Route exact path="/Client"element={<Client />}/>
-          ) : (
-          console.log("not client") // or navigate somewhere
-          )}
-
-          {role === "artist" ? (
           <Route path="/Artist"element={<Artist />}/>
-          ) : (
-          console.log("not artist")
-          )}  
-
-          {role === "label" ? (
           <Route path="/Label"element={<Label />}/>
-          ) : (
-          console.log("not label")
-          )}
           <Route path="/Test"element={<Test />}/>
           <Route path="/Dev"element={<Dev />}/>
           <Route path="/Stream"element={<Stream />}/>
