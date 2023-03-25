@@ -50,15 +50,23 @@ function Client() {
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
 
+
+        // const url = "https://project-tina.infura-ipfs.io/ipfs/QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
+
+        // fetch(url)
+        //   .then(response => response.text())
+        //   .then(data => console.log(data))
+        //   .catch(error => console.error(error));
+
         const cid = "QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
 
-        try {
-            const result = await IPFS.cat(cid);
-            console.log(result.toString());
-            console.log(result);
-        }catch (err) {
+        // try {
+        //     const result = await IPFS.cat(cid);
+        //     console.log(result.toString());
+        //     console.log(result);
+        // }catch (err) {
 
-        }
+        // }
 
         try {
             const data = [];
