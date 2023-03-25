@@ -6,10 +6,15 @@ import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 
 
-let a;
-function CardBuy(){
+function CardBuy(props){
     const [modalShow, setModalShow] = React.useState(false);    
-   
+    console.log("PROPS = " +props.percent_artist);
+
+    //console.log("HERE HERE CARDBUY" + jsonObject.percent_artist);
+    // const artistPercent = jsonObject.percent_artist;
+    // const labelPercent = jsonObject.percent_label;
+    // console.log(artistPercent);
+    
     return(
         <Card>
             <ConfirmPurchasePopup
@@ -19,8 +24,8 @@ function CardBuy(){
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
                 <Card.Text>
-                    <div>Artist name</div>
-                    <div>Label name</div>
+                    <div></div>
+                    <div></div>
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">

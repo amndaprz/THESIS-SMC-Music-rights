@@ -11,23 +11,37 @@ import { Buffer } from 'buffer';
 
 // let connectIPFS = new ConnectIPFS();
 
+let dataObject;
+
 function Client() {
 
     const [toggleState, setToggleState] = useState(1);
 
+    const [jsonObject, setJsonObj] = React.useState("");
+
+    React.useEffect(() => {
+    const getInfo = async () => {
+      // your code to get the JSON object from IPFS
+      const IPFS = await ipfsClient();
+      const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
+      try {
+        const data = [];
+        for await (const chunk of IPFS.cat(cid)) {
+          data.push(chunk);
+        }
+        const info = Buffer.concat(data).toString();
+        const jsonObj = JSON.parse(info);
+        setJsonObj(jsonObj);
+      } catch (err) {
+        console.error("Error while retrieving data from IPFS:", err); // handle any errors
+      }
+    };
+    getInfo();
+  }, []);
+
     const toggleTab = (index) => {
         setToggleState(index);
     };
-
-    // const displayMarketplace = async() => {
-    //     console.log("MARKETPLACE")
-    //    try {
-    //         const testHashes = await connectIPFS.displayAllInfo();
-    //         console.log(testHashes);
-    //    }catch {
-
-    //    }
-    // }
 
     // IPFS
     const ipfsClient = async() => {
@@ -51,23 +65,7 @@ function Client() {
         let IPFS = await ipfsClient();
         let info = [];
 
-
-        // const url = "https://project-tina.infura-ipfs.io/ipfs/QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
-
-        // fetch(url)
-        //   .then(response => response.text())
-        //   .then(data => console.log(data))
-        //   .catch(error => console.error(error));
-
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
-
-        // try {
-        //     const result = await IPFS.cat(cid);
-        //     console.log(result.toString());
-        //     console.log(result);
-        // }catch (err) {
-
-        // }
 
         try {
             const data = [];
@@ -84,43 +82,12 @@ function Client() {
 
         console.log("INFO - " + info);
         const jsonObj = JSON.parse(info);
+        dataObject = jsonObj;
 
-        const percentLabel = jsonObj.percent_label;
-        const percentArtist = jsonObj.percent_artist;
-        const labelAddress = jsonObj.label_address;
-        const artistAddress = jsonObj.artist_address;
-        
-        console.log(percentLabel); // output: 35
-        console.log(percentArtist); // output: 46
-        console.log(labelAddress); // output: 0x9B08A8670f02Ada5d1375eE00a92D4c55ee69eE8
-        console.log(artistAddress); // outpu
+        console.log(dataObject);
 
-       
-        // try {
-        //     const data = [];
-        //     for await (const chunk of IPFS.pin.ls({type: 'recursive'})) {
-        //         data.push(chunk.content);
-        //     }
-        //     const concatenatedBuffer = Buffer.concat(data); // concatenate the binary data into a single buffer
-        //     const contents = concatenatedBuffer.toString("utf-8"); // convert the binary buffer to a UTF-8 encoded string
-        //     console.log(contents); // log the contents of the file to the console
-        // } catch (err) {
-        //     console.error("Error while retrieving data from IPFS:", err); // handle any errors
-        // }
-        
-        // const allPinned = await IPFS.pin.ls({type: 'recursive'});
-        // try {
-        //     const allPinned = await Promise.all(IPFS.pin.ls({ type: 'recursive' }));
-        //     console.log(allPinned);
-        // } catch (err) {
-        //     console.error("Error while retrieving pinned items from IPFS:", err);
-        // }
+        setJsonObj(jsonObj);
 
-        const allHashes = new Set();
-
-        console.log("Hashes" + Array.from(allHashes));
-
-        return allHashes;
     }
     
 
@@ -158,7 +125,7 @@ function Client() {
             <div className="col-sm-10 py-5 px-0 m-0 content_con">
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <h1>Marketplace</h1>
-                    <BuySongs/>
+                    <BuySongs data={jsonObject}/>
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
