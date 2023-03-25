@@ -133,10 +133,10 @@ function AddCommercialContract(){
         console.log(account);
         if(await contract.methods.safeMint().send({from: account})){
             console.log("Minting successful");
-
+            
             const MRC = {
-                percent_label: percentLabel,
-                percent_artist: percentArtist,
+                percent_label: parseInt(percentLabel),
+                percent_artist: parseInt(percentArtist),
                 label_address: addrLabel,
                 artist_address: addrArtist
             };

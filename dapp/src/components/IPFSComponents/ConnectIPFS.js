@@ -1,5 +1,7 @@
 import { ContractEventPayload } from 'ethers';
 import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+import {utils } from 'web3';
 
 const ConnectIPFS = () => {
     const ipfsClient = async() => {
@@ -27,6 +29,21 @@ const ConnectIPFS = () => {
         console.log(result);
 
         return result.path;
+    }
+
+    const displayAllInfo = async() => {
+        let IPFS = await ipfsClient();
+        const allPinned = await IPFS.pin.ls({type: 'recursive'});
+        // IPFS.c
+        const allHashes = new Set();
+
+        allPinned.forEach((item) => {
+            allHashes.add(item.cid.toString());
+        })
+
+        console.log(Array.from(allHashes));
+
+        return allHashes;
     }
 }
 

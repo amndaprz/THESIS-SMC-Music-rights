@@ -2,11 +2,19 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
+import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 
-function CardBuy(){
-    const [modalShow, setModalShow] = React.useState(false);    
+
+function CardBuy(props){
+    const [modalShow, setModalShow] = React.useState(false); 
+
+    // console.log("PROPS = " + props.percentA);
+
+    //console.log("HERE HERE CARDBUY" + jsonObject.percent_artist);
+    // const artistPercent = jsonObject.percent_artist;
+    // const labelPercent = jsonObject.percent_label;
+    // console.log(artistPercent);
     
     return(
         <Card>
@@ -17,8 +25,11 @@ function CardBuy(){
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
                 <Card.Text>
-                    <div>Artist name</div>
-                    <div>Label name</div>
+                    <div>{props.percentA}</div>
+                    <div>{props.percentL}</div>
+                    <div>{props.addrA}</div>
+                    <div>{props.addrL}</div>
+
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">
