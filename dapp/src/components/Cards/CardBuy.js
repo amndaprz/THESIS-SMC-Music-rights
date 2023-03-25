@@ -7,8 +7,9 @@ import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 
 
 function CardBuy(props){
-    const [modalShow, setModalShow] = React.useState(false);    
-    console.log("PROPS = " +props.percent_artist);
+    const [modalShow, setModalShow] = React.useState(false); 
+
+    // console.log("PROPS = " + props.percentA);
 
     //console.log("HERE HERE CARDBUY" + jsonObject.percent_artist);
     // const artistPercent = jsonObject.percent_artist;
@@ -24,8 +25,11 @@ function CardBuy(props){
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
                 <Card.Text>
-                    <div></div>
-                    <div></div>
+                    <div>{props.percentA}</div>
+                    <div>{props.percentL}</div>
+                    <div>{props.addrA}</div>
+                    <div>{props.addrL}</div>
+
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">
