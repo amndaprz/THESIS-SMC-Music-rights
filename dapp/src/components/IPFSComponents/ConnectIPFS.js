@@ -31,8 +31,17 @@ const ConnectIPFS = () => {
 
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
-        IPFS.pin.ls();
+        const allPinned = await IPFS.pin.ls({type: 'recursive'});
         // IPFS.c
+        const allHashes = new Set();
+
+        allPinned.forEach((item) => {
+            allHashes.add(item.cid.toString());
+        })
+
+        console.log(Array.from(allHashes));
+
+        return allHashes;
     }
 }
 

@@ -7,6 +7,8 @@ import OwnedSongs from './OwnedSongs'
 
 import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
 
+let connectIPFS = new ConnectIPFS();
+
 function Client() {
 
     const [toggleState, setToggleState] = useState(1);
@@ -16,8 +18,10 @@ function Client() {
     };
 
 
-    const displayAllInfo = async() => {
-        ConnectIPFS.displayAllInfo();
+    const displayMarketplace = async() => {
+        console.log("MARKETPLACE")
+        let testHashes = await connectIPFS.displayAllInfo();
+        console.log(testHashes);
     }
 
   return (
@@ -44,7 +48,7 @@ function Client() {
 
                     {/* Replace with on website refresh */}
                     <Button
-                    onClick="">
+                    onClick={displayMarketplace}>
                     Display all Tokens
                     </Button>
                 </div>
