@@ -30,10 +30,14 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     // Token price and supply cap
     uint256 public MINT_PRICE = 0.005 ether;
     uint256 public MAX_SUPPLY = 10000;
-
+    
+    struct MRC {
+        uint256 token_id;
+        string ipfsHash;
+    }
 
     //IPFS hash
-    mapping (uint256 => string) private _IPFSHashes; 
+    mapping (uint256 => MRC) private _MRCs; 
     //Owner of the token & token counter
     mapping (uint256 => address) private _Owner;
 
@@ -88,39 +92,41 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     // 4. Minting Functions ------------------------------------------------------------------------------------
     //  WITH IPFS
-    // function safeMint(string memory ipfsHash) public onlyRole(MINTER_ROLE) {
-    //     _tokenIdCounter.increment();
-    //     uint256 newTokenCounter = _tokenIdCounter.current();
-
-
-    //     if(newTokenCounter < MAX_SUPPLY){
-    //         _safeMint(msg.sender, newTokenCounter);
-    //         _IPFSHashes[newTokenCounter] = ipfsHash;
-    //         _Owner[newTokenCounter] = msg.sender;
-    //     }else
-    //     _tokenIdCounter.decrement();
-    // }
-
-
-    // WITHOUT IPFS
-
-
-      function safeMint() public returns (uint256) {
+    function safeMint(string calldata ipfsHash) public onlyRole(MINTER_ROLE) {
         _tokenIdCounter.increment();
         uint256 newTokenCounter = _tokenIdCounter.current();
 
 
-        if(newTokenCounter <= MAX_SUPPLY){
+        if(newTokenCounter < MAX_SUPPLY){
             _safeMint(msg.sender, newTokenCounter);
-            // _IPFSHashes[newTokenCounter] = ipfsHash;
+            _MRCs[newTokenCounter] = MRC(newTokenCounter, ipfsHash);
             _Owner[newTokenCounter] = msg.sender;
-            return newTokenCounter;
-        }else{
-            _tokenIdCounter.decrement();
-            return newTokenCounter;
-        }
 
+
+        }else
+        _tokenIdCounter.decrement();
     }
+
+
+    // // WITHOUT IPFS
+
+
+    //   function safeMint() public returns (uint256) {
+    //     _tokenIdCounter.increment();
+    //     uint256 newTokenCounter = _tokenIdCounter.current();
+
+
+    //     if(newTokenCounter <= MAX_SUPPLY){
+    //         _safeMint(msg.sender, newTokenCounter);
+    //         // _IPFSHashes[newTokenCounter] = ipfsHash;
+    //         _Owner[newTokenCounter] = msg.sender;
+    //         return newTokenCounter;
+    //     }else{
+    //         _tokenIdCounter.decrement();
+    //         return newTokenCounter;
+    //     }
+
+    // }
     // 5. Other Functions ------------------------------------------------------------------------------------
 
 
@@ -130,7 +136,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     //Transfer token & request payment
     //Total fee from ipfs
-    function withdraw(address client, uint256 token_id, uint256 total_fee)payable public {
+    function transfer(address client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist)payable public {
         
         //For demo purposes, sender does not need to be the owner. This will be implented during THS-ST3
         require(_exists(token_id), "Token ID does not exist");
@@ -142,6 +148,34 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         emit transferWithPayment(label,client,token_id, total_fee);
 
     }
+
+    
+    function getAllMRCs() public view returns (MRC[] memory){
+        uint256 i = _tokenIdCounter.current();
+
+        MRC[] memory mrcArray ;
+        for (uint x =0; x < i ; x++){
+            mrcArray[x] = _MRCs[x];
+        }
+
+
+        return mrcArray;
+    }
+
+
+    function getMRC(uint256 token_id) public view returns (string memory) {
+         uint256 i = _tokenIdCounter.current();
+        string memory temp = "";
+        for (uint x =0; x < i; x++){
+            if(_MRCs[x].token_id == token_id)
+                temp = _MRCs[x].ipfsHash;
+        }
+        
+        return temp;
+    }
+
+
+
 
 
 
