@@ -28,6 +28,10 @@ const ConnectIPFS = () => {
 
         return result.path;
     }
+
+    const deleteIPFSData = () => {
+        return;
+    }
 }
 
 export default ConnectIPFS;
