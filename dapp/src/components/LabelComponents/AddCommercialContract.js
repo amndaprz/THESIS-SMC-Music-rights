@@ -6,6 +6,7 @@ import {contractAddress, contractABI, web3, contract} from '../../ContractProper
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import {utils} from 'web3';
+import ipfs from "./../IPFSComponents/ConnectIPFS"
 
 let account;
 
@@ -146,6 +147,8 @@ function AddCommercialContract(){
 
             console.log(mrcResult);
 
+        
+
             return mrcResult;
 
         }
@@ -185,6 +188,7 @@ function AddCommercialContract(){
                         <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
                     </p>
                 </div>
+
                 <div className="my-3 p-4 input_contract">
                     <p className="text_sub p-0 m-0">Enter address of label :
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrLabel} onChange={handleAddrLabel} />

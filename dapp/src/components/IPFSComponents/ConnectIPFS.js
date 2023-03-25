@@ -1,3 +1,4 @@
+import { ContractEventPayload } from 'ethers';
 import { create } from 'ipfs-http-client';
 
 const ConnectIPFS = () => {
@@ -17,4 +18,16 @@ const ConnectIPFS = () => {
 
         return ipfs;
     }
+
+    const saveInput = async(MRC) => {
+        let ipfs = await ipfsClient();
+        let mrcToString = Buffer.from(JSON.stringify(MRC));
+        let result = await ipfs.add(mrcToString);
+        //console.log(address);
+        console.log(result);
+
+        return result.path;
+    }
 }
+
+export default ConnectIPFS;
