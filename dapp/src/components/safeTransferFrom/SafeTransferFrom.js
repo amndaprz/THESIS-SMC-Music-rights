@@ -4,7 +4,8 @@ import Web3 from "web3";
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 //import ipfs from './ipfs';
 import { create } from 'ipfs-http-client';
-import { Buffer } from 'buffer';
+import { Buffer } from 'buffer';import {utils} from 'web3';
+
 
 let account;
 
@@ -62,12 +63,23 @@ const SafeTransferFrom = () => {
         setTokenID(event.target.value);
     }
     
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('From address:', fromAddress);
-        console.log('To address:', toAddress);
-        console.log('TokenID:', stf_tkID);
+    const handleSubmit = (event) => {
 
+
+        event.preventDefault();
+
+        if (!utils.isAddress(toAddress)) {
+            console.error("Invalid Ethereum address");
+            return;
+        }else {
+            console.log("HEEERERERERE");
+      
+        
+            safeTransferFromFunction();
+            console.log('From address:', fromAddress);
+            console.log('To address:', toAddress);
+            console.log('TokenID:', stf_tkID); 
+  
         saveInput(fromAddress);
 
         // ipfs.add(fromAddress, (error, result) => {
@@ -87,17 +99,29 @@ const SafeTransferFrom = () => {
 
         // })
       }
+    }
 
 
-    const safeTransferFrom = async() => {
+    const safeTransferFromFunction = async() => {
+        
         const accounts = await web3.eth.requestAccounts();
-		account = accounts[0];
+		const fromAddress = accounts[0];
 
-        console.log("account is " );
-        console.log("sending token id " );
-        if(await contract.methods.safeTransferFrom().send()){
-            console.log("Minting successful");
-            console.log("Balance = " + contract.methods.balanceOf(account));
+        setFromAddress(fromAddress);
+        console.log("Balance of Sender = " + fromAddress);
+         
+
+        if(await contract.methods.safeTransferFrom(fromAddress,toAddress,stf_tkID).send({from: fromAddress})){
+            // // const receiverBal = await contract.methods.balanceOf.call(toAddress);
+
+
+            // console.log("Balance of Sender = " + senderBal);
+            // console.log("Balance of Reciever  = " + receiverBal);
+            console.log("Transfer completed");
+            const senderBal = await contract.methods.balanceOf(fromAddress).call();
+            console.log("New Balance : " + senderBal);
+
+
         }
 
     }
@@ -121,22 +145,22 @@ const SafeTransferFrom = () => {
                     </div>
 
                     <div>
-                        <button type="submit" className="submit-button mb-3 py-3 px-5 btn_mod"> Transact </button>
+                        <button type="submit" className="submit-button mb-3 py-3 px-5 btn_mod" > Transact </button>
                     </div>
                 </div>
             </form>
 
             <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-                <div className="col-sm-3 box_contractinfo_label">Address {fromAddress} balance {displayBalance}{balance}</div>
-                <div className="col-sm-9"></div>
+                <div className="col-sm-3 box_contractinfo_label">From: </div>
+                <div className="col-sm-9">{fromAddress}</div>
             </div>
             <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-                <div className="col-sm-3 box_contractinfo_label" >Output</div>
-                <div className="col-sm-9" >Output</div>
+                <div className="col-sm-3 box_contractinfo_label" >To:</div>
+                <div className="col-sm-9" >{toAddress}</div>
             </div>
             <div className='con_sub con_radius box_contractinfo px-5 mb-3 row'>
-                <div className="col-sm-3 box_contractinfo_label" >Output</div>
-                <div className="col-sm-9" >Output</div>
+                <div className="col-sm-3 box_contractinfo_label" >Token ID:</div>
+                <div className="col-sm-9" >{stf_tkID}</div>
             </div>
 
         </div>
