@@ -49,6 +49,7 @@ function Client() {
 
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
+        let info = [];
 
 
         // const url = "https://project-tina.infura-ipfs.io/ipfs/QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
@@ -58,7 +59,7 @@ function Client() {
         //   .then(data => console.log(data))
         //   .catch(error => console.error(error));
 
-        const cid = "QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
+        const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
 
         // try {
         //     const result = await IPFS.cat(cid);
@@ -73,11 +74,39 @@ function Client() {
             for await (const chunk of IPFS.cat(cid)) {
               data.push(chunk);
             }
+           
             console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
-          } catch (err) {
+            info = Buffer.concat(data).toString();
+        
+        } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
-          }
+        }
+
+        console.log("INFO - " + info);
+        const jsonObj = JSON.parse(info);
+
+        const percentLabel = jsonObj.percent_label;
+        const percentArtist = jsonObj.percent_artist;
+        const labelAddress = jsonObj.label_address;
+        const artistAddress = jsonObj.artist_address;
+        
+        console.log(percentLabel); // output: 35
+        console.log(percentArtist); // output: 46
+        console.log(labelAddress); // output: 0x9B08A8670f02Ada5d1375eE00a92D4c55ee69eE8
+        console.log(artistAddress); // outpu
+
        
+        // try {
+        //     const data = [];
+        //     for await (const chunk of IPFS.pin.ls({type: 'recursive'})) {
+        //         data.push(chunk.content);
+        //     }
+        //     const concatenatedBuffer = Buffer.concat(data); // concatenate the binary data into a single buffer
+        //     const contents = concatenatedBuffer.toString("utf-8"); // convert the binary buffer to a UTF-8 encoded string
+        //     console.log(contents); // log the contents of the file to the console
+        // } catch (err) {
+        //     console.error("Error while retrieving data from IPFS:", err); // handle any errors
+        // }
         
         // const allPinned = await IPFS.pin.ls({type: 'recursive'});
         // try {
