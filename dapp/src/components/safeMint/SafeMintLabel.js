@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import ERC721 from '../../erc721ABI.json';
 import Web3 from "web3";
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+import {utils} from 'web3';
 
 //
 let account;
@@ -17,6 +20,31 @@ const SafeMint = () => {
     const [percentArtist, setPArtist] = useState('');
     const [addrLabel, setAddrLabel] = useState('');
     const [addrArtist, setAddrArtist] = useState('');
+
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
+    }
+
+    const saveInput = async(address) => {
+        let ipfs = await ipfsClient();
+
+        let result = await ipfs.add(address);
+        //console.log(address);
+        console.log(result);
+    }
 
     // Input listener for Label Address
     const handleAddrLabel = (event) => {
@@ -54,12 +82,14 @@ const SafeMint = () => {
     // Minting -----------
     const mintERC721 = async() => {
         const accounts = await web3.eth.requestAccounts();
-		account = accounts[0];
+		account = accounts[0]; 
 
         setAddrLabel(account);
 
-        if(await contract.methods.safeMint(account).send({from: account})){
+        if(await contract.methods.safeMint().send({from: account})){
             console.log("Minting successful");
+            console.log(account);
+            saveInput(accounts);
         }
 
         const balance = await contract.methods.balanceOf(account).call();

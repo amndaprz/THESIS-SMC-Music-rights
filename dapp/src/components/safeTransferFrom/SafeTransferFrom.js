@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import ERC721 from '../../erc721ABI.json';
 import Web3 from "web3";
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
-import {utils} from 'web3';
+//import ipfs from './ipfs';
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';import {utils} from 'web3';
 
 
 let account;
@@ -12,6 +14,11 @@ let account;
 // let to = document.getElementByID("STF_to");
 // let tkid = document.getElementByID("STF_tkid");
 
+// const ipfs = create({
+//     host: 'ipfs.infura.io',
+//     port: 3000,
+//     protocol: 'https'
+//   })
 
 const SafeTransferFrom = () => {
 
@@ -19,6 +26,30 @@ const SafeTransferFrom = () => {
     const [toAddress, setToAddress] = useState('');
     const [stf_tkID, setTokenID] = useState('');
     const [balance, setBalance] = useState(' ');
+
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
+    }
+
+    const saveInput = async(address) => {
+        let ipfs = await ipfsClient();
+
+        let result = await ipfs.add(address);
+        console.log(result);
+    }
 
     const handleFromChange = (event) => {
         setFromAddress(event.target.value);
@@ -48,7 +79,26 @@ const SafeTransferFrom = () => {
             console.log('From address:', fromAddress);
             console.log('To address:', toAddress);
             console.log('TokenID:', stf_tkID); 
-        }
+  
+        saveInput(fromAddress);
+
+        // ipfs.add(fromAddress, (error, result) => {
+        //     console.log('ipfs results', result)
+        //     if(error){
+        //         console.error(error)
+        //         return
+        //     }
+        // })
+        // ipfs.files.add(fromAddress, (error, result) => {
+        //     if(error){
+        //         console.error(error);
+        //         return
+        //     }
+
+        //     console.log(result[0].hash);
+
+        // })
+      }
     }
 
 
