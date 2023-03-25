@@ -33,7 +33,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
 
     //IPFS hash
-    mapping (uint256 => string) private _IPFSHashes;
+    mapping (uint256 => string) private _IPFSHashes; 
     //Owner of the token & token counter
     mapping (uint256 => address) private _Owner;
 
@@ -69,10 +69,6 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     }
 
 
-    // function withdraw() public onlyOwner() {
-    //     require(address(this).balance > 0, "Balance is zero");
-    //     payable(owner()).transfer(address(this).balance);
-    // }
 
 
 
@@ -114,48 +110,39 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         uint256 newTokenCounter = _tokenIdCounter.current();
 
 
-        if(newTokenCounter < MAX_SUPPLY){
+        if(newTokenCounter <= MAX_SUPPLY){
             _safeMint(msg.sender, newTokenCounter);
             // _IPFSHashes[newTokenCounter] = ipfsHash;
             _Owner[newTokenCounter] = msg.sender;
             return newTokenCounter;
-        }else
-        _tokenIdCounter.decrement();
+        }else{
+            _tokenIdCounter.decrement();
+            return newTokenCounter;
+        }
+
     }
-
-
-    // Copy Pasted from the internet -- Implement in ths-st3
-    // // Define a function to allow label users to create a new synthetic asset
-    // function createAsset(bytes32 ipfsHash, uint256 collateralAmount, address collateralToken, uint256 maturity) public onlyLabel {
-    //     // Store the asset data on IPFS and link to the asset ID
-    //     assetData[block.number] = AssetData(ipfsHash, collateralAmount, collateralToken, maturity);
-    // }
-
-
-    // // Define a function to allow artist users to provide the underlying collateral for a synthetic asset
-    // function provideCollateral(uint256 assetId, uint256 amount) public onlyArtist {
-    //     // Transfer the collateral tokens to the contract and store the amount
-    //     IERC20(assetData[assetId].collateralToken).transferFrom(msg.sender, address(this), amount);
-    //     assetData[assetId].collateralAmount += amount;
-    // }
-
-
     // 5. Other Functions ------------------------------------------------------------------------------------
 
 
-    // --- Client to Client Transfer Form - THS-ST2
-    function safeTransferFromLabelClient(address to, uint256 tokenId) public {
-        // require(hasRole(CLIENT_ROLE, msg.sender), "User must have CLIENT Role to transfer token");
-        // require(hasRole(CLIENT_ROLE, to), "Recipient Address must have Client Role to transfer");
-        address from = getOwner(tokenId);
-        safeTransferFrom(from, to, tokenId);
+    //Event: Transfer token and request payment from client
+
+    event transferWithPayment (address label, address client, uint256 token_id, uint256 total_fee);
+
+    //Transfer token & request payment
+    //Total fee from ipfs
+    function withdraw(address client, uint256 token_id, uint256 total_fee)payable public {
+        
+        //For demo purposes, sender does not need to be the owner. This will be implented during THS-ST3
+        require(_exists(token_id), "Token ID does not exist");
+        require(msg.value == total_fee, "Amount of ethers sent does not match the total fee");
+        address label = _Owner[token_id];
+
+        safeTransferFrom(label, client, token_id);
+        
+        emit transferWithPayment(label,client,token_id, total_fee);
+
     }
 
-
-     function getOwner(uint256 tokenId) public view returns (address) {
-        require(_exists(tokenId), "Token ID does not exist");
-        return _Owner[tokenId];
-    }
 
 
 
@@ -202,6 +189,15 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     function _giveRoleLabel () public {
         _grantRole(LABEL_ROLE, msg.sender);
     }
+
+      function _giveRoleArtist () public {
+        _grantRole(ARTIST_ROLE, msg.sender);
+    }
+
+      function _giveRoleClient () public {
+        _grantRole(LABEL_ROLE, msg.sender);
+    }
+
 
 
     function _removeRoles (address to) public {
