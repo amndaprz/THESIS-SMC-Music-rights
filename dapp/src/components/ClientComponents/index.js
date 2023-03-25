@@ -6,8 +6,10 @@ import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
 import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
 
-let connectIPFS = new ConnectIPFS();
+// let connectIPFS = new ConnectIPFS();
 
 function Client() {
 
@@ -17,12 +19,73 @@ function Client() {
         setToggleState(index);
     };
 
+    // const displayMarketplace = async() => {
+    //     console.log("MARKETPLACE")
+    //    try {
+    //         const testHashes = await connectIPFS.displayAllInfo();
+    //         console.log(testHashes);
+    //    }catch {
 
-    const displayMarketplace = async() => {
-        console.log("MARKETPLACE")
-        let testHashes = await connectIPFS.displayAllInfo();
-        console.log(testHashes);
+    //    }
+    // }
+
+    // IPFS
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
     }
+
+    const displayAllInfo = async() => {
+        let IPFS = await ipfsClient();
+
+        const cid = "QmYPx9zF2snqBs4HE31VizrKQnJXiaXgQgZ7XNP1irRqia";
+
+        try {
+            const result = await IPFS.cat(cid);
+            console.log(result.toString());
+            console.log(result);
+        }catch (err) {
+
+        }
+
+        try {
+            const data = [];
+            for await (const chunk of IPFS.cat(cid)) {
+              data.push(chunk);
+            }
+            console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
+          } catch (err) {
+            console.error("Error while retrieving data from IPFS:", err); // handle any errors
+          }
+       
+        
+        // const allPinned = await IPFS.pin.ls({type: 'recursive'});
+        // try {
+        //     const allPinned = await Promise.all(IPFS.pin.ls({ type: 'recursive' }));
+        //     console.log(allPinned);
+        // } catch (err) {
+        //     console.error("Error while retrieving pinned items from IPFS:", err);
+        // }
+
+        const allHashes = new Set();
+
+        console.log("Hashes" + Array.from(allHashes));
+
+        return allHashes;
+    }
+    
 
   return (
     <div>
@@ -48,7 +111,7 @@ function Client() {
 
                     {/* Replace with on website refresh */}
                     <Button
-                    onClick={displayMarketplace}>
+                    onClick={displayAllInfo}>
                     Display all Tokens
                     </Button>
                 </div>
