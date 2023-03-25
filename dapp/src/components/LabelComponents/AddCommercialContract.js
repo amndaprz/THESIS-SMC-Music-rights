@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import ConfirmAddContract from "../Modals/ConfirmAddContract";
 import SafeMintLabel from "../safeMint/SafeMintLabel"
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+import {utils} from 'web3';
 
 let account;
 
@@ -43,6 +46,33 @@ function AddCommercialContract(){
         // console.log('Artist %:', percentArtist);
     // }
 
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
+    }
+
+    const saveInput = async(MRC) => {
+        let ipfs = await ipfsClient();
+        let mrcToString = Buffer.from(JSON.stringify(MRC));
+        let result = await ipfs.add(mrcToString);
+        //console.log(address);
+        console.log(result);
+
+        return result.path;
+    }
+
 
     // Checkers 
     const isValidPercentage = (pLabel, pArtist) => {
@@ -76,6 +106,7 @@ function AddCommercialContract(){
 
 
     // Minting 
+    // Generates IPFS hash
     const mintERC721 = async() => {
         // Check for missing fields
         
@@ -98,9 +129,25 @@ function AddCommercialContract(){
         console.log("isReceiverValid: "+ isArtistValid);
 
         // Add Checker if all prereqs are satisfied
-
-        if(await contract.methods.safeMint(account).send({from: account})){
+        console.log(account);
+        if(await contract.methods.safeMint().send({from: account})){
             console.log("Minting successful");
+
+            const MRC = {
+                percent_label: percentLabel,
+                percent_artist: percentArtist,
+                label_address: addrLabel,
+                artist_address: addrArtist
+            };
+
+            console.log(MRC);
+
+            let mrcResult = await saveInput(MRC);
+
+            console.log(mrcResult);
+
+            return mrcResult;
+
         }
 
         const balance = await contract.methods.balanceOf(account).call();
