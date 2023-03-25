@@ -2,12 +2,14 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
+import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 
+
+let a;
 function CardBuy(){
     const [modalShow, setModalShow] = React.useState(false);    
-    
+   
     return(
         <Card>
             <ConfirmPurchasePopup

@@ -28,6 +28,12 @@ const ConnectIPFS = () => {
 
         return result.path;
     }
+
+    const displayAllInfo = async() => {
+        let IPFS = await ipfsClient();
+        IPFS.pin.ls();
+        // IPFS.c
+    }
 }
 
 export default ConnectIPFS;

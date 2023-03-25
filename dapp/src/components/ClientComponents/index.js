@@ -5,13 +5,20 @@ import Button from 'react-bootstrap/Button';
 import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
+import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
+
 function Client() {
 
     const [toggleState, setToggleState] = useState(1);
 
     const toggleTab = (index) => {
-    setToggleState(index);
+        setToggleState(index);
     };
+
+
+    const displayAllInfo = async() => {
+        ConnectIPFS.displayAllInfo();
+    }
 
   return (
     <div>
@@ -33,6 +40,12 @@ function Client() {
                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                     onClick={() => toggleTab(2)}>
                     Owned songs
+                    </Button>
+
+                    {/* Replace with on website refresh */}
+                    <Button
+                    onClick="">
+                    Display all Tokens
                     </Button>
                 </div>
                     
