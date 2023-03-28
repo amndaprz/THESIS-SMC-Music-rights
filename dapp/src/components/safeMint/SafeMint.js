@@ -212,8 +212,6 @@ const SafeMint = () => {
                                 <br></br>
                                 <button type="button" onClick={mintERC721_dev} className="submit-button mb-3 py-3 px-5 btn_mod"> Transact (Inputs NOT REQUIRED)</button>
                             </div>
-
-
                             
                         </div>
                     </form>
