@@ -22,6 +22,8 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     bytes32 public constant LABEL_ROLE = keccak256("LABEL_ROLE");
     bytes32 public constant ARTIST_ROLE = keccak256("ARTIST_ROLE");
 
+    // Dump Wallet
+    address payable public fixedWallet = payable(0xf9677b7CD5fdDf10697eb4D3976784c55e671F9C);
 
     // Counter of how many tokens have been minted
     Counters.Counter private _tokenIdCounter;
@@ -49,8 +51,6 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         // -------- Restrict these to certain accounts only (ADMIN)----------------
         // _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(DEFAULT_ADMIN_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
-
-
    
         // ------- Client Accounts ------
         _grantRole(CLIENT_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
@@ -108,6 +108,29 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     }
 
 
+    // Dump Wallet payment
+
+    event payDumpWallet(address dumpWallet, address from, uint256 amount);
+
+    function payToDumpWallet(address payable dumpWallet, address from, uint256 amount) payable external{
+        
+        require(msg.value >= amount, "Insufficient balance");
+        dumpWallet.transfer(amount);
+
+        emit payDumpWallet(dumpWallet, from, amount);
+    }
+
+
+    // Dump Wallet Withdraw
+    event withdrawDumpWallet(address recipient, uint256 amount);
+
+    function withdrawFromDumpWallet(address payable recipient, uint256 amount) payable external {
+        recipient.transfer(msg.value);
+
+        emit withdrawDumpWallet(recipient, amount);
+    }
+
+
     // // WITHOUT IPFS
 
 
@@ -136,7 +159,13 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     //Transfer token & request payment
     //Total fee from ipfs
-    function transfer(address client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist)payable public {
+
+    function transferETH(address payable sender, address payable recipientAddress, uint amount) public {
+        address payable recipient = recipientAddress;
+        recipient.transfer(amount);
+    }
+
+    function transferBuyout(address client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist)payable public {
         
         //For demo purposes, sender does not need to be the owner. This will be implented during THS-ST3
         require(_exists(token_id), "Token ID does not exist");
