@@ -129,27 +129,25 @@ function AddCommercialContract(){
         const isArtistValid  = await isReceiverValid(addrArtist);
         console.log("isReceiverValid: "+ isArtistValid);
 
+        const MRC = {
+            percent_label: parseInt(percentLabel),
+            percent_artist: parseInt(percentArtist),
+            label_address: addrLabel,
+            artist_address: addrArtist
+        };
+
+        console.log(MRC);
+
+        let mrcResult = await saveInput(MRC);
+
+        console.log(mrcResult);
+        
         // Add Checker if all prereqs are satisfied
         console.log(account);
         if(await contract.methods.safeMint().send({from: account})){
             console.log("Minting successful");
             
-            const MRC = {
-                percent_label: parseInt(percentLabel),
-                percent_artist: parseInt(percentArtist),
-                label_address: addrLabel,
-                artist_address: addrArtist
-            };
-
-            console.log(MRC);
-
-            let mrcResult = await saveInput(MRC);
-
-            console.log(mrcResult);
-
-        
-
-            return mrcResult;
+            
 
         }
 
@@ -163,6 +161,8 @@ function AddCommercialContract(){
         console.log('Label %:', percentLabel);
         console.log('To address:', addrArtist);
         console.log('Artist %:', percentArtist);
+
+        //return mrcResult;
 
     }
 
