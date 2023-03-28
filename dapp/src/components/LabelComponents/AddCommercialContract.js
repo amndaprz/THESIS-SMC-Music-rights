@@ -144,7 +144,7 @@ function AddCommercialContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 21000})){
+        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 4000000, sender: account })){
             console.log("Minting successful");
         }
 
