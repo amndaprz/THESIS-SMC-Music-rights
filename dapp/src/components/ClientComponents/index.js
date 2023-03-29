@@ -61,6 +61,21 @@ function Client() {
         return ipfs;
     }
 
+    const displayMarketplace = async(IPFS) => {
+        
+        const allPinned = await IPFS.pin.ls({type: 'recursive'});
+        // IPFS.c
+        const allHashes = new Set();
+
+        allPinned.forEach((item) => {
+            allHashes.add(item.cid.toString());
+        })
+
+        console.log(Array.from(allHashes));
+
+        return allHashes;
+    }
+
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
         let info = [];
@@ -85,6 +100,8 @@ function Client() {
         dataObject = jsonObj;
 
         console.log(dataObject);
+
+        displayMarketplace(IPFS);
 
         setJsonObj(jsonObj);
 
