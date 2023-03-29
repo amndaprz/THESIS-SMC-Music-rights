@@ -171,6 +171,11 @@ function AddCommercialContract(){
             />
             <div className="my-3 input_con">
                 <div className="my-3 p-4 input_contract">
+                    <p className="text_sub p-0 m-0">Enter song title :
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" />
+                    </p>
+                </div>
+                <div className="my-3 p-4 input_contract">
                     <p className="text_sub p-0 m-0">Enter percent label :
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentLabel} onChange={handlePLabel}                        />
                     </p>
@@ -178,6 +183,11 @@ function AddCommercialContract(){
                 <div className="my-3 p-4 input_contract">
                     <p className="text_sub p-0 m-0">Enter percent artist :
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentArtist} onChange={handlePArtist} />
+                    </p>
+                </div>
+                <div className="my-3 p-4 input_contract">
+                    <p className="text_sub p-0 m-0">Enter total fee :
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" />
                     </p>
                 </div>
                 <div className="my-3 p-4 input_contract">
