@@ -98,24 +98,25 @@ max-width: 80vw;
 }
 
 .card-deck{
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .card{
-max-width: 400px;
+max-width: 440px;
+min-width: 440px;
 height: 200px;
 background-color: #2B2833;
 margin: 20px;
 padding: 20px;
 border-radius: 20px;
-min-width: 400px;
 }
 
-.card-title, .card-text{
+.card-title, .card_text{
 text-overflow: ellipsis;
 white-space: nowrap;
 overflow: hidden;
+
 }
 
 .card_con{
