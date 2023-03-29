@@ -35,8 +35,8 @@ function CardBuy(props){
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
 
-        testETHTransfer()
-        // callTransferBuyout();
+        // testETHTransfer()
+        callTransferBuyout();
         console.log(props.percentA);
         console.log(props.percentL);
         console.log(props.addrA);

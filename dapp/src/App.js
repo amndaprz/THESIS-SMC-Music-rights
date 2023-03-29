@@ -7,6 +7,7 @@ import Dev from './pages/Dev';
 import Stream from './pages/Stream';
 import ModalTest from './pages/ModalTest';
 import NotifTest from './pages/NotifTest';
+import ListTest from './pages/ListTest';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/App.css"
 import "./css/Homepage.css"
@@ -31,6 +32,7 @@ function App() {
           <Route path="/Stream"element={<Stream />}/>
           <Route path="/ModalTest"element={<ModalTest />}/>
           <Route path="/NotifTest"element={<NotifTest />}/>
+          <Route path="/ListTest"element={<ListTest />}/>
         </Routes>
       </BrowserRouter>
   </div>

@@ -92,7 +92,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     // 4. Minting Functions ------------------------------------------------------------------------------------
     //  WITH IPFS
-    function safeMint(string calldata ipfsHash) public onlyRole(MINTER_ROLE) {
+    function safeMintWithHash(string calldata ipfsHash) public {
         _tokenIdCounter.increment();
         uint256 newTokenCounter = _tokenIdCounter.current();
 
@@ -106,7 +106,6 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         }else
         _tokenIdCounter.decrement();
     }
-
 
     // Dump Wallet payment
 
@@ -132,9 +131,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
 
     // // WITHOUT IPFS
-
-
-    //   function safeMint() public returns (uint256) {
+    //   function safeMintBase() public returns (uint256) {
     //     _tokenIdCounter.increment();
     //     uint256 newTokenCounter = _tokenIdCounter.current();
 
