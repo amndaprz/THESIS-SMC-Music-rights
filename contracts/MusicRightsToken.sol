@@ -14,7 +14,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
 
 
     // 1. Property Variables ------------------------------------------------------------------------------------
-    using Counters for Counters.Counter;
+   
 
     // Dump Wallet
     address payable public fixedWallet = payable(0xf9677b7CD5fdDf10697eb4D3976784c55e671F9C);
@@ -31,9 +31,12 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
         uint256 token_id;
         string ipfsHash;
     }
-
+	
+	
+	 
     //IPFS hash
-    mapping (uint256 => MRC) private _MRCs; 
+     uint256 public tokenIdCounter;
+	 MRC[] public _MRCs; 
     //Owner of the token & token counter
     // mapping (uint256 => address) private _Owner;
 
@@ -66,9 +69,10 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
         // _grantRole(MINTER_ROLE, msg.sender);
        
         //  Start token ID incrementor
-        _tokenIdCounter.increment();
+        tokenIdCounter = 0;
 
         //Constructor for role access smc
+		// Change address to deployed RoleAccess smc
         roleAccessInstance = RoleAccess(0xDA0bab807633f07f013f94DD0E6A4F96F8742B53);
     }
 
@@ -89,18 +93,17 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     // 4. Minting Functions ------------------------------------------------------------------------------------
     //  WITH IPFS
     function safeMintWithHash(string calldata ipfsHash) public {
-        _tokenIdCounter.increment();
-        uint256 newTokenCounter = _tokenIdCounter.current();
+        uint256 newTokenCounter = tokenIdCounter + 1;
+
+        tokenIdCounter = tokenIdCounter + 1;
 
 
         if(newTokenCounter < MAX_SUPPLY){
             _safeMint(msg.sender, newTokenCounter);
-            _MRCs[newTokenCounter] = MRC(newTokenCounter, ipfsHash);
-            // _Owner[newTokenCounter] = msg.sender;
-
-
-        }else
-        _tokenIdCounter.decrement();
+            _MRCs.push(MRC(newTokenCounter, ipfsHash));
+            _Owner[newTokenCounter] = msg.sender;
+        }
+       
     }
 
     // Dump Wallet payment
@@ -177,21 +180,13 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     }
 
     
-    function getAllMRCs() public view returns (MRC[] memory){
-        uint256 i = _tokenIdCounter.current();
-
-        MRC[] memory mrcArray ;
-        for (uint x =0; x < i ; x++){
-            mrcArray[x] = _MRCs[x];
-        }
-
-
-        return mrcArray;
+     function getAllMRCs() public view returns (MRC[] memory){
+        return _MRCs;
     }
 
 
     function getMRC(uint256 token_id) public view returns (string memory) {
-         uint256 i = _tokenIdCounter.current();
+         uint256 i = tokenIdCounter;
         string memory temp = "";
         for (uint x =0; x < i; x++){
             if(_MRCs[x].token_id == token_id)
@@ -200,7 +195,6 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
         
         return temp;
     }
-
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
         internal
