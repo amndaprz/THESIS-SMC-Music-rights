@@ -25,21 +25,24 @@ contract StreamContract {
         return  _streamCounter;
     }
 
-
-    function simulateStreams (uint256 n_streams, uint256 stream_id) public {
-
+// UPDate thisbitch
+    function simulateStreams (uint256 n_streams, uint256 stream_id) public return (uint256){
+       
 
         Stream storage temp_stream = streams [stream_id];
 
 
         temp_stream.prevStream = temp_stream.currStream;
         temp_stream.currStream = temp_stream.currStream + n_streams;
-
-
-        if (temp_stream.currStream - temp_stream.prevStream >= 10) {
-                // Call fake_currency contract
+        
+        uint256 update = 0 ; //default , 0
+        if (  temp_stream.currStream - temp_stream.prevStream >= 10) {
+                // if the difference between previous and current stream is equal to or greater than 10, return update count
+               update =  temp_stream.currStream - temp_stream.prevStream;
         }
 
+
+        return update;
 
     }
 
@@ -51,7 +54,6 @@ contract StreamContract {
 
 
 
-
     function getAllStreams() public view returns (Stream[] memory){
 
 
@@ -59,7 +61,6 @@ contract StreamContract {
         for (uint x =0; x < _streamCounter; x++){
             streamArray[x] = streams[x];
         }
-
 
         return streamArray;
     }
