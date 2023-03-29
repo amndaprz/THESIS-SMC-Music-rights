@@ -786,7 +786,7 @@
 				"type": "string"
 			}
 		],
-		"name": "safeMint",
+		"name": "safeMintWithHash",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
