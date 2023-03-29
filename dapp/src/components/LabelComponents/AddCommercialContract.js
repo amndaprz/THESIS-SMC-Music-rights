@@ -24,6 +24,8 @@ function AddCommercialContract(){
     const [percentArtist, setPArtist] = useState('');
     const [addrLabel, setAddrLabel] = useState('');
     const [addrArtist, setAddrArtist] = useState('');
+    const [totalFee, setTotalFee] = useState('');
+    const [songTitle, setSongTitle] = useState('');
 
     // Input listener for Label Address
     const handleAddrLabel = (event) => { setAddrLabel(event.target.value); }
@@ -36,6 +38,10 @@ function AddCommercialContract(){
 
     // Input listener for Label Artist
     const handlePArtist = (event) => { setPArtist(event.target.value);}
+
+    const handleTotalFee = (event) => { setTotalFee(event.target.value);} 
+
+    const handleSongTitle = (event) => { setSongTitle(event.target.value);}
 
     // const handleSubmit = (event) => {
     //     event.preventDefault();
@@ -130,10 +136,12 @@ function AddCommercialContract(){
         console.log("isReceiverValid: "+ isArtistValid);
 
         const MRC = {
+            song_title: songTitle,
             percent_label: parseInt(percentLabel),
             percent_artist: parseInt(percentArtist),
             label_address: addrLabel,
-            artist_address: addrArtist
+            artist_address: addrArtist,
+            total_fee: parseFloat(totalFee),
         };
 
         console.log(MRC);
@@ -144,7 +152,7 @@ function AddCommercialContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 4000000, sender: account })){
+        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 7000000, sender: account })){
             console.log("Minting successful");
         }
 
@@ -172,7 +180,7 @@ function AddCommercialContract(){
             <div className="my-3 input_con">
                 <div className="my-3 p-4 input_contract">
                     <p className="text_sub p-0 m-0">Enter song title :
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" />
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" alue={songTitle} onChange={handleSongTitle}/>
                     </p>
                 </div>
                 <div className="my-3 p-4 input_contract">
@@ -187,7 +195,7 @@ function AddCommercialContract(){
                 </div>
                 <div className="my-3 p-4 input_contract">
                     <p className="text_sub p-0 m-0">Enter total fee :
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" />
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
                     </p>
                 </div>
                 <div className="my-3 p-4 input_contract">
