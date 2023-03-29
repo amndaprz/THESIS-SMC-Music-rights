@@ -5,22 +5,16 @@ pragma solidity >=0.5.17;
 import "@openzeppelin/contracts@4.8.2/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts@4.8.2/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts@4.8.2/security/Pausable.sol";
-import "@openzeppelin/contracts@4.8.2/access/AccessControl.sol";
 import "@openzeppelin/contracts@4.8.2/utils/Counters.sol";
+import "./RoleAccess.sol";
 
 
-contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
+
+contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
 
 
     // 1. Property Variables ------------------------------------------------------------------------------------
     using Counters for Counters.Counter;
-
-
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant CLIENT_ROLE = keccak256("CLIENT_ROLE");
-    bytes32 public constant LABEL_ROLE = keccak256("LABEL_ROLE");
-    bytes32 public constant ARTIST_ROLE = keccak256("ARTIST_ROLE");
 
     // Dump Wallet
     address payable public fixedWallet = payable(0xf9677b7CD5fdDf10697eb4D3976784c55e671F9C);
@@ -41,27 +35,30 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     //IPFS hash
     mapping (uint256 => MRC) private _MRCs; 
     //Owner of the token & token counter
-    mapping (uint256 => address) private _Owner;
+    // mapping (uint256 => address) private _Owner;
 
+
+    //Role Access SMC Instance
+    RoleAccess roleAccessInstance;
 
 
 
     // 2. Lifecycle Methods ------------------------------------------------------------------------------------
     constructor() ERC721("MusicRights Token", "MRT") {
-        // -------- Restrict these to certain accounts only (ADMIN)----------------
-        // _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(DEFAULT_ADMIN_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
+        // // -------- Restrict these to certain accounts only (ADMIN)----------------
+        // // _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        // _grantRole(DEFAULT_ADMIN_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
    
-        // ------- Client Accounts ------
-        _grantRole(CLIENT_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
+        // // ------- Client Accounts ------
+        // _grantRole(CLIENT_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
 
 
-        // ------- Label Accounts ------
-        _grantRole(LABEL_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
+        // // ------- Label Accounts ------
+        // _grantRole(LABEL_ROLE, 0xd9f50E7e3f141E9b8dDccB23d58D5f959e7D3FE7);
 
 
-        // ------- Artist Accounts ------
-        _grantRole(ARTIST_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
+        // // ------- Artist Accounts ------
+        // _grantRole(ARTIST_ROLE, 0x81bD0B9d5D5F3D4d19e98806CeCeE28911d99daa);
 
 
         // ------- Pauser Accounts ------
@@ -70,24 +67,23 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
        
         //  Start token ID incrementor
         _tokenIdCounter.increment();
+
+        //Constructor for role access smc
+        roleAccessInstance = RoleAccess(0xDA0bab807633f07f013f94DD0E6A4F96F8742B53);
     }
-
-
-
-
 
 
     // 3. Pausable Functions ------------------------------------------------------------------------------------
 
 
-    function pause() public onlyRole(PAUSER_ROLE) {
-        _pause();
-    }
+    // function pause() public onlyRole(PAUSER_ROLE) {
+    //     _pause();
+    // }
 
 
-    function unpause() public onlyRole(PAUSER_ROLE) {
-        _unpause();
-    }
+    // function unpause() public onlyRole(PAUSER_ROLE) {
+    //     _unpause();
+    // }
 
 
     // 4. Minting Functions ------------------------------------------------------------------------------------
@@ -100,7 +96,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         if(newTokenCounter < MAX_SUPPLY){
             _safeMint(msg.sender, newTokenCounter);
             _MRCs[newTokenCounter] = MRC(newTokenCounter, ipfsHash);
-            _Owner[newTokenCounter] = msg.sender;
+            // _Owner[newTokenCounter] = msg.sender;
 
 
         }else
@@ -109,15 +105,15 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     // Dump Wallet payment
 
-    event payDumpWallet(address dumpWallet, address from, uint256 amount);
+    // event payDumpWallet(address dumpWallet, address from, uint256 amount);
 
-    function payToDumpWallet(address payable dumpWallet, address from, uint256 amount) payable external{
+    // function payToDumpWallet(address payable dumpWallet, address from, uint256 amount) payable external{
         
-        require(msg.value >= amount, "Insufficient balance");
-        dumpWallet.transfer(amount);
+    //     require(msg.value >= amount, "Insufficient balance");
+    //     dumpWallet.transfer(amount);
 
-        emit payDumpWallet(dumpWallet, from, amount);
-    }
+    //     emit payDumpWallet(dumpWallet, from, amount);
+    // }
 
 
     // Dump Wallet Withdraw
@@ -152,7 +148,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
     //Event: Transfer token and request payment from client
 
-    event transferWithPayment (address label, address client, uint256 token_id, uint256 total_fee);
+    // event transferWithPayment (address label, address client, uint256 token_id, uint256 total_fee);
 
     //Transfer token & request payment
     //Total fee from ipfs
@@ -162,16 +158,21 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
         recipient.transfer(amount);
     }
 
-    function transferBuyout(address client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist)payable public {
+    function transferBuyout(address payable client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist, address payable artist, address payable label)payable public {
         
         //For demo purposes, sender does not need to be the owner. This will be implented during THS-ST3
         require(_exists(token_id), "Token ID does not exist");
-        require(msg.value == total_fee, "Amount of ethers sent does not match the total fee");
-        address label = _Owner[token_id];
+        // require(msg.value == total_fee, "Amount of ethers sent does not match the total fee");
+        // address label = _Owner[token_id];
+
+        // Split total_fee
+        transferETH (client, artist, total_fee*(percent_artist/100));
+        transferETH (client, label, total_fee*(percent_label/100));
+
 
         safeTransferFrom(label, client, token_id);
         
-        emit transferWithPayment(label,client,token_id, total_fee);
+        // emit transferWithPayment(label,client,token_id, total_fee);
 
     }
 
@@ -201,12 +202,6 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     }
 
 
-
-
-
-
-
-
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
         internal
         whenNotPaused
@@ -216,56 +211,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     }
 
 
-    // 6. Checking Functions ------------------------------------------------------------------------------------
-
-
-    function _isAdmin (address from) public view returns (bool) {
-        require(hasRole(DEFAULT_ADMIN_ROLE, from), "User is not an ADMIN");
-        return true;
-    }
-
-
-    function _isClient (address from) public view returns (bool) {
-        require(hasRole(CLIENT_ROLE, from), "User is not a CLIENT");
-        return true;
-    }
-
-
-    function _isLabel (address from) public view returns (bool) {
-        require(hasRole(LABEL_ROLE, from), "User is not a LABEL");
-        return true;
-    }
-
-
-    function _isArtist (address from) public view returns (bool) {
-        require(hasRole(ARTIST_ROLE, from), "User is not a ARTIST");
-        return true;
-    }
-
-
-    // 7. Grant / Revoke Functions -------------
-
-
-    function _giveRoleLabel () public {
-        _grantRole(LABEL_ROLE, msg.sender);
-    }
-
-      function _giveRoleArtist () public {
-        _grantRole(ARTIST_ROLE, msg.sender);
-    }
-
-      function _giveRoleClient () public {
-        _grantRole(LABEL_ROLE, msg.sender);
-    }
-
-
-
-    function _removeRoles (address to) public {
-        _revokeRole(DEFAULT_ADMIN_ROLE, to);
-        _revokeRole(CLIENT_ROLE, to);
-        _revokeRole(LABEL_ROLE, to);
-        _revokeRole(ARTIST_ROLE, to);
-    }
+    
 
 
     // The following functions are overrides required by Solidity.
@@ -274,7 +220,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721Enumerable, AccessControl)
+        override(ERC721, ERC721Enumerable)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
@@ -284,6 +230,9 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable, AccessControl {
 
 
 }
+
+
+
 
 
 /*

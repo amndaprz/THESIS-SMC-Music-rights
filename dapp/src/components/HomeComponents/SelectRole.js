@@ -23,6 +23,12 @@ function SelectRole(){
                     Label
                 </Button>
             </Link>
+            <Link to="/Stream">
+                <Button
+                    className="py-3 btn_mod_role">
+                    Admin
+                </Button>
+            </Link>
         </div>
     );
 }
