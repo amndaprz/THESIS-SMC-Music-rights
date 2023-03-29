@@ -25,7 +25,6 @@ contract StreamContract {
         return  _streamCounter;
     }
 
-// UPDate thisbitch
     function simulateStreams (uint256 n_streams, uint256 stream_id) public return (uint256){
        
 

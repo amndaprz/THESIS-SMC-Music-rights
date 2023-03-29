@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: DLSU--TINA
+pragma solidity >=0.5.17;
+
 
 import "@openzeppelin/contracts@4.8.2/access/AccessControl.sol";
 
