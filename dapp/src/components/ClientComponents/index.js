@@ -65,7 +65,7 @@ function Client() {
 
     const displaySongs = async() => {
 
-        let allResults = contract.methods.getAllMRCs();
+        let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
 
@@ -146,7 +146,7 @@ function Client() {
 
                     {/* Replace with on website refresh */}
                     <Button
-                    onClick={displayMarketplace}>
+                    onClick={displaySongs}>
                     Display all Tokens
                     </Button>
                 </div>
