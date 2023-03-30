@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader'
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
@@ -45,8 +48,17 @@ function CardBuy(props){
 
     }
 
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const t = setTimeout(() => {
+            setLoading(false);
+        } , 3000);
 
+        return () => {
+            clearTimeout(t);
+        }
+    }, []);
 
     return(
             <Card>
@@ -54,25 +66,85 @@ function CardBuy(props){
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />
-                <Card.Body>
-                    <Card.Title>Track title</Card.Title>
-                    <Card.Text>
-                        <div className="card_text">{props.percentA}</div>
-                        <div className="card_text">{props.percentL}</div>
-                        <div className="card_text">{props.addrA}</div>
-                        <div className="card_text">{props.addrL}</div>
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer className="text-muted">
-                    <h5 className="text_pop">Total fee</h5>
-                    {/* <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
-                        Buy
-                    </Button>*/}
-                    
-                    <Button onClick={buySong} variant="primary" className="py-2 px-5 mx-2 card_button">
-                        Buy Instantly
-                    </Button>
-                </Card.Footer>
+                {loading ? (
+                    <ContentLoader
+                        width={450}
+                        height={185}
+                        speed={2}
+                        backgroundColor={'#383447'}
+                        foregroundColor={'#2B2833'}
+                    >
+                        <rect x="5" y="16" rx="5" ry="5" width="250" height="12" />
+                        <rect x="5" y="48" rx="5" ry="5" width="390" height="12" />
+                        <rect x="5" y="80" rx="5" ry="5" width="390" height="12" />
+                        <rect x="5" y="112" rx="5" ry="5" width="390" height="12" />
+                        <rect x="5" y="154" rx="5" ry="5" width="170" height="12" />
+                        <rect x="255" y="144" rx="5" ry="5" width="140" height="30" />
+                    </ContentLoader>
+                ): (
+                    <>
+                    <Card.Body>
+                        <Card.Title>Track title</Card.Title>
+                        <Card.Text className="text_sub">
+                            <div className="card_text">{props.percentA}</div>
+                            <div className="card_text">{props.percentL}</div>
+                            <div className="card_text">
+                                <span className="card_subtitle">Artist address</span>
+                                <OverlayTrigger
+                                    delay={{ hide: 50, show: 500 }}
+                                    overlay={(props) => (
+                                    <Tooltip {...props}>
+                                        Artist address
+                                    </Tooltip>
+                                    )}
+                                    placement="bottom">
+                                    <span className="card_content">{props.addrA}</span>
+                                </OverlayTrigger>
+                                
+                            </div>
+                            <div className="card_text text_sub">
+                                <span className="card_subtitle">Label address</span>
+                                <OverlayTrigger
+                                    delay={{ hide: 50, show: 500 }}
+                                    overlay={(props) => (
+                                    <Tooltip {...props}>
+                                        Label address
+                                    </Tooltip>
+                                    )}
+                                    placement="bottom">
+                                    <span className="card_content">{props.addrL}</span>
+                                </OverlayTrigger>
+                            </div>
+                            <div className="card_text text_sub">
+                                <span className="card_subtitle_token">Token ID</span>
+                                <OverlayTrigger
+                                    delay={{ hide: 100, show: 500 }}
+                                    overlay={(props) => (
+                                    <Tooltip {...props}>
+                                        Token ID
+                                    </Tooltip>
+                                    )}
+                                    placement="bottom"
+                                    className="tooltip_card">
+                                    <span className="card_content">1</span>
+                                </OverlayTrigger>
+                                
+                            </div>
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer className="text-muted">
+                        <h5 className="text_pop">Total fee</h5>
+                        {/* <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                            Buy
+                        </Button>*/}
+                        
+                        <Button onClick={buySong} variant="primary" className="py-2 px-5 mx-2 card_button">
+                            Buy
+                        </Button>
+                    </Card.Footer>
+                    </>
+                )}
+            
             </Card>
         
     );

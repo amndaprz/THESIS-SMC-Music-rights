@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader'
 
 import Button from 'react-bootstrap/Button';
 
@@ -25,17 +26,46 @@ function Label() {
     setToggleState2(index);
     };
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const t = setTimeout(() => {
+            setLoading(false);
+        } , 3000);
+
+        return () => {
+            clearTimeout(t);
+        }
+    }, []);
+
 
   return (
     <div>
         <div className="row p-0 m-0 card_con">
             
             <div className="col-sm-2 p-0 m-0 nav_con">
-                <div className="px-4">
+            {loading ? (
+                <ContentLoader
+                    width={450}
+                    height={1000}
+                    speed={2}
+                    backgroundColor={'#383447'}
+                    foregroundColor={'#2B2833'}
+                >
+                    <rect x="50" y="70" rx="5" ry="5" width="220" height="12" />
+                    <rect x="50" y="102" rx="5" ry="5" width="220" height="12" />
+                    <rect x="40" y="300" rx="5" ry="5" width="270" height="50" />
+                    <rect x="40" y="370" rx="5" ry="5" width="270" height="50" />
+                    <rect x="40" y="440" rx="5" ry="5" width="270" height="50" />
+                    <rect x="40" y="510" rx="5" ry="5" width="270" height="50" />
+                    <rect x="40" y="580" rx="5" ry="5" width="270" height="50" />
+                </ContentLoader>
+            ): (
+                <>
+                <div className="px-4 pb-5">
                     <h2 className="mx-4 mt-5 client_name">Label name</h2>
                     <h5 className="mx-4 text_sub">Role name</h5>
                 </div>
-                
 
                 <div className="nav_btn_con">
                     <Button
@@ -68,9 +98,35 @@ function Label() {
                     Payout
                     </Button>
                 </div>
+                </>
+            )}
+                
             </div>
             
             <div className="col-sm-10 py-5  m-0 content_con">
+            {loading ? (
+                <ContentLoader
+                    width={1500}
+                    height={1000}
+                    speed={2}
+                    backgroundColor={'#383447'}
+                    foregroundColor={'#2B2833'}
+                >
+                    <rect x="620" y="40" rx="5" ry="5" width="270" height="12" />
+                    <rect x="595" y="130" rx="5" ry="5" width="320" height="12" />
+                    <rect x="595" y="162" rx="5" ry="5" width="140" height="30" />
+                    <rect x="775" y="162" rx="5" ry="5" width="140" height="30" />
+                    <rect x="490" y="300" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="370" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="440" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="510" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="580" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="650" rx="5" ry="5" width="550" height="50" />
+                    <rect x="490" y="720" rx="5" ry="5" width="550" height="50" />
+                    
+                </ContentLoader>
+            ): (
+                <>
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <h1>Add contract</h1>
                     <div className=" mt-5 mb-4">Please choose a contract type below:</div>
@@ -118,6 +174,9 @@ function Label() {
                     <h1>Payout</h1>
                     <Payout/>
                 </div>
+                </>
+            )}
+                
             </div>
 
         </div>
