@@ -7,7 +7,7 @@ function CardOwned(){
         <Card className="card_owned">
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
-                <Card.Text>
+                <Card.Text className="text_sub">
                     <div>Artist name</div>
                     <div>Label name</div>
                 </Card.Text>

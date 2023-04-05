@@ -152,7 +152,7 @@ function AddCommercialContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 7000000, sender: account })){
+        if(await contract.methods.safeMintWithHash("Hello").send({from: account, gas: 99900, sender: account })){
             console.log("Minting successful");
         }
 
@@ -167,7 +167,7 @@ function AddCommercialContract(){
         console.log('To address:', addrArtist);
         console.log('Artist %:', percentArtist);
 
-        //return mrcResult;
+        return mrcResult;
 
     }
 

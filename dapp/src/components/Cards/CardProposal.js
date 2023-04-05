@@ -16,7 +16,7 @@ function CardContract(){
             />
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
-                <Card.Text>
+                <Card.Text className="text_sub">
                     Artist/Label name
                 </Card.Text>
             </Card.Body>
