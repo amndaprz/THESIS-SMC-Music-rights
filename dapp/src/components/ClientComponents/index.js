@@ -7,6 +7,8 @@ import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
 import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
+import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
@@ -77,6 +79,15 @@ function Client() {
         console.log(Array.from(allHashes));
 
         return allHashes;
+    }
+
+    const displaySongs = async() => {
+
+        let allResults = contract.methods.getAllMRCs();
+
+        console.log(allResults);
+
+        return 
     }
 
     const displayAllInfo = async() => {
