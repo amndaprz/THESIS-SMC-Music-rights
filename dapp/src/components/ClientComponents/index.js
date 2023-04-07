@@ -12,6 +12,7 @@ import {contractAddress, contractABI, web3, contract} from '../../ContractProper
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
+import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 
 
 // let connectIPFS = new ConnectIPFS();
@@ -66,29 +67,33 @@ function Client() {
         return ipfs;
     }
 
-    const displayMarketplace = async(IPFS) => {
-        
-        const allPinned = await IPFS.pin.ls({type: 'recursive'});
+    const displaySongs = async() => {
+
+        let allResults = await contract.methods.getAllMRCs().call();
+
+        console.log(allResults);
+
+        return 
+    }
+
+    const displayMarketplace = async() => {
+        let IPFS = await ipfsClient();
+        const allPinned = IPFS.pin.ls({type: 'recursive'});
         // IPFS.c
         const allHashes = new Set();
 
-        allPinned.forEach((item) => {
-            allHashes.add(item.cid.toString());
-        })
+        console.log(allPinned);
+        // allPinned.forEach((item) => {
+        //     allHashes.add(item.cid.toString());
+        // })
+
+        
 
         console.log(Array.from(allHashes));
 
         return allHashes;
     }
 
-    const displaySongs = async() => {
-
-        let allResults = contract.methods.getAllMRCs();
-
-        console.log(allResults);
-
-        return 
-    }
 
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
@@ -115,7 +120,7 @@ function Client() {
 
         console.log(dataObject);
 
-        displayMarketplace(IPFS);
+        //displayMarketplace(IPFS);
 
         setJsonObj(jsonObj);
 

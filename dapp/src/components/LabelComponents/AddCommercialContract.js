@@ -100,16 +100,16 @@ function AddCommercialContract(){
         
     };
 
-    const isReceiverValid = (addressArtist) => {
-        return contract.methods._isArtist(addressArtist).call()
-          .then((isArtist) => {
-            console.log( isArtist);
-            return isArtist;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };;
+    // const isReceiverValid = (addressArtist) => {
+    //     return contract.methods._isArtist(addressArtist).call()
+    //       .then((isArtist) => {
+    //         console.log( isArtist);
+    //         return isArtist;
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   };;
 
 
     // Minting 
@@ -132,8 +132,8 @@ function AddCommercialContract(){
 
         // Check if Artist Address is Valid
         console.log(addrArtist);
-        const isArtistValid  = await isReceiverValid(addrArtist);
-        console.log("isReceiverValid: "+ isArtistValid);
+        //const isArtistValid  = await isReceiverValid(addrArtist);
+        //console.log("isReceiverValid: "+ isArtistValid);
 
         const MRC = {
             song_title: songTitle,
@@ -152,7 +152,7 @@ function AddCommercialContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contract.methods.safeMintWithHash("Hello").send({from: account, gas: 99900, sender: account })){
+        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 6000000, sender: account })){
             console.log("Minting successful");
         }
 
