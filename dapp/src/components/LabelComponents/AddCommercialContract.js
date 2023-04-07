@@ -167,7 +167,7 @@ function AddCommercialContract(){
         console.log('To address:', addrArtist);
         console.log('Artist %:', percentArtist);
 
-        //return mrcResult;
+        return mrcResult;
 
     }
 

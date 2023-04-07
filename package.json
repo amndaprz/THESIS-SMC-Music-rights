@@ -6,6 +6,7 @@
     "@mui/styled-engine-sc": "^5.11.11",
     "ethers": "^6.0.8",
     "react-alert": "^7.0.3",
+    "react-content-loader": "^6.2.1",
     "react-notifications": "^1.7.4",
     "reactjs-popup": "^2.0.5",
     "styled-components": "^5.3.9",
