@@ -184,10 +184,10 @@ function Client() {
                         </Button>
 
                         {/* Replace with on website refresh */}
-                        <Button
+                        {/* <Button
                             onClick={displayAllInfo}>
                         Display all Tokens
-                        </Button>
+                        </Button> */}
                         </>
                     )}
                     

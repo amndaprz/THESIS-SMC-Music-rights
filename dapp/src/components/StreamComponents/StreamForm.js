@@ -26,8 +26,8 @@ function StreamForm(){
         console.log("SMRC Address = " + smrcAddress)
         console.log("numStreams = " + numStreams);
 
-        const testAddress1 = "0x7E4216c925c5A11DC672196403171411Ee748F88";
-        const testAddress2 = "0xD077221195986B32B6B64Fe2A66EE26493B09aDA";
+        const testAddress1 = "0xAaB410B1489f49c52516519aCd2eFed002653260";
+        const testAddress2 = "0xF0Aba17b873c2E48F83008402AAF9ea829dfe9aa";
         const Addr1Percent = 30;
         const Addr2Percent = 70;
         const totalFee = 3;

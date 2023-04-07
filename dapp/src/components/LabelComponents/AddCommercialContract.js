@@ -94,7 +94,7 @@ function AddCommercialContract(){
 
     const isSenderValid = (addressInput, addressMetamask) => {
         // Is the address given same as the one in metamask
-        const confirmAddr = addressInput === addressMetamask
+        const confirmAddr = addressInput === addressMetamask;
         return confirmAddr;
         // Check if role fits this contract function
         
@@ -132,8 +132,8 @@ function AddCommercialContract(){
 
         // Check if Artist Address is Valid
         console.log(addrArtist);
-        const isArtistValid  = await isReceiverValid(addrArtist);
-        console.log("isReceiverValid: "+ isArtistValid);
+        // const isArtistValid  = await isReceiverValid(addrArtist);
+        // console.log("isReceiverValid: "+ isArtistValid);
 
         const MRC = {
             song_title: songTitle,
@@ -152,7 +152,7 @@ function AddCommercialContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contract.methods.safeMintWithHash("Hello").send({from: account, gas: 99900, sender: account })){
+        if(await contract.methods.safeMintWithHash("Hello").send({from: account, gas: 21000, sender: account })){
             console.log("Minting successful");
         }
 

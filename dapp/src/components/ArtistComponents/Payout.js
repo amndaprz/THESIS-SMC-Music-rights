@@ -7,19 +7,24 @@ let account;
 
 const Payout = () => {
 
-    const musicStreamCount = 100;
-    const payoutValue = 10;
+    const musicStreamCount = 100; // Defaulted to 100 for now
+    const payoutValue = 10; // Conversion rate of streamcount to ETH
 
+    // Input Values
     const [requestAmountInput, setReqAmount] = useState('');
-    const [availableBalance, setAvailableBalance] = useState(100);
 
+    // Debug Values
+    const [clickCount, setClickCount] =  useState(0);
+    
+    // Display Values
+    const [availableBalance, setAvailableBalance] = useState(musicStreamCount);
     const [currentETHBal, setETHBal] = useState("");
     const [owedEth , setOwedETH] = useState("");
-    const [prevETHBal, setPrevETH] = useState("");
 
+    // Unused Values (Delete Soon)
+    const [prevETHBal, setPrevETH] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
 	const [defaultAccount, setDefaultAccount] = useState(null);
-	const [userBalance, setUserBalance] = useState(null);
 	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
     
 
@@ -67,24 +72,9 @@ const Payout = () => {
 
     // Checker
     const isAmountValid = () => {
-
         if(requestAmountInput < availableBalance){
-            setUserBalance(availableBalance - requestAmountInput);
-            setAvailableBalance(availableBalance - requestAmountInput);
-            setOwedETH(requestAmountInput * payoutValue);
-
-            const newBalance = parseFloat(owedEth) + parseFloat(currentETHBal);
-            setETHBal(parseFloat(newBalance));       
-
-            console.log("owed eth " + owedEth);
-            console.log("New Balance " + newBalance);
-            console.log("ETH Balance " + currentETHBal);
-            console.log(parseFloat(newBalance) + parseFloat(currentETHBal)) ;   
-
             return true;
-            
         }else{
-            
             return false;
         } 
     }
@@ -96,23 +86,36 @@ const Payout = () => {
 
         getAccountBalance(account);
         setETHBal(currentETHBal);
-        console.log("Balance " + currentETHBal);
-        console.log("Available Balance - "+ availableBalance);
-        console.log("Request Input Field = " +  requestAmountInput);
 
         if(isAmountValid()){
-            console.log("reqInput " + requestAmountInput);
-            console.log("User must receive: " + requestAmountInput + " * " + payoutValue + " = " + requestAmountInput*payoutValue + "ETH");
-        
-            // Set Owed in Eth
-            console.log("Owed Eth = " + owedEth);
-            console.log("Current Eth bal = " + currentETHBal);
 
+            // See how many clicks has been made
+            setClickCount(clickCount+1); 
+
+            // Available Balance refers to the balance from streams available for withdraw (defaulted to 100 for now)
+            setAvailableBalance(availableBalance - requestAmountInput); 
+
+            // Request Amount * payout value from Stream to ETH
+            setOwedETH(requestAmountInput * payoutValue); 
+
+            // set New balance by adding current balance + owed Eth
+            const newBalance = parseFloat(owedEth) + parseFloat(currentETHBal);
+            setETHBal(parseFloat(newBalance));       
+
+            console.log("------- Click Count: " + clickCount + "-------");
+            console.log("owed eth " + owedEth);
+            console.log("New Balance " + newBalance);
+            console.log("ETH Balance " + currentETHBal);
+            console.log("New Balance2: " + newBalance);
+
+            // console.log("Balance " + currentETHBal);
+            // console.log("Available Balance - "+ availableBalance);
+            // console.log("Request Input Field = " +  requestAmountInput);
+            // console.log("User must receive: " + requestAmountInput + " * " + payoutValue + " = " + requestAmountInput*payoutValue + "ETH");
+        
         }
 
         console.log("---------------")
-
-
     }
 
     return(
