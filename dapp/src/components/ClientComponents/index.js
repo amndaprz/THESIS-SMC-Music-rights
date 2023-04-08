@@ -12,8 +12,6 @@ import {contractAddress, contractABI, web3, contract} from '../../ContractProper
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
-
 
 // let connectIPFS = new ConnectIPFS();
 
