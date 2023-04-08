@@ -98,24 +98,43 @@ max-width: 80vw;
 }
 
 .card-deck{
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .card{
-max-width: 400px;
-height: 200px;
-background-color: #2B2833;
-margin: 20px;
-padding: 20px;
-border-radius: 20px;
-min-width: 400px;
+  max-width: 450px;
+  min-width: 450px;
+  height: max-content;
+  background-color: #2B2833;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  display: inline-block;
 }
 
-.card-title, .card-text{
+.card:hover{
+  transition: .2s;
+  border: #595275 solid 0.1px;
+  z-index: 100;
+}
+
+.card_text:hover .card_subtitle{
+  display: none;
+  transition: .3s;
+  color: white;
+}
+
+.card_text:hover .card_content{
+  transition: .3s;
+  color: white;
+}
+
+.card-title, .card_text{
 text-overflow: ellipsis;
 white-space: nowrap;
 overflow: hidden;
+
 }
 
 .card_con{
@@ -426,6 +445,11 @@ padding-left: 15px;
 padding-left: 15px;
 } 
 
+.card_subtitle, .card_subtitle_token{
+  width: 110px;
+  display: inline-block;
+}
+
 .confirm_con {
 height: max-content;
 display: flex;
@@ -486,5 +510,19 @@ top: 15px;
 .input-container:focus-within placeholder {
 transform: translate(0, 10px) scale(0.8);
 color: #595275;
+}
+
+.tooltip > div.tooltip-inner {
+  background-color: white !important;
+  color: black !important;
+}
+
+.tooltip.show {
+  opacity: 1 !important;
+}
+
+.tooltip > .tooltip-arrow::before {
+  border-bottom-color: white !important;
+  color: white !important;
 }
 

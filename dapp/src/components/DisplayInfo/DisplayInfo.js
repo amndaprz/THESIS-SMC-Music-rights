@@ -32,8 +32,6 @@ const DisplayInfo = () => {
         console.log("Balance = " + balance);
 	}
 
-
-
     async function displayRole() {
 		result = " " ;
 		try {

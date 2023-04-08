@@ -51,7 +51,7 @@
 }
 
 .text_sub{
-  color: #595275 !important;
+  color: #746b98 !important;
 }
 
 .text_pop{
@@ -122,6 +122,20 @@
 }
 
 .btn_mod:hover{
+  background-color: #2C264B !important;
+  transition: 0.2s;
+}
+
+.btn_mod_role {
+  border-radius: 20px !important;
+  background-color: #9988FF !important;
+  color: white;
+  border: none !important;
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+.btn_mod_role:hover{
   background-color: #2C264B !important;
   transition: 0.2s;
 }

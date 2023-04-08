@@ -4,6 +4,8 @@ import ContractPopup from '../Modals/Contract';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+
+
 function CardContract(){
 
     const [modalShow, setModalShow] = React.useState(false);
@@ -16,7 +18,7 @@ function CardContract(){
             />
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
-                <Card.Text>
+                <Card.Text className="text_sub">
                     Artist/Label name
                 </Card.Text>
             </Card.Body>
