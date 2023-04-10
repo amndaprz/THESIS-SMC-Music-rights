@@ -6,7 +6,7 @@ function BuySongs(props){
     const jsonObj = props.data;
     console.log("Buy songs = " + jsonObj.percent_artist);
         return(
-        <div class="row py-4 px-0 card-deck">
+        <div class="row py-4 card-deck">
        
             <CardBuy 
                 addrA = {jsonObj.artist_address}
