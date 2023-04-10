@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import ConfirmStream from "../Modals/ConfirmStream";
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import {contractAddress, contractABI, web3, contract, contractStream, web3S} from '../../ContractProperties';
 
 
 let account;
@@ -50,7 +50,6 @@ function StreamForm(){
         batch.execute();
 
         tx2Req.on('confirmation', (confirmationNumber, receipt) => {
-
             console.log(confirmationNumber);
             console.log(receipt);
             if( confirmationNumber === 1){
@@ -79,6 +78,13 @@ function StreamForm(){
     }
 
 
+    const simulateStreams = async() => {
+        const streamCount = await contractStream.methods.simulateStreams(numStreams, smrcAddress).call();
+
+        console.log(streamCount);
+    }
+
+
     return(
         <form className="mx-4 mt-5" onSubmit="">
             <ConfirmStream
@@ -89,7 +95,7 @@ function StreamForm(){
               <h3 className="mb-4 ">Stream simulation</h3>
   
               <div className="my-3 p-4 input_contract">
-                  <p className="text_sub p-0 m-0">Enter SMRC address :
+                  <p className="text_sub p-0 m-0">Enter SMRC id :
                   <input type="text" name="addr" className="inputfield_contract" placeholder="Type here"  value = {smrcAddress} onChange={handleSMRCAddress} />
                   </p>
               </div>
@@ -99,16 +105,16 @@ function StreamForm(){
                   </p>
               </div>
               <div>
-                <Button
+                {/* <Button
                     className="submit-button mt-3 py-3 px-5 btn_mod"
                     onClick={() => setModalShow(true)}>
                     Simulate
-                </Button>
+                </Button> */}
 
                 <Button
                     className="submit-button mt-3 py-3 px-5 btn_mod"
-                    onClick={simulateStreamPayout}>
-                    Simulate w/o Modal
+                    onClick={simulateStreams}>
+                    Simulate 
                 </Button>
               </div>
             </div>

@@ -131,20 +131,25 @@ function AddStreamingContract(){
         
         // Add Checker if all prereqs are satisfied
         console.log(account);
-        if(await contractStream.methods.addStream(mrcResult).send({from: account})){
+        
+        if(await contractStream.methods.addStream(mrcResult).send({from: account, gas: 600000 })){
             console.log("Minting successful");
+
+            const streamID = await contractStream.methods.getStreamID().call();
+            console.log("Stream ID = " + streamID);
         }
 
+
+        // const balance2 = await contract.methods.balanceOf(account).call();
         const balance = await contract.methods.balanceOf(account).call();
         setBalance(balance);
         console.log("Balance = " + balance);
 
-
-        // Checkers
-        console.log('From address:', addrLabel);
-        console.log('Label %:', percentLabel);
-        console.log('To address:', addrArtist);
-        console.log('Artist %:', percentArtist);
+        // // Checkers
+        // console.log('From address:', addrLabel);
+        // console.log('Label %:', percentLabel);
+        // console.log('To address:', addrArtist);
+        // console.log('Artist %:', percentArtist);
 
         return mrcResult;
 

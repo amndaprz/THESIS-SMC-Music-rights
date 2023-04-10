@@ -47,6 +47,7 @@ function Client() {
 
     const toggleTab = (index) => {
         setToggleState(index);
+        
     };
 
     // IPFS
