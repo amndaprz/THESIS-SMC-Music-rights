@@ -7,7 +7,6 @@ import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
 import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
@@ -24,16 +23,26 @@ function Client() {
     const [toggleState, setToggleState] = useState(1);
 
     const [jsonObject, setJsonObj] = React.useState("");
+    const [tokenObject, setTokenObj] = React.useState("");
 
     React.useEffect(() => {
     const getInfo = async () => {
       // your code to get the JSON object from IPFS
       const IPFS = await ipfsClient();
       const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
+      let allResults = await contract.methods.getAllMRCs().call();
       try {
         const data = [];
-        for await (const chunk of IPFS.cat(cid)) {
-          data.push(chunk);
+        const i = 0;
+        const j = 0;
+        for(i = 0; i < allResults.size(); i++)
+        {
+
+            for await (const chunk of IPFS.cat(allResults[i][0])) {
+                data.push(chunk);
+            }
+
+        
         }
         const info = Buffer.concat(data).toString();
         const jsonObj = JSON.parse(info);
@@ -67,60 +76,67 @@ function Client() {
         return ipfs;
     }
 
-    const displaySongs = async() => {
+    const getDisplaySongs = async() => {
 
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
 
-        return 
+        return allResults;
     }
-
-    const displayMarketplace = async() => {
-        let IPFS = await ipfsClient();
-        const allPinned = IPFS.pin.ls({type: 'recursive'});
-        // IPFS.c
-        const allHashes = new Set();
-
-        console.log(allPinned);
-        // allPinned.forEach((item) => {
-        //     allHashes.add(item.cid.toString());
-        // })
-
-        
-
-        console.log(Array.from(allHashes));
-
-        return allHashes;
-    }
-
 
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
         let info = [];
-
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
+        const data = [];
+        let allResults = await contract.methods.getAllMRCs().call();
+
+        console.log("HATDOG");
+        console.log(allResults);
+        console.log(Object.keys(allResults).length);
+
+        // iterates over allResults with tokenID and CID
+    
 
         try {
-            const data = [];
-            for await (const chunk of IPFS.cat(cid)) {
-              data.push(chunk);
+            
+            for (let key in allResults)
+            {
+                console.log("Data is " + allResults[key][0]);
+
+                for await (const chunk of IPFS.cat(allResults[key][1])) {
+                    console.log(chunk);
+                    data.push(chunk); 
+                }
             }
-           
-            console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
-            info = Buffer.concat(data).toString();
+
+            console.log("Extraction successful!");
+
+            //console.log(allResults.size());
+            // if for loop doesnt work use while loop instead
+            // for await (const chunk of IPFS.cat(cid)) {
+            //   data.push(chunk);
+            // }
+            
+            
         
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
 
+       
+        //console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
+        info = Buffer.concat(data).toString();
         console.log("INFO - " + info);
+        //info = "["+info.åreplace(/\n/g, ",")+"]";
         const jsonObj = JSON.parse(info);
+
         dataObject = jsonObj;
 
-        console.log(dataObject);
-
-        //displayMarketplace(IPFS);
+        console.log("Parsed: " + dataObject);
+        console.log(typeof jsonObj);
+        //getDisplaySongs();
 
         setJsonObj(jsonObj);
 
