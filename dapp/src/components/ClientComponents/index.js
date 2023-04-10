@@ -89,7 +89,7 @@ function Client() {
         let IPFS = await ipfsClient();
         let info = [];
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
-        const data = [];
+        const data =[];
         const temp_data = [];
         let allResults = await contract.methods.getAllMRCs().call();
 
@@ -109,11 +109,28 @@ function Client() {
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 
+                    // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
 
-                    temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+                    info = Buffer.concat(data).toString();
+                    console.log("INFO - " + info);
+
+                    try {
+                        const data = JSON.parse(info);
+                        console.log(data);
+                        temp_data.push(data);
+                        setJsonObj(data);
+                      } catch (error) {
+                        const position = parseInt(error.message.split(' ').pop(), 10);
+                        const cleanJsonString = info.substring(0, position);
+                        const data = JSON.parse(cleanJsonString);
+                        console.log(data);
+                        temp_data.push(data);
+                        setJsonObj(data);
+                      }
+                      
+                      data.pop();
                 }
             }
-
             console.log("Extraction successful!");
 
             //console.log(allResults.size());
@@ -130,21 +147,29 @@ function Client() {
 
         console.log(temp_data);
         console.log(typeof data);
-        //console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
-        info = Buffer.concat(data).toString();
-
-        console.log("INFO - " + info);
+        console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
+        
+        
+        // info = Buffer.concat(data).toString();
+        // console.log("INFO - " + info);
         //info = "["+info.åreplace(/\n/g, ",")+"]";
-        const jsonObj = JSON.parse(info);
+        // const jsonObj = 0;
+        // try {
+        //     const jsonObj = JSON.parse(info);
+        // } catch (err) { console.error("Error parse-ing: ", err);}
 
-        dataObject = jsonObj;
+        // dataObject = jsonObj;
 
-        console.log("Parsed: " + dataObject);
-        console.log(typeof jsonObj);
+        // console.log("Parsed: " + dataObject);
+        
+        // const jsonObj = JSON.parse(info);
+        // console.log(typeof data);
         //getDisplaySongs();
 
-        setJsonObj(jsonObj);
+        
+    
 
+    
     }
     
     const [loading, setLoading] = useState(true);
