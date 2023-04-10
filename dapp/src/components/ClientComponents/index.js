@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ContentLoader from 'react-content-loader'
 import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
 
 import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
 import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import { contractAddress, contractABI, web3, contract } from '../../ContractProperties';
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
@@ -25,31 +26,31 @@ function Client() {
     const [jsonObject, setJsonObj] = React.useState("");
 
     React.useEffect(() => {
-    const getInfo = async () => {
-      // your code to get the JSON object from IPFS
-      const IPFS = await ipfsClient();
-      const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
-      try {
-        const data = [];
-        for await (const chunk of IPFS.cat(cid)) {
-          data.push(chunk);
-        }
-        const info = Buffer.concat(data).toString();
-        const jsonObj = JSON.parse(info);
-        setJsonObj(jsonObj);
-      } catch (err) {
-        console.error("Error while retrieving data from IPFS:", err); // handle any errors
-      }
-    };
-    getInfo();
-  }, []);
+        const getInfo = async () => {
+            // your code to get the JSON object from IPFS
+            const IPFS = await ipfsClient();
+            const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
+            try {
+                const data = [];
+                for await (const chunk of IPFS.cat(cid)) {
+                    data.push(chunk);
+                }
+                const info = Buffer.concat(data).toString();
+                const jsonObj = JSON.parse(info);
+                setJsonObj(jsonObj);
+            } catch (err) {
+                console.error("Error while retrieving data from IPFS:", err); // handle any errors
+            }
+        };
+        getInfo();
+    }, []);
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
 
     // IPFS
-    const ipfsClient = async() => {
+    const ipfsClient = async () => {
         const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
         const projectSecret = '208442d6bd98466af54320034f4d6087';
         const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
@@ -60,37 +61,41 @@ function Client() {
             headers: {
                 authorization: auth,
             },
-            
+
         })
 
         return ipfs;
     }
 
-    const displayMarketplace = async(IPFS) => {
-        
-        const allPinned = await IPFS.pin.ls({type: 'recursive'});
+    const displaySongs = async () => {
+
+        let allResults = await contract.methods.getAllMRCs().call();
+
+        console.log(allResults);
+
+        return
+    }
+
+    const displayMarketplace = async () => {
+        let IPFS = await ipfsClient();
+        const allPinned = IPFS.pin.ls({ type: 'recursive' });
         // IPFS.c
         const allHashes = new Set();
 
-        allPinned.forEach((item) => {
-            allHashes.add(item.cid.toString());
-        })
+        console.log(allPinned);
+        // allPinned.forEach((item) => {
+        //     allHashes.add(item.cid.toString());
+        // })
+
+
 
         console.log(Array.from(allHashes));
 
         return allHashes;
     }
 
-    const displaySongs = async() => {
 
-        let allResults = contract.methods.getAllMRCs();
-
-        console.log(allResults);
-
-        return 
-    }
-
-    const displayAllInfo = async() => {
+    const displayAllInfo = async () => {
         let IPFS = await ipfsClient();
         let info = [];
 
@@ -99,12 +104,12 @@ function Client() {
         try {
             const data = [];
             for await (const chunk of IPFS.cat(cid)) {
-              data.push(chunk);
+                data.push(chunk);
             }
-           
+
             console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
             info = Buffer.concat(data).toString();
-        
+
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
@@ -115,27 +120,26 @@ function Client() {
 
         console.log(dataObject);
 
-        displayMarketplace(IPFS);
+        //displayMarketplace(IPFS);
 
         setJsonObj(jsonObj);
 
     }
-    
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const t = setTimeout(() => {
             setLoading(false);
-        } , 3000);
+        }, 3000);
 
         return () => {
             clearTimeout(t);
         }
     }, []);
     return (
-    <div>
-        {/*<NotificationContainer/>*/}
-        <div className="row p-0 m-0 card_con">
+        <div className=" p-0 m-0 card_con">
+            {/*<NotificationContainer/>*/}
             <div className="col-sm-2 p-0 m-0 nav_con">
                 <div className="px-4 pb-5">
                     {loading ? (
@@ -149,16 +153,16 @@ function Client() {
                             <rect x="20" y="70" rx="5" ry="5" width="220" height="12" />
                             <rect x="20" y="102" rx="5" ry="5" width="220" height="12" />
                         </ContentLoader>
-                    ): (
+                    ) : (
                         <>
-                        <h2 className="mx-4 mt-5 client_name">Client name</h2>
-                        <h5 className="mx-4 text_sub">Role name</h5>
+                            <h2 className="mx-4 mt-5 client_name">Client name</h2>
+                            <h5 className="mx-4 text_sub">Role name</h5>
                         </>
                     )}
-                    
+
                 </div>
                 <div className="nav_btn_con">
-                {loading ? (
+                    {loading ? (
                         <ContentLoader
                             width={450}
                             height={200}
@@ -169,36 +173,42 @@ function Client() {
                             <rect x="40" y="10" rx="5" ry="5" width="270" height="50" />
                             <rect x="40" y="80" rx="5" ry="5" width="270" height="50" />
                         </ContentLoader>
-                    ): (
+                    ) : (
                         <>
-                        <Button
-                            className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                            onClick={() => toggleTab(1)}>
-                        Buy songs
-                        </Button>
+                            <Button
+                                className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+                                onClick={() => toggleTab(1)}>
+                                Buy songs
+                            </Button>
 
-                        <Button
-                            className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                            onClick={() => toggleTab(2)}>
-                        Owned songs
-                        </Button>
+                            <Button
+                                className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+                                onClick={() => toggleTab(2)}>
+                                Owned songs
+                            </Button>
 
-                        {/* Replace with on website refresh */}
-                        {/* <Button
-                            onClick={displayAllInfo}>
-                        Display all Tokens
-                        </Button> */}
+                            {/* Replace with on website refresh */}
+                            <Button
+                                onClick={displayAllInfo}>
+                                Display all Tokens
+                            </Button>
                         </>
                     )}
                     
                 </div>
-                    
+                <div className="px-4 mx-4 logout_btn_con">
+                    <Link to="/">
+                        <Button className="submit-button py-2 px-5 logout_btn">
+                            Logout
+                        </Button>
+                    </Link>
+                </div>
             </div>
-            
+
             <div className="col-sm-10 py-5 px-0 m-0 content_con">
-            
+
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                {loading ? (
+                    {loading ? (
                         <ContentLoader
                             width={450}
                             height={50}
@@ -208,15 +218,15 @@ function Client() {
                         >
                             <rect x="90" y="15" rx="5" ry="5" width="270" height="12" />
                         </ContentLoader>
-                    ): (
+                    ) : (
                         <h1>Marketplace</h1>
                     )}
-                    
-                    <BuySongs data={jsonObject}/>
+
+                    <BuySongs data={jsonObject} />
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                {loading ? (
+                    {loading ? (
                         <ContentLoader
                             width={450}
                             height={50}
@@ -226,19 +236,14 @@ function Client() {
                         >
                             <rect x="90" y="0" rx="5" ry="5" width="270" height="50" />
                         </ContentLoader>
-                    ): (
+                    ) : (
                         <h1>Owned Songs</h1>
                     )}
-                    <OwnedSongs/>
+                    <OwnedSongs />
                 </div>
             </div>
-
         </div>
-        
-
-      
-    </div>
-  );
+    );
 }
 
 export default Client;
