@@ -90,6 +90,7 @@ function Client() {
         let info = [];
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
         const data = [];
+        const temp_data = [];
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log("HATDOG");
@@ -108,6 +109,8 @@ function Client() {
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 
+
+                    temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
                 }
             }
 
@@ -125,9 +128,11 @@ function Client() {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
 
-       
+        console.log(temp_data);
+        console.log(typeof data);
         //console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
         info = Buffer.concat(data).toString();
+
         console.log("INFO - " + info);
         //info = "["+info.åreplace(/\n/g, ",")+"]";
         const jsonObj = JSON.parse(info);
