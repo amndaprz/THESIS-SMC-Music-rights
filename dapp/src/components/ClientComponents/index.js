@@ -80,6 +80,8 @@ function Client() {
         console.log(Object.keys(allResults).length);
 
         // iterates over allResults with tokenID and CID
+    
+
         try {
             
             for (let key in allResults)
@@ -119,7 +121,8 @@ function Client() {
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-
+            
+            
         
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
@@ -146,6 +149,10 @@ function Client() {
         // const jsonObj = JSON.parse(info);
         // console.log(typeof data);
         //getDisplaySongs();
+
+        
+    
+
     
     }
     
