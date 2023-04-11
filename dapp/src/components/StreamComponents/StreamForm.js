@@ -99,16 +99,16 @@ function StreamForm(){
                   </p>
               </div>
               <div>
-                <Button
+                {/* <Button
                     className="submit-button mt-3 py-3 px-5 btn_mod"
                     onClick={() => setModalShow(true)}>
                     Simulate
-                </Button>
+                </Button> */}
 
                 <Button
                     className="submit-button mt-3 py-3 px-5 btn_mod"
                     onClick={simulateStreamPayout}>
-                    Simulate w/o Modal
+                    Simulate
                 </Button>
               </div>
             </div>
