@@ -126,7 +126,7 @@ function CardBuy(props){
                                     )}
                                     placement="bottom"
                                     className="tooltip_card">
-                                    <span className="card_content">1</span>
+                                    <span className="card_content">{props.tokenID}</span>
                                 </OverlayTrigger>
                                 
                             </div>

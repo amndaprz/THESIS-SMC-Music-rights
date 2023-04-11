@@ -46,12 +46,12 @@ function Client() {
         }
         const info = Buffer.concat(data).toString();
         const jsonObj = JSON.parse(info);
-        setJsonObj(jsonObj);
+        //setJsonObj(jsonObj);
       } catch (err) {
         console.error("Error while retrieving data from IPFS:", err); // handle any errors
       }
     };
-    getInfo();
+    
   }, []);
 
     const toggleTab = (index) => {
@@ -118,14 +118,15 @@ function Client() {
                         const data = JSON.parse(info);
                         console.log(data);
                         temp_data.push(data);
-                        setJsonObj(data);
+                        //setJsonObj(data);
                       } catch (error) {
                         const position = parseInt(error.message.split(' ').pop(), 10);
                         const cleanJsonString = info.substring(0, position);
                         const data = JSON.parse(cleanJsonString);
-                        console.log(data);
+                        console.log(temp_data);
                         temp_data.push(data);
-                        setJsonObj(data);
+                        //setJsonObj(temp_data);
+                        
                       }
                       
                       data.pop();
@@ -144,8 +145,9 @@ function Client() {
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
-
-        console.log(temp_data);
+        console.log("temp_data datatype: " + data);
+        setJsonObj(temp_data);
+        //setJsonObj(data);
         console.log(typeof data);
         console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
         
