@@ -22,38 +22,21 @@ function Client() {
 
     const [toggleState, setToggleState] = useState(1);
 
-    const [jsonObject, setJsonObj] = React.useState("");
+    const [jsonObject, setJsonObj] = React.useState([]);
     const [tokenObject, setTokenObj] = React.useState("");
 
-    React.useEffect(() => {
-    const getInfo = async () => {
-      // your code to get the JSON object from IPFS
-      const IPFS = await ipfsClient();
-      const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
-      let allResults = await contract.methods.getAllMRCs().call();
-      try {
-        const data = [];
-        const i = 0;
-        const j = 0;
-        for(i = 0; i < allResults.size(); i++)
-        {
+    useEffect(() => {
+        const t = setTimeout(() => {
+            setLoading(false);
+            displayAllInfo();
+        } , 3000);
 
-            for await (const chunk of IPFS.cat(allResults[i][0])) {
-                data.push(chunk);
-            }
-
-        
+        return () => {
+            clearTimeout(t);
         }
-        const info = Buffer.concat(data).toString();
-        const jsonObj = JSON.parse(info);
-        //setJsonObj(jsonObj);
-      } catch (err) {
-        console.error("Error while retrieving data from IPFS:", err); // handle any errors
-      }
-    };
-    
-  }, []);
+    }, []);
 
+    
     const toggleTab = (index) => {
         setToggleState(index);
     };
@@ -118,7 +101,7 @@ function Client() {
                         const data = JSON.parse(info);
                         console.log(data);
                         temp_data.push(data);
-                        //setJsonObj(data);
+                        //setJsonObj(temp_data);
                       } catch (error) {
                         const position = parseInt(error.message.split(' ').pop(), 10);
                         const cleanJsonString = info.substring(0, position);
@@ -176,17 +159,9 @@ function Client() {
     
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const t = setTimeout(() => {
-            setLoading(false);
-        } , 3000);
-
-        return () => {
-            clearTimeout(t);
-        }
-    }, []);
+    
     return (
-    <div>
+    <div onLoad={displayAllInfo}>
         {/*<NotificationContainer/>*/}
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">
