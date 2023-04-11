@@ -18,9 +18,11 @@ function BuySongs(props){
         <div class="row py-4 px-0 card-deck" >
           {jsonObj.data.map((obj, index) => (
               <CardBuy 
+              songTitle = {obj.song_title}
               addrA = {obj.artist_address}
               addrL = {obj.label_address}
-              tokenID = {index}/>
+              tokenID = {index}
+              totalFee = {obj.total_fee}/>
           ))}
         </div>
       );
