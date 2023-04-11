@@ -26,11 +26,11 @@ function StreamForm(){
         console.log("SMRC Address = " + smrcAddress)
         console.log("numStreams = " + numStreams);
 
-        const testAddress1 = "0x1eD9bB1Df97dB022112c6903dae4153F38131303";
-        const testAddress2 = "0xbd43De17444a2ce79D7220E0c98c29091f519AE3";
+        const testAddress1 = "0x0d6d7eDC1A2BAf0ff30D72d1Ca3728F8E71c09Ba";
+        const testAddress2 = "0xCD8C3A3F7c0f67d5a93E8466438d3AfC3Ac6AaeD";
         const Addr1Percent = 30;
         const Addr2Percent = 70;
-        const totalFee = 3;
+        const totalFee = 10;
 
         const addr1Cut = totalFee * (Addr1Percent/100);
         const addr2Cut = totalFee * (Addr2Percent/100);
@@ -104,7 +104,7 @@ function StreamForm(){
                     onClick={() => setModalShow(true)}>
                     Simulate
                 </Button> */}
-
+                
                 <Button
                     className="submit-button mt-3 py-3 px-5 btn_mod"
                     onClick={simulateStreamPayout}>
