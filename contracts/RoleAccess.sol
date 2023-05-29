@@ -2,90 +2,69 @@
 pragma solidity >=0.5.17;
 
 
-import "@openzeppelin/contracts@4.8.2/access/AccessControl.sol";
 
 
 // Role Access Contract
-contract RoleAccess is AccessControl {
+contract RoleAccess {
 
 
-    // bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE"); //Implement for security
-    // bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE"); // Label = Minter same
     bytes32 public constant CLIENT_ROLE = keccak256("CLIENT_ROLE");
     bytes32 public constant LABEL_ROLE = keccak256("LABEL_ROLE");
     bytes32 public constant ARTIST_ROLE = keccak256("ARTIST_ROLE");
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
 
+    struct User{
+        string r_address;
+        string r_alias;
+        uint256 role; // 1-Label, 2-Artist, 3-Client
+    }
+
+    User[] public _Users;
+
     constructor() {  
     }
 
 
-
-    function giveRoleLabel (address a) public {
-        _grantRole(LABEL_ROLE, a);
-    }
-
-      function giveRoleArtist (address a) public {
-        _grantRole(ARTIST_ROLE, a);
-    }
-
-      function giveRoleClient (address a) public {
-        _grantRole(LABEL_ROLE, a);
+    function giveRole(string calldata r_add, string calldata r_alias, uint256 role) public {
+        _Users.push(User(r_add,r_alias, role));
     }
 
 
-      function giveRoleAdmin (address a) public {
-        _grantRole(ADMIN_ROLE, a);
-    }
 
 
     // Checking funcs
 
-     function _isClient (address from) public view returns (bool) {
-        require(hasRole(CLIENT_ROLE, from), "User is not a CLIENT");
-        return true;
+    //returns role, 0 if no role or user does not exist
+    function hasRole(string calldata r_Add) public view returns (uint256){
+        uint256 r = 0;
+        for (uint x =0; x < _Users.length; x++){
+            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
+                r = _Users[x].role;
+        }
+
+        return r;
+
     }
 
-
-    function _isLabel (address from) public view returns (bool) {
-        require(hasRole(LABEL_ROLE, from), "User is not a LABEL");
-        return true;
+    function _removeRoles (string calldata r_Add) public {
+        for (uint x =0; x < _Users.length; x++){
+            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
+                _Users[x].role = 0;
+        }
     }
 
-
-    function _isArtist (address from) public view returns (bool) {
-        require(hasRole(ARTIST_ROLE, from), "User is not a ARTIST");
-        return true;
+    function deleteUser (string calldata r_Add) public {// Leaves an empty space sa array kung san nadelete ung user
+        for (uint x =0; x < _Users.length; x++){
+            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
+                delete _Users[x];
+        }
     }
 
-
-    function _isAdmin (address from) public view returns (bool) {
-        require(hasRole(ADMIN_ROLE, from), "User is not a ADMIN");
-        return true;
-    }
-
-
-    function _removeRoles (address to) public {
-        _revokeRole(DEFAULT_ADMIN_ROLE, to);
-        _revokeRole(CLIENT_ROLE, to);
-        _revokeRole(LABEL_ROLE, to);
-        _revokeRole(ARTIST_ROLE, to);
+    function getUsers() public view returns (User[] memory){
+        return _Users;
     }
 
     
-    // The following functions are overrides required by Solidity.
-
-
-    // function supportsInterface(bytes4 interfaceId)
-    //     public
-    //     view
-    //     override(AccessControl)
-    //     returns (bool)
-    // {
-    //     return super.supportsInterface(interfaceId);
-    // }
-
-
-
+    
 }
     
