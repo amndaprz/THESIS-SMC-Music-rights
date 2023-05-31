@@ -70,9 +70,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 450px;
-    width: 70%;
+    width: 90%;
     border-radius: 20px;
-    margin-left: 100px;
+    margin-left: 50px;
     z-index: 99;
 }
 
@@ -92,6 +92,7 @@
     justify-content:  space-evenly;
     flex-direction: column;
     color: white;
+    
 }
 
 .login_input{
@@ -158,7 +159,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 100px;
 }
 
 .title_main{
@@ -272,6 +272,15 @@ select option {
     border-bottom: solid 1px #322E40;
 }
 
+.btn_mod_signup{
+    width: 100%;
+    border-radius: 20px !important;
+    background-color: #9988FF !important;
+    color: white;
+    border: none !important;
+    padding: 22px;
+}
+
 .btn_mod_role{
     /* background: none !important;
     border: 1px solid white !important; */
@@ -279,4 +288,16 @@ select option {
 
 .btn_mod_role:hover{
     /* background-color: #9988FF !important; */
+}
+
+.inputfield_signup{
+    width: 15vw;
+    background: none;
+    color: whitesmoke;
+    border-color: white;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    outline: none;
+    padding: 20px;
 }

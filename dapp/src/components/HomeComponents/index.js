@@ -1,5 +1,5 @@
 
-import SelectRole from "./SelectRole";
+import SignUp from "./SignUp";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -108,7 +108,7 @@ function Home() {
                     </div>
                     <div className="col login_con">
                         <div className="selectrole_box">
-                            <SelectRole />
+                            <SignUp />
                         </div>
                     </div>
                 </div>
