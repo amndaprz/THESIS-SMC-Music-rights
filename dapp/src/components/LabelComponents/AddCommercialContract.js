@@ -8,6 +8,8 @@ import { Buffer } from 'buffer';
 import {utils} from 'web3';
 import ipfs from "./../IPFSComponents/ConnectIPFS"
 
+import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
+
 let account;
 
 function AddCommercialContract(){
@@ -111,10 +113,19 @@ function AddCommercialContract(){
     //       });
     //   };;
 
+    // Error test
+
+    const [errors, setErrors] = useState({})
+    //var error_message = "Error 1";
+    const [error_title, setErrorTitle] = useState('');
+    const [error_title_state, setErrorTitleState] = useState(0);
+    const [error_percentlabel, setErrorPercentLabel] = useState('');
+    const [error_percentlabel_state, setErrorPercentLabelState] = useState(0);
 
     // Minting 
     // Generates IPFS hash
     const mintERC721 = async() => {
+        //setErrors(Validation(songTitle));
         // Check for missing fields
         
         // Check Percentage Count
@@ -144,6 +155,29 @@ function AddCommercialContract(){
             total_fee: parseFloat(totalFee),
         };
 
+        //setErrors(Validation(MRC));
+
+        if(MRC.song_title === ""){
+            setErrorTitle("song_title is empty");
+            setErrorTitleState(1);
+        }
+        else{
+            setErrorTitleState(0);
+        }
+
+        if(percentLabel === ""){
+            setErrorPercentLabel("percent_label is empty");
+            console.log("percent_label is empty")
+            setErrorPercentLabelState(1);
+        }
+        else{
+            setErrorPercentLabelState(0);
+            console.log("percent_label is not empty")
+            console.log("percent_label is = %", MRC.percent_label)
+        }
+
+        console.log(MRC.song_title);
+
         console.log(MRC);
 
         let mrcResult = await saveInput(MRC);
@@ -171,47 +205,65 @@ function AddCommercialContract(){
 
     }
 
+    
+
     return(
         <form className="m-4" onSubmit="">
             <ConfirmAddContract
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-            <div className="my-3 input_con">
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter song title :
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" alue={songTitle} onChange={handleSongTitle}/>
+            <div className="input_con">
+                <div className="mb-3">
+                    <span className='mx-3 my-2'>Song title</span>
+                    {
+                        error_title_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_title}</span>
+                        
+                    }
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={songTitle} onChange={handleSongTitle}/>
                     </p>
                 </div>
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter percent label :
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentLabel} onChange={handlePLabel}                        />
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Percent of label</span>
+                    {
+                        error_percentlabel_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_percentlabel}</span>
+                        
+                    }
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentLabel} onChange={handlePLabel}/>
                     </p>
                 </div>
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter percent artist :
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Percent of artist</span>
+                    <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentArtist} onChange={handlePArtist} />
                     </p>
                 </div>
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter total fee :
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Total fee</span>
+                    <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
                     </p>
                 </div>
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Creation date :
-                        <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Creation date</span>
+                    <p className="text_sub p-0 mt-2">
+                    <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
                     </p>
                 </div>
-
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter address of label :
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Address of label</span>
+                    <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrLabel} onChange={handleAddrLabel} />
                     </p>
                 </div>
-                <div className="my-3 p-4 input_contract">
-                    <p className="text_sub p-0 m-0">Enter address of artist :
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrArtist} onChange={handleAddrArtist}/>
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Address of artist</span>
+                    <p className="text_sub p-0 mt-2">
+                    <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrArtist} onChange={handleAddrArtist}/>
                     </p>
                 </div>
           

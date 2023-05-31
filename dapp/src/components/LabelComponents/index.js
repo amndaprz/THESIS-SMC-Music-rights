@@ -137,7 +137,7 @@ function Label() {
                         <>
                             <div className={toggleState === 1 ? "content  active-content" : "content"}>
                                 <h1>Add contract</h1>
-                                <div className=" mt-5 mb-4">Please choose a contract type below:</div>
+                                <div className=" mt-5 mb-4">Choose a contract type below:</div>
                                 <div className="row">
                                     <div className="col">
                                         <Button

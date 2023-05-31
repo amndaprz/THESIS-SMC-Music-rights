@@ -18,6 +18,16 @@
     max-width: 20px;
 }
 
+.logo_name_nav{
+    margin-left: 2px;
+    max-height: 17px;
+}
+
+.logo_name_nav2{
+    margin-left: 2px;
+    max-height: 65px;
+}
+
 .img_con{
     position: relative;
     width:100%;
@@ -152,7 +162,7 @@
 }
 
 .title_main{
-    font-size: 80px;
+    font-size: 50px;
 
 }
 
@@ -248,16 +258,18 @@ select option {
 }
 
 .top_z{
-    z-index: 99;
+    z-index: 100;
 }
 
 .navbar_con{
     position: fixed;
-    padding: 35px;
-    width: 100vw;
-    margin-bottom: 500px;
+    padding: 25px;
+    width: 100%;
+    /*margin-bottom: 500px;*/
     top: 0; /* Stay on top */
     transition: top 0.2s;
+    background-color: #232226;
+    border-bottom: solid 1px #322E40;
 }
 
 .btn_mod_role{

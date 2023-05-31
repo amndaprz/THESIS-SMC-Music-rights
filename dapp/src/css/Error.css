@@ -1,0 +1,8 @@
+.error_contract{
+    font-style: italic;
+    color: rgb(169, 33, 33);
+}
+
+.valid_color{
+    color: green;
+}
