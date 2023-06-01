@@ -135,8 +135,14 @@ function AddCommercialContract(){
         //const isArtistValid  = await isReceiverValid(addrArtist);
         //console.log("isReceiverValid: "+ isArtistValid);
 
+        // temp
+        const artist_name = "NAME_ARTIST";
+        const label_name = "NAME_LABEL";
+
         const MRC = {
             song_title: songTitle,
+            artist_name: artist_name,
+            label_name: label_name,
             percent_label: parseInt(percentLabel),
             percent_artist: parseInt(percentArtist),
             label_address: addrLabel,
