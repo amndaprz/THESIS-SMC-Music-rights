@@ -15,7 +15,7 @@ function BuySongs(props){
     
 
     return (
-        <div class="row py-4 px-0 card-deck" >
+        <div class="row py-4 px-1  card-deck" >
           {jsonObj.data.map((obj, index) => (
               <CardBuy 
               songTitle = {obj.song_title}

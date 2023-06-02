@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import ContractPopup from '../Modals/Contract';
+//import ContractStreamPopup from '../Modals/ContractStream';
+import ContractCommPopup from '../Modals/ContractComm';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -25,22 +26,26 @@ function CardContract() {
         {
             title: "meiji",
             artist: "ina",
-            label: "evangelista"
+            label: "evangelista",
+            type: "Streaming"
         },
         {
             title: "tres",
             artist: "nicole",
-            label: "cheng"
+            label: "cheng",
+            type: "Commercial"
         },
         {
             title: "unna",
             artist: "nicole",
-            label: "cheng"
+            label: "cheng",
+            type: "Streaming"
         },
         {
             title: "dos",
             artist: "nicole",
-            label: "cheng"
+            label: "cheng",
+            type: "Commercial"
         }
     ];
 
@@ -82,8 +87,8 @@ function CardContract() {
                 <div className='col search_con2'>
                     <h4 className='search_title2'>Search</h4>
                     <div className='input_search'>
-                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
-                        <FaSearch className='mx-2 mb-1' />
+                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} /><FaSearch className='mx-2 mb-1' />
+                        
                     </div>
 
                 </div>
@@ -110,15 +115,12 @@ function CardContract() {
                 }
             }).map((song, key) => (
             <Card key={(key)}>
-                <ContractPopup
+                <ContractCommPopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     songs = {contractContent}
                 />
 
-                {
-                    console.log("oasjdfbaSDFGsgbsf", ContractPopup.title)
-                }
                 <Card.Body>
                     <Card.Title>{song.title}</Card.Title>
                     <Card.Text className="text_sub">

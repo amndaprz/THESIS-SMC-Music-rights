@@ -9,6 +9,7 @@ import Payout from './Payout';
 
 import ContentLoader from 'react-content-loader'
 import { Link } from "react-router-dom";
+import { FaFileContract, FaMoneyCheck, FaMusic, FaSignature } from 'react-icons/fa';
 
 document.body.style.background = "#232226";
 
@@ -35,22 +36,29 @@ function Artist() {
     return (
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">
-                <div className="px-4">
+                <div className="">
                     {loading ? (
                         <ContentLoader
-                            width={450}
-                            height={126}
-                            speed={2}
-                            backgroundColor={'#383447'}
-                            foregroundColor={'#2B2833'}
-                        >
-                            <rect x="20" y="70" rx="5" ry="5" width="220" height="12" />
-                            <rect x="20" y="102" rx="5" ry="5" width="220" height="12" />
-                        </ContentLoader>
+                        width={450}
+                        height={1000}
+                        speed={2}
+                        backgroundColor={'#383447'}
+                        foregroundColor={'#2B2833'}
+                    >
+                        <rect x="50" y="70" rx="5" ry="5" width="220" height="12" />
+                        <rect x="50" y="102" rx="5" ry="5" width="220" height="12" />
+                        <rect x="40" y="300" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="370" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="440" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="510" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="580" rx="5" ry="5" width="270" height="50" />
+                    </ContentLoader>
                     ) : (
                         <>
-                            <h2 className="mx-4 mt-5 client_name">Artist name</h2>
-                            <h5 className="mx-4 text_sub">Role name</h5>
+                            <div className="px-4 pb-5">
+                                <h2 className="mx-4 mt-5 client_name">Artist name</h2>
+                                <h5 className="mx-4 text_sub">Role name</h5>
+                            </div>
                         </>
                     )}
                 </div>
@@ -75,25 +83,25 @@ function Artist() {
                             <Button
                                 className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(1)}>
-                                View listed songs
+                                <FaMusic className='mx-3'/>View listed songs
                             </Button>
 
                             <Button
                                 className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(2)}>
-                                View contracts
+                                <FaFileContract className='mx-3'/>View contracts
                             </Button>
 
                             <Button
                                 className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(3)}>
-                                View contract proposals
+                                <FaSignature className='mx-3'/>View contract proposals
                             </Button>
 
                             <Button
                                 className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(4)}>
-                                Payout
+                                <FaMoneyCheck className='mx-3'/>Payout
                             </Button>
                         </>
                     )}
@@ -109,7 +117,7 @@ function Artist() {
                 </div>
             </div>
 
-            <div className="col-sm-10 py-5  m-0 content_con">
+            <div className="col-sm-10 py-5 m-0 content_con">
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     {loading ? (
                         <ContentLoader

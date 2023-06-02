@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 function CardOwned(){
     return(
-        <Card className="card_owned">
+        <Card>
             <Card.Body>
                 <Card.Title>Track title</Card.Title>
                 <Card.Text className="text_sub">

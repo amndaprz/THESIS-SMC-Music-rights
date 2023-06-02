@@ -269,7 +269,7 @@ select option {
     top: 0; /* Stay on top */
     transition: top 0.2s;
     background-color: #232226;
-    border-bottom: solid 1px #322E40;
+    border-bottom: solid 1px #3A3747;
 }
 
 .btn_mod_signup{

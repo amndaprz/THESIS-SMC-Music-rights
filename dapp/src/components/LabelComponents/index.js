@@ -12,6 +12,8 @@ import Payout from './Payout';
 
 import { Link } from "react-router-dom";
 
+import {FaFileContract, FaMoneyCheck, FaMusic, FaPlus, FaSignature } from "react-icons/fa";
+
 document.body.style.background = "#232226";
 
 function Label() {
@@ -68,36 +70,36 @@ function Label() {
                                 <h2 className="mx-4 mt-5 client_name">Label name</h2>
                                 <h5 className="mx-4 text_sub">Role name</h5>
                             </div>
-
+                        
                             <div className="nav_btn_con">
                                 <Button
                                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(1)}>
-                                    Add contract
+                                    <FaPlus className='mx-3'/>Add contract
                                 </Button>
 
                                 <Button
                                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(2)}>
-                                    View listed songs
+                                    <FaMusic className='mx-3'/>View listed songs
                                 </Button>
 
                                 <Button
                                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(3)}>
-                                    View contracts
+                                    <FaFileContract className='mx-3'/>View contracts
                                 </Button>
 
                                 <Button
                                     className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(4)}>
-                                    View contract proposals
+                                    <FaSignature className='mx-3'/>View contract proposals
                                 </Button>
 
                                 <Button
                                     className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(5)}>
-                                    Payout
+                                    <FaMoneyCheck className='mx-3'/>Payout
                                 </Button>
                             </div>
                         </>
