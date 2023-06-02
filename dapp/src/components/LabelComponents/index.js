@@ -66,7 +66,8 @@ function Label() {
                         </ContentLoader>
                     ) : (
                         <>
-                            <div className="px-4 pb-5">
+                            <div className="px-4 pt-5 pb-3 user_con">
+                                <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
                                 <h2 className="mx-4 mt-5 client_name">Label name</h2>
                                 <h5 className="mx-4 text_sub">Role name</h5>
                             </div>

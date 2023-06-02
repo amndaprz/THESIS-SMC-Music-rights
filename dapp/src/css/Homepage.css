@@ -568,7 +568,7 @@ button {
   align-content: center;
   flex-direction: row;
   margin: 20px;
-  margin-left: 100px;
+  margin-left: 80px;
   margin-bottom: 50px;
 }
 
@@ -577,7 +577,7 @@ button {
   justify-content: center;
   flex-direction: column;
   margin-right: 20px;
-  margin-left: 100px;
+  margin-left: 50px;
 }
 .search_title2{
   display: flex;
@@ -595,7 +595,18 @@ button {
   flex-direction: row;
   margin: 20px;
   margin-bottom: 50px;
-  margin-right: 100px;
+  margin-right: 60px;
+}
+
+.sort_con2{
+  display: flex;
+  justify-content: end;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-bottom: 50px;
+  margin-right: 80px;
 }
 
 .sort_title{
@@ -779,4 +790,15 @@ button {
   font-size: 50px;
   font-weight: 500;
   color: #9988FF;
+}
+
+.user_con{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo_tab{
+  width: 50px;
 }

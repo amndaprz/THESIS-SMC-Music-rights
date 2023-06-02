@@ -92,7 +92,7 @@ function CardContract() {
                     </div>
 
                 </div>
-                <div className='col sort_con'>
+                <div className='col sort_con2'>
                     <h6 className='sort_title2'>Sort by</h6>
                     <select value={sort} onChange={handleChange} className="input_sort select_signup">
                         <option value="a-z">A-Z</option>

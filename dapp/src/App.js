@@ -13,7 +13,7 @@ import "./css/App.css"
 import "./css/Homepage.css"
 import "./css/Login.css"
 import "./css/Notif.css"
-import "./css/Error.css"
+import "./css/Validation.css"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
