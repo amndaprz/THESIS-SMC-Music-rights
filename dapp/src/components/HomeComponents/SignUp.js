@@ -44,9 +44,9 @@ function SignUp(){
                         <div className='mx-3'>Select a role</div>
                         <select className="mt-1 inputfield_signup select_signup">
                             <option value="client">Client</option>
-                            <option value="lime">Artist</option>
-                            <option selected value="coconut">Label</option>
-                            <option value="mango">Admin</option>
+                            <option value="artist">Artist</option>
+                            <option selected value="label">Label</option>
+                            <option value="admin">Admin</option>
                         </select>
                     </div>
             

@@ -17,7 +17,7 @@ function AddStreamingContract(){
                 onHide={() => setModalShow(false)}
             />
             <div className="input_con">
-            <div className="mb-3">
+                <div className="mb-3">
                     <span className='mx-3 my-2'>Song title</span>
                     <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here"/>
