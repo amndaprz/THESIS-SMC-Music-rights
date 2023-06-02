@@ -6,11 +6,20 @@ import Card from 'react-bootstrap/Card';
 
 import { FaSearch } from "react-icons/fa";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CardContract() {
 
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
+    const [contractContent, setContractContent] = useState([]);
+
+    const clickedContract  = (value, isOpen) =>{
+        console.log("clicked", value);
+        setModalShow(isOpen);
+        setContractContent(value)
+    }
     // test
     const Songs = [
         {
@@ -47,11 +56,31 @@ function CardContract() {
     const handleChange = (e) => {
         setValue(e.target.value);
     };
+
+    console.log(sort)
+
+    Songs.sort((a, b) =>
+        a.title > b.title ? 1 : -1,
+    );
+
+    if (sort === "z-a") {
+        Songs.sort((a, b) =>
+            a.title > b.title ? -1 : 1,
+        );
+    }
+
+    
+
+    const notify = (event, title, artist) => {
+        //new Audio(Sound).play()
+        toast("Now playing:  " + title + " by " + artist);
+        //console.log(event.target);
+    }
     return (
         <>
-            <div className='row filter_con'>
-                <div className='col search_con'>
-                    <h4 className='search_title'>Search songs</h4>
+            <div className='row filter_con2'>
+                <div className='col search_con2'>
+                    <h4 className='search_title2'>Search</h4>
                     <div className='input_search'>
                         <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
                         <FaSearch className='mx-2 mb-1' />
@@ -59,7 +88,7 @@ function CardContract() {
 
                 </div>
                 <div className='col sort_con'>
-                    <h6 className='sort_title'>Sort by</h6>
+                    <h6 className='sort_title2'>Sort by</h6>
                     <select value={sort} onChange={handleChange} className="input_sort select_signup">
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
@@ -80,20 +109,26 @@ function CardContract() {
                     return song;
                 }
             }).map((song, key) => (
-            <Card>
+            <Card key={(key)}>
                 <ContractPopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
+                    songs = {contractContent}
                 />
+
+                {
+                    console.log("oasjdfbaSDFGsgbsf", ContractPopup.title)
+                }
                 <Card.Body>
                     <Card.Title>{song.title}</Card.Title>
                     <Card.Text className="text_sub">
-                        Label - {song.label}
+                        <div>by <span className='text_bold'>{song.artist}</span></div>
+                        <div className='text_italic'>{song.label}</div>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
                     <h5 class="text_sub">Date</h5>
-                    <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 card_button">
+                    <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button">
                         View
                     </Button>
                 </Card.Footer>

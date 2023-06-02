@@ -80,12 +80,11 @@ function CardStream() {
     }
 
 
-    const notify = (event, title, artist) => {
+    const notify = (title, artist) => {
         new Audio(Sound).play()
         toast("Now playing:  " + title + " by " + artist);
         //console.log(event.target);
     }
-
     return (
         <>
             <div className='row filter_con'>
@@ -141,21 +140,18 @@ function CardStream() {
                                 <Card.Text className="text_sub">
                                     <div className='row'>
                                         <div className='col'>
-                                            <div>
-                                                Artist - {song.artist}
-                                            </div>
-                                            <div>
-                                                Label - {song.label}
-                                            </div>
+                                            <div>by <span className='text_bold'>{song.artist}</span></div>
+                                            <div className='text_italic'>{song.label}</div>
                                         </div>
 
-                                        <Button className='col mx-2 play_btn' onClick={event => notify(event, song.title, song.artist)} key={key}>
+                                        <Button className='col mx-2 play_btn' onClick={() => notify(song.title, song.artist)} key={key}>
                                             <FaPlay className='play_icon' />
                                         </Button>
                                         <ToastContainer
                                             theme="dark"
                                             closeOnClick={true}
-                                            autoClose={3000} />
+                                            autoClose={2000}
+                                        />
                                     </div>
 
                                 </Card.Text>
