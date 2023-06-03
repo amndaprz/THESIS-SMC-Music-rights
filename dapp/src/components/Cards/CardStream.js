@@ -104,6 +104,12 @@ function CardStream() {
                     </select>
 
                 </div>
+                <ToastContainer
+                    theme="dark"
+                    closeOnClick={true}
+                    autoClose={2000}
+
+                />
             </div>
 
             {Songs.filter(song => {
@@ -147,15 +153,12 @@ function CardStream() {
                                         <Button className='col mx-2 play_btn' onClick={() => notify(song.title, song.artist)} key={key}>
                                             <FaPlay className='play_icon' />
                                         </Button>
-                                        <ToastContainer
-                                            theme="dark"
-                                            closeOnClick={true}
-                                            autoClose={2000}
-                                        />
                                     </div>
 
                                 </Card.Text>
                             </Card.Body>
+                            
+                            
                         </>
                     )
                     }
