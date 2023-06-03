@@ -1,4 +1,4 @@
-pragma solidity >=0.5.17;
+pragma solidity 0.8.4;
 
 
 contract StreamContract {
@@ -25,7 +25,7 @@ contract StreamContract {
         return  _streamCounter;
     }
 
-    function simulateStreams (uint256 n_streams, uint256 stream_id) public return (uint256){
+    function simulateStreams (uint256 n_streams, uint256 stream_id) public returns (uint256){
        
 
         Stream storage temp_stream = streams [stream_id];

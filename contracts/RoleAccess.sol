@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: DLSU--TINA
-pragma solidity >=0.5.17;
+pragma solidity 0.8.4;
 
 
-import "@openzeppelin/contracts@4.8.2/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 
 // Role Access Contract
