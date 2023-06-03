@@ -5,8 +5,6 @@ function ViewContracts(){
     return(
         <div class="row py-4 card-deck">
             <CardContract/>
-            <CardContract/>
-            <CardContract/>
         </div>
     );
 }

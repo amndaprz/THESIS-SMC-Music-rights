@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 
-function ContractPopup(props) {
+function ContractPopup(props){
 
     return (
       <Modal
@@ -13,12 +13,24 @@ function ContractPopup(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
                 <div className='modal_contract_title'>
-                    Track title
+                    {props.songs.title}
                 </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <div className='contract_con py-0 m-0'>
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Label name</div>
+                    <div className="col-sm-9 text_sub" >{props.songs.label}</div>
+                </div>
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Artist name</div>
+                    <div className="col-sm-9 text_sub" >{props.songs.artist}</div>
+                </div>
+                <div className='con_sub con_radius contract_info px-5 my-3 row'>
+                    <div className="col-sm-3 contractinfo_label" >Percent artist</div>
+                    <div className="col-sm-9 text_sub" >Percent artist</div>
+                </div>
                 <div className='con_sub con_radius contract_info px-5 my-3 row'>
                     <div className="col-sm-3 contractinfo_label" >Percent label</div>
                     <div className="col-sm-9 text_sub" >Percent label</div>
