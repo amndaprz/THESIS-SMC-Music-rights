@@ -4,6 +4,29 @@ import React, {useState} from 'react';
 
 import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
 
+import {contractAddress_RA, contractABI_RA, web3_RA, contract_RA} from '../../ContractProperties';
+
+
+const giveRole = async() => {
+
+    const accounts = await web3_RA.eth.requestAccounts();
+    const account = accounts[0];
+
+    const alias = "TestTimAcc";
+    const role = 2;
+
+    const giveRoleResult = await contract_RA.methods.giveRole(account, alias, role).send({ from: account });
+    
+    const result = await contract_RA.methods.getUsers().call();
+
+    console.log(giveRoleResult);
+    console.log(account);
+    console.log(result);
+    console.log("HERE");
+    return true;
+}
+
+
 function SignUp(){
 
     const [username, setUsername] = useState('');
@@ -12,6 +35,8 @@ function SignUp(){
 
     const [error_username, setErrorUsername] = useState('');
     const [error_username_state, setErrorUsernameState] = useState(0);
+
+    const [check_existing_user, existingUser] = userState();
     
     function handleValidation(event){
         event.preventDefault();
@@ -22,6 +47,16 @@ function SignUp(){
         }
         else{
             setErrorUsernameState(0);
+
+
+            // check for duplicates
+
+            // Add to RoleAccess.sol
+            if(giveRole()){
+
+            }
+           
+            
         }
 
     }
