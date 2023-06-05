@@ -1,28 +1,29 @@
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
 
 import {contractAddress_RA, contractABI_RA, web3_RA, contract_RA} from '../../ContractProperties';
 
 
-const giveRole = async() => {
+let result;
+
+const giveRole = async(username) => {
 
     const accounts = await web3_RA.eth.requestAccounts();
     const account = accounts[0];
 
-    const alias = "TestTimAcc";
+    const alias = username;
     const role = 2;
 
     const giveRoleResult = await contract_RA.methods.giveRole(account, alias, role).send({ from: account });
     
-    const result = await contract_RA.methods.getUsers().call();
+    result = await contract_RA.methods.getUsers().call();
 
-    console.log(giveRoleResult);
-    console.log(account);
+    // console.log(giveRoleResult);
+    // console.log(account);
     console.log(result);
-    console.log("HERE");
     return true;
 }
 
@@ -35,9 +36,51 @@ function SignUp(){
 
     const [error_username, setErrorUsername] = useState('');
     const [error_username_state, setErrorUsernameState] = useState(0);
-
-    const [check_existing_user, existingUser] = userState();
+   
+    const getUsers = async () => {
+        const getUsersList = await contract_RA.methods.getUsers().call();
+        console.log(getUsersList);
+        return getUsersList;
+    };
     
+    useEffect(() => {
+        const fetchData = async () => {
+            let usersList = await getUsers();
+            let registerStatus = false;
+            const accounts = await web3_RA.eth.requestAccounts();
+            const account = accounts[0];
+
+            console.log(" ** Account = " + account);
+
+            for (let i = 0; i < usersList.length; i++) {
+
+                console.log(" *** UserList - " + usersList[i][0]);
+                
+                if(account == usersList[i][0]){
+                    // ---------------- REDIRECT TO PAGE ---------------------------------
+                    let role = usersList[i][2];
+                    console.log("User has the role" + role);
+
+                    // switch(role){
+
+                    // }
+                    registerStatus = true;
+                    return;
+                }
+            }
+
+            if(registerStatus){
+                console.log("USER HAS EXISTING ACCOUNT");
+            }else{
+                console.log("USER HAS NOT REGISTERED YET, PROCEED TO SIGNUP PAGE.");
+            }
+            
+            
+        };
+
+        fetchData();
+    }, []);
+
     function handleValidation(event){
         event.preventDefault();
 
@@ -48,18 +91,21 @@ function SignUp(){
         else{
             setErrorUsernameState(0);
 
-
             // check for duplicates
+            // let checker = getUsers();
 
+            // console.log(checker +  "Pre giveRole");
             // Add to RoleAccess.sol
-            if(giveRole()){
+            if(giveRole(username)){
 
+                // Redirect to Page
             }
-           
+
             
         }
 
     }
+
     return(
         <div className="selectrole_con py-5">
             <h5>SIGN UP</h5>
