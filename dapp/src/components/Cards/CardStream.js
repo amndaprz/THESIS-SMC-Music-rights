@@ -67,8 +67,6 @@ function CardStream() {
         setValue(e.target.value);
     };
 
-    console.log(sort)
-
     Songs.sort((a, b) =>
         a.title > b.title ? 1 : -1,
     );
@@ -85,6 +83,7 @@ function CardStream() {
         toast("Now playing:  " + title + " by " + artist);
         //console.log(event.target);
     }
+
     return (
         <>
             <div className='row filter_con'>
@@ -108,10 +107,8 @@ function CardStream() {
                     theme="dark"
                     closeOnClick={true}
                     autoClose={2000}
-
                 />
             </div>
-
             {Songs.filter(song => {
                 if (query === '') {
                     return song;
@@ -122,8 +119,17 @@ function CardStream() {
                     return song;
                 }
                 else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+                    console.log("oasnasoi", song.label.toLowerCase().includes(query.toLowerCase()))
+                    
                     return song;
                 }
+
+                if(!song.title.toLowerCase().includes(query.toLowerCase()) && 
+                    !song.artist.toLowerCase().includes(query.toLowerCase()) &&
+                    !song.label.toLowerCase().includes(query.toLowerCase())){
+                }
+
+
 
             }).map((song, key) => (
                 <Card key={(key)}>
@@ -140,7 +146,7 @@ function CardStream() {
                             <rect x="10" y="110" rx="5" ry="5" width="250" height="12" />
                         </ContentLoader>
                     ) : (
-                        <>
+                        <>  
                             <Card.Body>
                                 <Card.Title>{song.title}</Card.Title>
                                 <Card.Text className="text_sub">
@@ -163,7 +169,9 @@ function CardStream() {
                     )
                     }
                 </Card>
+                
             ))}
+            
         </>
 
     );

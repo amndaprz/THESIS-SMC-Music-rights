@@ -32,6 +32,7 @@
   color: white;
 
   border: none;
+  border-radius: 20px;
 }
 
 
@@ -40,6 +41,7 @@
   display: block;
   position: absolute;
   height: 5px;
+  border-radius: 20px;
 }
 
 .active-tabs {

@@ -4,8 +4,6 @@ function OwnedSongs(){
     return(
         <div class="row py-4 px-1 card-deck">
             <CardOwned/>
-            <CardOwned/>
-            <CardOwned/>
         </div>
     );
 }

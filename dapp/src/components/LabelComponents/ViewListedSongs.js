@@ -4,8 +4,6 @@ function ViewListedSongs() {
     return(
         <div class="row py-4 px-1 card-deck">
             <CardList/>
-            <CardList/>
-            <CardList/>
         </div>
     );
 }

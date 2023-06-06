@@ -74,13 +74,6 @@ function CardContract() {
         );
     }
 
-    
-
-    const notify = (event, title, artist) => {
-        //new Audio(Sound).play()
-        toast("Now playing:  " + title + " by " + artist);
-        //console.log(event.target);
-    }
     return (
         <>
             <div className='row filter_con2'>
