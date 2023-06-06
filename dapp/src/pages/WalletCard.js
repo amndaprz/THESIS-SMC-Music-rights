@@ -18,7 +18,7 @@ const WalletCard = () => {
 		if (window.ethereum && window.ethereum.isMetaMask) {
 			console.log('MetaMask Here!');
 
-			window.ethereum.request({ method: 'eth_requestAccounts'})
+			window.ethereum.request({ method: 'requestAccounts'})
 			.then(result => {
 				accountChangedHandler(result[0]);
 				setConnButtonText('Wallet Connected');
