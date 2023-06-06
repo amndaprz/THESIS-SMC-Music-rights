@@ -11,7 +11,7 @@ import ContentLoader from 'react-content-loader'
 import { Link } from "react-router-dom";
 
 document.body.style.background = "#232226";
-
+//
 function Artist() {
 
     const [toggleState, setToggleState] = useState(1);
