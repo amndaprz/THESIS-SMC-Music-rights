@@ -36,7 +36,7 @@ function Artist() {
     return (
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">
-                <div className="">
+                <div>
                     {loading ? (
                         <ContentLoader
                         width={450}
@@ -55,60 +55,42 @@ function Artist() {
                     </ContentLoader>
                     ) : (
                         <>
-                            <div className="px-4 pt-5 pb-3 user_con">
-                                <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
-                                <h2 className="mx-4 mt-5 client_name">Artist name</h2>
-                                <h5 className="mx-4 text_sub">Role name</h5>
+                                <div className="px-4 pt-5 pb-3 user_con">
+                                    <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
+                                    <h2 className="mx-4 mt-5 client_name">Artist name</h2>
+                                    <h5 className="mx-4 text_sub">Role name</h5>
+                                </div>
+                            <div className="nav_btn_con">
+                                <Button
+                                    className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(1)}>
+                                    <FaMusic className='mx-3'/>View listed songs
+                                </Button>
+
+                                <Button
+                                    className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(2)}>
+                                    <FaFileContract className='mx-3'/>View contracts
+                                </Button>
+
+                                <Button
+                                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(3)}>
+                                    <FaSignature className='mx-3'/>View contract proposals
+                                </Button>
+
+                                <Button
+                                    className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(4)}>
+                                    <FaMoneyCheck className='mx-3'/>Payout
+                                </Button>
                             </div>
                         </>
                     )}
                 </div>
 
 
-                <div className="nav_btn_con">
-                    {loading ? (
-                        <ContentLoader
-                            width={450}
-                            height={800}
-                            speed={2}
-                            backgroundColor={'#383447'}
-                            foregroundColor={'#2B2833'}
-                        >
-                            <rect x="40" y="10" rx="5" ry="5" width="270" height="50" />
-                            <rect x="40" y="80" rx="5" ry="5" width="270" height="50" />
-                            <rect x="40" y="150" rx="5" ry="5" width="270" height="50" />
-                            <rect x="40" y="220" rx="5" ry="5" width="270" height="50" />
-                        </ContentLoader>
-                    ) : (
-                        <>
-                            <Button
-                                className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                                onClick={() => toggleTab(1)}>
-                                <FaMusic className='mx-3'/>View listed songs
-                            </Button>
-
-                            <Button
-                                className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                                onClick={() => toggleTab(2)}>
-                                <FaFileContract className='mx-3'/>View contracts
-                            </Button>
-
-                            <Button
-                                className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                                onClick={() => toggleTab(3)}>
-                                <FaSignature className='mx-3'/>View contract proposals
-                            </Button>
-
-                            <Button
-                                className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
-                                onClick={() => toggleTab(4)}>
-                                <FaMoneyCheck className='mx-3'/>Payout
-                            </Button>
-                        </>
-                    )}
-
-
-                </div>
+                
                 <div className="px-4 mx-4 logout_btn_con">
                     <Link to="/">
                         <Button className="submit-button py-2 px-5 logout_btn">

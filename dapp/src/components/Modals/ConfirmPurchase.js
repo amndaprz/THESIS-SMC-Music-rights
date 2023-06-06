@@ -1,7 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+//import CardBuy from '../Cards/CardBuy';
 
 function ConfirmPurchasePopup(props) {
+    console.log(props.content.songTitle)
+    //const cardBuy = new CardBuy();
+    //cardBuy.buy
 
     return (
         <Modal
@@ -25,7 +29,7 @@ function ConfirmPurchasePopup(props) {
                 <div className="confirm_con">
                     <div className='con_sub con_radius confirm_info px-5 my-3 row'>
                         <div className="col-sm-3 contractinfo_label" >Track title</div>
-                        <div className="col-sm-9 text_sub" >Track title</div>
+                        <div className="col-sm-9 text_sub" >{props.content.songTitle}</div>
                     </div>
                     <div className='con_sub con_radius confirm_info px-5 my-3 row'>
                         <div className="col-sm-3 contractinfo_label" >Artist name</div>

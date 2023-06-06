@@ -18,7 +18,7 @@ function CardContract() {
 
     const clickedContract  = (value, isOpen) =>{
         console.log("clicked", value);
-        setModalShow(isOpen);
+        setModalShow(isOpen);   
         setContractContent(value)
     }
     // test
@@ -48,7 +48,7 @@ function CardContract() {
             type: "Commercial"
         }
     ];
-
+    
     const [query, setQuery] = useState("");
 
     const getInitialSort = () => {
