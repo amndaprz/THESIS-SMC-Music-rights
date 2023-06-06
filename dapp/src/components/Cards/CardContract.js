@@ -63,6 +63,7 @@ function CardContract() {
     };
 
     console.log(sort)
+    console
 
     Songs.sort((a, b) =>
         a.title > b.title ? 1 : -1,

@@ -133,7 +133,7 @@ function Client() {
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
         //setJsonObj(data);
-        console.log(typeof data);
+        console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
         
         

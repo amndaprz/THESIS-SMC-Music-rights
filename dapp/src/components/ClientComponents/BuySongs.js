@@ -6,6 +6,8 @@ import { decryptCrowdsaleJson } from 'ethers';
 
 import { FaSearch } from "react-icons/fa";
 
+import { Buffer } from 'buffer';
+
 
 function BuySongs(props){
     
@@ -14,7 +16,9 @@ function BuySongs(props){
   //objectList.push(jsonObj)
   // console.log("Buy songs = " + jsonObj.percent_artist);
   console.log("Object List: " + props);
-  console.log("jsonObject" + jsonObj);
+
+  //const data2 = JSON.parse(jsonObj);
+  console.log("jsonObject 0000000001" + jsonObj.data.song_title);
   
   const [query, setQuery] = useState("");
 
@@ -31,20 +35,17 @@ function BuySongs(props){
 
     console.log(sort)
 
-/*
-    jsonObj.sort((a, b) =>
-        a.songTitle > b.songTitle ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
-    jsonObj.sort((a, b) => a.userId - b.userId);
+    //jsonObj.sort((a, b) => a.userId - b.userId);
 
     if (sort === "z-a") {
-      jsonObj.sort((a, b) =>
-            a.songTitle > b.songTitle ? -1 : 1,
+      jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
-*/
-
 
   return (
     <>
@@ -68,13 +69,19 @@ function BuySongs(props){
     </div>
 
       <div class="row py-4 px-1  card-deck" >
-        {jsonObj.data.map((obj, index) => (
+      {jsonObj.data.filter(song => {
+                if (query === '') {
+                    return song;
+                } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
+                    return song;
+                }
+              }).map((song, index) => (
             <CardBuy 
-            songTitle = {obj.song_title}
-            addrA = {obj.artist_address}
-            addrL = {obj.label_address}
+            songTitle = {song.song_title}
+            addrA = {song.artist_address}
+            addrL = {song.label_address}
             tokenID = {index}
-            totalFee = {obj.total_fee}/>
+            totalFee = {song.total_fee}/>
         ))}
       </div>
     </>
