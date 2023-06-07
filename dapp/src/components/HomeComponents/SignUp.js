@@ -11,15 +11,34 @@ let result;
 
 
 
-const giveRole = async(username) => {
+const giveRole = async(username,role) => {
 
     const accounts = await web3_RA.eth.requestAccounts();
     const account = accounts[0];
 
     const alias = username;
-    const role = 2;
 
-    const giveRoleResult = await contract_RA.methods.giveRole(account, alias, role).send({ from: account });
+    let roleInt = 0;
+    switch(role){
+        /*
+           1-Label, 2-Artist, 3-Client, 4-Admin
+        */
+        case 'label':
+            roleInt = 1;
+        break;
+        case 'artist':
+            roleInt = 2;
+        break;
+        case 'client':
+            roleInt = 3;
+        break;
+        case 'admin':
+            roleInt = 4;
+        break;
+    }
+
+
+    const giveRoleResult = await contract_RA.methods.giveRole(account, alias, roleInt).send({ from: account });
     
     result = await contract_RA.methods.getUsers().call();
 
@@ -61,6 +80,8 @@ function SignUp(){
 
                 console.log(" *** UserList - " + usersList[i][0]);
                 
+                // console.log(usersList + "hello");
+
                 if(account == usersList[i][0]){
                     // ---------------- REDIRECT TO PAGE ---------------------------------
                     let role = usersList[i][2];
@@ -77,7 +98,7 @@ function SignUp(){
                             navigate("../Artist");
                         break;
                         case 3:
-                            navigate("../pages/Client");
+                            navigate("../Client");
                         break;
                         case 4:
                             navigate('/destination');
@@ -122,7 +143,7 @@ function SignUp(){
             // let checker = getUsers();
 
             // Add to RoleAccess.sol
-            if(giveRole(username)){
+            if(giveRole(username,signupRole)){
                 console.log(signupRole + " SignupRole");
                 switch(signupRole){
                     /*
