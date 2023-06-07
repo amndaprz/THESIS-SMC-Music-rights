@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
@@ -13,6 +12,7 @@ function ViewContractProposals(){
     const [toggleState, setToggleState] = useState(1);
 
     const [jsonObject, setJsonObj] = React.useState([]);
+    const [ipfsHash, setIPFS] = React.useState([]);
     const [tokenObject, setTokenObj] = React.useState("");
 
     useEffect(() => {
@@ -49,23 +49,14 @@ function ViewContractProposals(){
         return ipfs;
     }
 
-    const getDisplaySongs = async() => {
-
-        let allResults = await contract.methods.getAllMRCs().call();
-
-        console.log(allResults);
-
-        return allResults;
-    }
-
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
         let info = [];
-        const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
         const data =[];
         const temp_data = [];
         const status = [];
-        let allResults = await contract.methods.getAllMRCs().call();
+        const ipfsHash = [];
+        let allResults = await contract.methods.getAllNonMint().call();
 
         console.log(allResults);
         console.log(Object.keys(allResults).length);
@@ -78,12 +69,13 @@ function ViewContractProposals(){
             for (let key in allResults)
             {
                 console.log("Data is " + allResults[key][0]);
-                status.push(allResults[key][2]);
-                console.log("status: " + allResults[key][2]);
-
+                //status.push(allResults[key][2]);
+                //console.log("status: " + allResults[key][2]);
+                //ipfsHash.push(IPFS.cat(allResults[key][1]));
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 
+                    
                     // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
 
                     info = Buffer.concat(data).toString();
@@ -122,6 +114,7 @@ function ViewContractProposals(){
         }
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
+        //setIPFS(ipfsHash);
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
@@ -153,7 +146,7 @@ function ViewContractProposals(){
     
     return(
         <div class="row py-4 px-1 card-deck">
-            <CardProposal/>
+            <CardProposal data={jsonObject} />
         </div>
     );
 }

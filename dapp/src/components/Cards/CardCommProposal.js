@@ -6,7 +6,10 @@ import Card from 'react-bootstrap/Card';
 
 import { FaSearch } from "react-icons/fa";
 
-function CardContract(){
+function CardContract(props){
+
+    const jsonObj = props;
+    
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -19,28 +22,28 @@ function CardContract(){
     }
 
     // test
-    const Songs = [
-        {
-            title: "meiji",
-            artist: "ina",
-            label: "evangelista"
-        },
-        {
-            title: "tres",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "unna",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "dos",
-            artist: "nicole",
-            label: "cheng"
-        }
-    ];
+    // const Songs = [
+    //     {
+    //         title: "meiji",
+    //         artist: "ina",
+    //         label: "evangelista"
+    //     },
+    //     {
+    //         title: "tres",
+    //         artist: "nicole",
+    //         label: "cheng"
+    //     },
+    //     {
+    //         title: "unna",
+    //         artist: "nicole",
+    //         label: "cheng"
+    //     },
+    //     {
+    //         title: "dos",
+    //         artist: "nicole",
+    //         label: "cheng"
+    //     }
+    // ];
 
     const [query, setQuery] = useState("");
 
@@ -57,13 +60,13 @@ function CardContract(){
 
     console.log(sort)
 
-    Songs.sort((a, b) =>
-        a.title > b.title ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
     if (sort === "z-a") {
-        Songs.sort((a, b) =>
-            a.title > b.title ? -1 : 1,
+        jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
 
@@ -92,26 +95,20 @@ function CardContract(){
                 songs = {contractContent}
             />
         </div>
-        {Songs.filter(song => {
+        {jsonObj.data.filter(song => {
             if (query === '') {
                 return song;
-            } else if (song.title.toLowerCase().includes(query.toLowerCase())) {
-                return song;
-            }
-            else if (song.artist.toLowerCase().includes(query.toLowerCase())) {
-                return song;
-            }
-            else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+            } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
         }).map((song, key) => (
         <Card key={(key)}>
 
             <Card.Body>
-                <Card.Title>{song.title}</Card.Title>
+                <Card.Title>{song.song_title}</Card.Title>
                 <Card.Text className="text_sub">
-                    <div>by <span className='text_bold'>{song.artist}</span></div>
-                    <div className='text_italic'>{song.label}</div>
+                    <div>by <span className='text_bold'>{song.artist_name}</span></div>
+                    <div className='text_italic'>{song.label_name}</div>
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">
@@ -119,7 +116,7 @@ function CardContract(){
                     <span className='text_sub'>
                         Total fee:
                     </span>
-                    <h5 class="text_pop">0.00000000012 ETH</h5>
+                    <h5 class="text_pop">{song.total_fee} ETH</h5>
                 </div>
                 
                 <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button_proposal">

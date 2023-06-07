@@ -162,6 +162,7 @@ function AddCommercialContract(){
             percent_label: parseInt(percentLabel),
             percent_artist: parseInt(percentArtist),
             total_fee: parseFloat(totalFee),
+            creation_date: date
         };
 
         //setErrors(Validation(MRC));

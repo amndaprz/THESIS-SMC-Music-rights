@@ -169,11 +169,30 @@
 				"internalType": "string",
 				"name": "ipfsHash",
 				"type": "string"
-			},
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "status",
+				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "_nonMint",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "token_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "ipfsHash",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -231,11 +250,31 @@
 						"internalType": "string",
 						"name": "ipfsHash",
 						"type": "string"
-					},
+					}
+				],
+				"internalType": "struct MusicRightsToken.MRC[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllNonMint",
+		"outputs": [
+			{
+				"components": [
 					{
 						"internalType": "uint256",
-						"name": "status",
+						"name": "token_id",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsHash",
+						"type": "string"
 					}
 				],
 				"internalType": "struct MusicRightsToken.MRC[]",
