@@ -26,7 +26,21 @@ contract RoleAccess {
 
 
     function giveRole(string calldata r_add, string calldata r_alias, uint256 role) public {
-        _Users.push(User(r_add,r_alias, role));
+
+        bool unique = true;
+
+        //CHECK IF ALIAS ALREADY EXISTS
+          for (uint x =0; x < _Users.length; x++){
+            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_add))))
+                unique = false;
+            if (keccak256(abi.encodePacked((_Users[x].r_alias))) == keccak256(abi.encodePacked((r_alias))))
+                unique = false;
+            
+          }
+
+          if (unique)
+            _Users.push(User(r_add,r_alias, role));
+                
     }
 
 
@@ -35,7 +49,7 @@ contract RoleAccess {
     // Checking funcs
 
     //returns role, 0 if no role or user does not exist
-    function hasRole(string calldata r_Add) public view returns (uint256){
+    function hasRole(address r_Add) public view returns (uint256){
         uint256 r = 0;
         for (uint x =0; x < _Users.length; x++){
             if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
@@ -46,7 +60,7 @@ contract RoleAccess {
 
     }
 
-    function _removeRoles (string calldata r_Add) public {
+    function _removeRoles (address r_Add) public {
         for (uint x =0; x < _Users.length; x++){
             if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
                 _Users[x].role = 0;
@@ -62,6 +76,28 @@ contract RoleAccess {
 
     function getUsers() public view returns (User[] memory){
         return _Users;
+    }
+
+
+    modifier onlyLabel() {
+        require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == LABEL_ROLE, "Access denied. Only Label.");
+        _;
+    }
+
+
+    modifier onlyArtist() {
+        require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == ARTIST_ROLE, "Access denied. Only Artist.");
+        _;
+    }
+
+    modifier onlyClient() {
+        require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == CLIENT_ROLE, "Access denied. Only Client.");
+        _;
+    }
+
+    modifier onlyAdmin() {
+        require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == ADMIN_ROLE, "Access denied. Only Admin.");
+        _;
     }
 
     
