@@ -66,23 +66,23 @@ function SignUp(){
                     let role = usersList[i][2];
                     console.log("User has the role " + role);
 
-                    // switch(parseInt(role)){
-                    //     /*
-                    //        1-Label, 2-Artist, 3-Client, 4-Admin
-                    //     */
-                    //     case 1:
-                    //         navigate("../Label");
-                    //     break;
-                    //     case 2:
-                    //         navigate("../Artist");
-                    //     break;
-                    //     case 3:
-                    //         navigate("../pages/Client");
-                    //     break;
-                    //     case 4:
-                    //         navigate('/destination');
-                    //     break;
-                    // }
+                    switch(parseInt(role)){
+                        /*
+                           1-Label, 2-Artist, 3-Client, 4-Admin
+                        */
+                        case 1:
+                            navigate("../Label");
+                        break;
+                        case 2:
+                            navigate("../Artist");
+                        break;
+                        case 3:
+                            navigate("../pages/Client");
+                        break;
+                        case 4:
+                            navigate('/destination');
+                        break;
+                    }
                     registerStatus = true;
                     return;
                 }
