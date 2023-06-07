@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import ConfirmAddContract from "../Modals/ConfirmAddContract";
 import SafeMintLabel from "../safeMint/SafeMintLabel"
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import {utils} from 'web3';
@@ -26,16 +26,16 @@ function AddCommercialContract(){
     const [balance, setBalance] = useState('');
     const [percentLabel, setPLabel] = useState('');
     const [percentArtist, setPArtist] = useState('');
-    const [addrLabel, setAddrLabel] = useState('');
-    const [addrArtist, setAddrArtist] = useState('');
+    const [labelName, setLabelName] = useState('');
+    const [artistName, setArtistName] = useState('');
     const [totalFee, setTotalFee] = useState('');
     const [songTitle, setSongTitle] = useState('');
 
     // Input listener for Label Address
-    const handleAddrLabel = (event) => { setAddrLabel(event.target.value); }
+    const handleNameLabel = (event) => { setLabelName(event.target.value); }
 
     // Input listener for Artist Address
-    const handleAddrArtist = (event) => { setAddrArtist(event.target.value);}
+    const handleNameArtist = (event) => { setArtistName(event.target.value);}
 
     // Input listener for Label Percentage
     const handlePLabel = (event) => { setPLabel(event.target.value); }
@@ -138,28 +138,29 @@ function AddCommercialContract(){
 		account = accounts[0];
 
         // Set Address to useState
-        setAddrLabel(account);
+        //setAddrLabel(account);
         
         // Check if Sender address is valid
-        console.log("IsSenderValid: "+ isSenderValid(addrLabel,account));
+        //console.log("IsSenderValid: "+ isSenderValid(addrLabel,account));
 
         // Check if Artist Address is Valid
-        console.log(addrArtist);
+        //console.log(addrArtist);
         //const isArtistValid  = await isReceiverValid(addrArtist);
         //console.log("isReceiverValid: "+ isArtistValid);
 
         // temp
-        const artist_name = "NAME_ARTIST";
-        const label_name = "NAME_LABEL";
+    
+
+        //setArtistName(artist_name);
+        //setLabelName(label_name);
+        // find label name
 
         const MRC = {
             song_title: songTitle,
-            artist_name: artist_name,
-            label_name: label_name,
+            artist_name: artistName,
+            label_name: labelName,
             percent_label: parseInt(percentLabel),
             percent_artist: parseInt(percentArtist),
-            label_address: addrLabel,
-            artist_address: addrArtist,
             total_fee: parseFloat(totalFee),
         };
 
@@ -184,6 +185,10 @@ function AddCommercialContract(){
             console.log("percent_label is = %", MRC.percent_label)
         }
 
+        const users = await contract_RA.methods.getUsers().call();
+
+        console.log(users);
+
         toast("Notify");
 
         console.log(MRC.song_title);
@@ -195,9 +200,13 @@ function AddCommercialContract(){
         console.log(mrcResult);
         
         // Add Checker if all prereqs are satisfied
-        console.log(account);
-        if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 6000000, sender: account })){
-            console.log("Minting successful");
+        //console.log(account);
+        // if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 6000000, sender: account })){
+        //     console.log("Minting successful");
+        // }
+
+        if(await contract.methods.nonMint(mrcResult).call()){
+            console.log("Initial contract minting successful");
         }
 
         const balance = await contract.methods.balanceOf(account).call();
@@ -206,10 +215,10 @@ function AddCommercialContract(){
 
 
         // Checkers
-        console.log('From address:', addrLabel);
-        console.log('Label %:', percentLabel);
-        console.log('To address:', addrArtist);
-        console.log('Artist %:', percentArtist);
+        // console.log('From address:', addrLabel);
+        // console.log('Label %:', percentLabel);
+        // console.log('To address:', addrArtist);
+        // console.log('Artist %:', percentArtist);
 
         return mrcResult;
 
@@ -234,7 +243,7 @@ function AddCommercialContract(){
                 />
             <div className="input_con">
                 <div className="mb-3">
-                    <span className='mx-3 my-2'>Song title</span>
+                    <span className='mx-3 my-2'>Song Title</span>
                     {
                         error_title_state === 1 && 
                             <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_title}</span>
@@ -245,7 +254,19 @@ function AddCommercialContract(){
                     </p>
                 </div>
                 <div className="my-3">
-                    <span className='mx-3 my-2'>Percent of label</span>
+                    <span className='mx-3 my-2'>Name of Label</span>
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={labelName} onChange={handleNameLabel} />
+                    </p>
+                </div>
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Name of Artist</span>
+                    <p className="text_sub p-0 mt-2">
+                    <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={artistName} onChange={handleNameArtist}/>
+                    </p>
+                </div>
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Percent of Label</span>
                     {
                         error_percentlabel_state === 1 && 
                             <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_percentlabel}</span>
@@ -256,35 +277,24 @@ function AddCommercialContract(){
                     </p>
                 </div>
                 <div className="my-3">
-                    <span className='mx-3 my-2'>Percent of artist</span>
+                    <span className='mx-3 my-2'>Percent of Artist</span>
                     <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentArtist} onChange={handlePArtist} />
                     </p>
                 </div>
                 <div className="my-3">
-                    <span className='mx-3 my-2'>Total fee</span>
+                    <span className='mx-3 my-2'>Total Fee</span>
                     <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
                     </p>
                 </div>
                 <div className="my-3">
-                    <span className='mx-3 my-2'>Creation date</span>
+                    <span className='mx-3 my-2'>Creation Date</span>
                     <p className="text_sub p-0 mt-2">
                     <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
                     </p>
                 </div>
-                <div className="my-3">
-                    <span className='mx-3 my-2'>Address of label</span>
-                    <p className="text_sub p-0 mt-2">
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrLabel} onChange={handleAddrLabel} />
-                    </p>
-                </div>
-                <div className="my-3">
-                    <span className='mx-3 my-2'>Address of artist</span>
-                    <p className="text_sub p-0 mt-2">
-                    <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={addrArtist} onChange={handleAddrArtist}/>
-                    </p>
-                </div>
+               
           
                 <div className="py-4">
                     <Button
