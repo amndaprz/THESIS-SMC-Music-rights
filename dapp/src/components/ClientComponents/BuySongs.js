@@ -61,8 +61,8 @@ function BuySongs(props){
       <div className='col sort_con2'>
           <h6 className='sort_title2'>Sort by</h6>
           <select value={sort} onChange={handleChange} className="input_sort select_signup">
-              <option value="a-z">A-Z</option>
-              <option value="z-a">Z-A</option>
+              <option value="a-z">Song title, A-Z</option>
+              <option value="z-a">Song title, Z-A</option>
           </select>
 
       </div>

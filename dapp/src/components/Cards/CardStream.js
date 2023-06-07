@@ -98,8 +98,8 @@ function CardStream() {
                 <div className='col sort_con'>
                     <h6 className='sort_title'>Sort by</h6>
                     <select value={sort} onChange={handleChange} className="input_sort ">
-                        <option value="a-z">A-Z</option>
-                        <option value="z-a">Z-A</option>
+                        <option value="a-z">Song title, A-Z</option>
+                        <option value="z-a">Song title, Z-A</option>
                     </select>
 
                 </div>

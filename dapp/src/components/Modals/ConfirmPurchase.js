@@ -38,11 +38,11 @@ function ConfirmPurchasePopup(props) {
                 </tr>
             </table>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='mt-3'>
                 {/* change to buySong */}
-                <Button onClick={props.onHide} className="py-2 px-5 modal_btn_sub">Cancel</Button>
+                <Button onClick={props.onHide} className="py-2 px-4 modal_btn_sub">Cancel</Button>
                 
-                <Button onClick={props.onHide} className="py-2 px-5 modal_btn">Confirm</Button>
+                <Button onClick={props.onHide} className="py-2 px-4 modal_btn">Confirm</Button>
             </Modal.Footer>
         </Modal>
     );

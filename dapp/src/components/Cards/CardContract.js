@@ -27,13 +27,15 @@ function CardContract() {
             title: "meiji",
             artist: "ina",
             label: "evangelista",
-            type: "Streaming"
+            type: "Streaming",
+            date: "2023-04-15"
         },
         {
             title: "tres",
             artist: "nicole",
             label: "cheng",
-            type: "Commercial"
+            type: "Commercial",
+            date: ""
         },
         {
             title: "unna",
@@ -88,8 +90,8 @@ function CardContract() {
                 <div className='col sort_con2'>
                     <h6 className='sort_title2'>Sort by</h6>
                     <select value={sort} onChange={handleChange} className="input_sort select_signup">
-                        <option value="a-z">A-Z</option>
-                        <option value="z-a">Z-A</option>
+                        <option value="a-z">Song title, A-Z</option>
+                        <option value="z-a">Song title, Z-A</option>
                     </select>
 
                 </div>
