@@ -68,10 +68,10 @@ function ViewContractProposals(){
             
             for (let key in allResults)
             {
-                console.log("Data is " + allResults[key][0]);
+                console.log("HASH is " + typeof allResults[key][1]);
                 //status.push(allResults[key][2]);
                 //console.log("status: " + allResults[key][2]);
-                //ipfsHash.push(IPFS.cat(allResults[key][1]));
+                ipfsHash.push(allResults[key][1]);
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 
@@ -114,7 +114,8 @@ function ViewContractProposals(){
         }
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
-        //setIPFS(ipfsHash);
+        setIPFS(ipfsHash);
+        console.log("HASHES: " + ipfsHash[0]);
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
@@ -146,7 +147,7 @@ function ViewContractProposals(){
     
     return(
         <div class="row py-4 px-1 card-deck">
-            <CardProposal data={jsonObject} />
+            <CardProposal data={jsonObject} hash={ipfsHash}/>
         </div>
     );
 }

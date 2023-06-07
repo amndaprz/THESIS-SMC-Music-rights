@@ -3,13 +3,20 @@ import Button from 'react-bootstrap/Button';
 
 import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
 
-
+let account; 
 function ProposalCommPopup(props){
 
+    console.log("HATDOG");
+    console.log(typeof props.hashContent);
+
+    
+
     const mintWithToken = async() => {
-        // if(await contract.methods.safeMintWithToken(mrcResult).send({from: account, gas: 6000000, sender: account })){
-        //     console.log("Minting successful");
-        // }
+        const accounts = await web3.eth.requestAccounts();
+        account = accounts[0];
+        if(await contract.methods.safeMintWithToken(props.hashContent).send({from: account, gas: 6000000, sender: account })){
+            console.log("Minting successful");
+        }
     }
 
     return (
@@ -57,7 +64,7 @@ function ProposalCommPopup(props){
         <Button className="py-2 px-3 modal_btn_sub">
                 Decline
             </Button>
-            <Button className="py-2 px-5 modal_btn" onClick={{mintWithToken}}>
+            <Button className="py-2 px-5 modal_btn" onClick={mintWithToken}>
                 Sign
             </Button>
         </Modal.Footer>
