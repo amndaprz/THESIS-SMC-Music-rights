@@ -77,6 +77,7 @@ function Client() {
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
         const data =[];
         const temp_data = [];
+        const status = [];
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
@@ -90,6 +91,8 @@ function Client() {
             for (let key in allResults)
             {
                 console.log("Data is " + allResults[key][0]);
+                status.push(allResults[key][2]);
+                console.log("status: " + allResults[key][2]);
 
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
