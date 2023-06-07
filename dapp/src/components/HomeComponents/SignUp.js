@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 
 import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
@@ -8,6 +8,8 @@ import {contractAddress_RA, contractABI_RA, web3_RA, contract_RA} from '../../Co
 
 
 let result;
+
+
 
 const giveRole = async(username) => {
 
@@ -42,6 +44,9 @@ function SignUp(){
         console.log(getUsersList);
         return getUsersList;
     };
+
+    const navigate = useNavigate();
+
     
     useEffect(() => {
         const fetchData = async () => {
@@ -59,10 +64,24 @@ function SignUp(){
                 if(account == usersList[i][0]){
                     // ---------------- REDIRECT TO PAGE ---------------------------------
                     let role = usersList[i][2];
-                    console.log("User has the role" + role);
+                    console.log("User has the role " + role);
 
-                    // switch(role){
-
+                    // switch(parseInt(role)){
+                    //     /*
+                    //        1-Label, 2-Artist, 3-Client, 4-Admin
+                    //     */
+                    //     case 1:
+                    //         navigate("../Label");
+                    //     break;
+                    //     case 2:
+                    //         navigate("../Artist");
+                    //     break;
+                    //     case 3:
+                    //         navigate("../pages/Client");
+                    //     break;
+                    //     case 4:
+                    //         navigate('/destination');
+                    //     break;
                     // }
                     registerStatus = true;
                     return;
@@ -81,6 +100,14 @@ function SignUp(){
         fetchData();
     }, []);
 
+    const [signupRole, setRole] = useState(0);
+
+    const handleRoleChange = (e) => {
+        console.log("Handle Role Change" + e.target.value);
+        setRole(e.target.value);
+        // console.log(signupRole);
+    };
+
     function handleValidation(event){
         event.preventDefault();
 
@@ -94,11 +121,26 @@ function SignUp(){
             // check for duplicates
             // let checker = getUsers();
 
-            // console.log(checker +  "Pre giveRole");
             // Add to RoleAccess.sol
             if(giveRole(username)){
-
-                // Redirect to Page
+                console.log(signupRole + " SignupRole");
+                switch(signupRole){
+                    /*
+                       1-Label, 2-Artist, 3-Client, 4-Admin
+                    */
+                    case 'label':
+                        navigate("../Label");
+                    break;
+                    case 'artist':
+                        navigate("../Artist");
+                    break;
+                    case 'client':
+                        navigate("../Client");
+                    break;
+                    case 'admin':
+                        navigate('/destination');
+                    break;
+                }
             }
 
             
@@ -123,7 +165,7 @@ function SignUp(){
                     </div>
                     <div className="mb-2">
                         <div className='mx-3'>Select a role</div>
-                        <select className="mt-1 inputfield_signup select_signup">
+                        <select value={signupRole} onChange={handleRoleChange} className="mt-1 inputfield_signup select_signup">
                             <option value="client">Client</option>
                             <option value="artist">Artist</option>
                             <option selected value="label">Label</option>
