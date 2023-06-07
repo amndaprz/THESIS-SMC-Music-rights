@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 //import ContractStreamPopup from '../Modals/ContractStream';
-import ContractCommPopup from '../Modals/ContractComm';
+import ContractStreamPopup from '../Modals/ContractStream';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -10,7 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function CardContract() {
+function CardStreamContract() {
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -26,28 +26,22 @@ function CardContract() {
         {
             title: "meiji",
             artist: "ina",
-            label: "evangelista",
-            type: "Streaming",
-            date: "2023-04-15"
+            label: "evangelista"
         },
         {
             title: "tres",
             artist: "nicole",
-            label: "cheng",
-            type: "Commercial",
-            date: ""
+            label: "cheng"
         },
         {
             title: "unna",
             artist: "nicole",
-            label: "cheng",
-            type: "Streaming"
+            label: "cheng"
         },
         {
             title: "dos",
             artist: "nicole",
-            label: "cheng",
-            type: "Commercial"
+            label: "cheng"
         }
     ];
     
@@ -95,6 +89,11 @@ function CardContract() {
                     </select>
 
                 </div>
+                <ContractStreamPopup
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    songs = {contractContent}
+                />
             </div>
             {Songs.filter(song => {
                 if (query === '') {
@@ -110,11 +109,6 @@ function CardContract() {
                 }
             }).map((song, key) => (
             <Card key={(key)}>
-                <ContractCommPopup
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
-                    songs = {contractContent}
-                />
 
                 <Card.Body>
                     <Card.Title>{song.title}</Card.Title>
@@ -135,4 +129,4 @@ function CardContract() {
     );
 }
 
-export default CardContract;
+export default CardStreamContract;

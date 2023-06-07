@@ -216,13 +216,6 @@ function Client() {
                         </div>
                         </>
                     )}
-                    <div className="px-4 mx-4 logout_btn_con">
-                        <Link to="/">
-                            <Button className="submit-button py-2 px-5 logout_btn">
-                                Logout
-                            </Button>
-                        </Link>
-                    </div>
             </div>
             
             <div className="col-sm-10 py-5 px-0 m-0 content_con">

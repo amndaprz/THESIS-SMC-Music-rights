@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 import ViewListedSongs from './ViewListedSongs';
-import ViewContracts from './ViewContracts';
-import ViewContractProposals from './ViewContractProposals';
+import CommercialContracts from './CommercialContracts';
+import StreamingContracts from './StreamingContracts';
+import StreamingProposals from './StreamingProposals';
+import CommercialProposals from './CommercialProposals';
 import Payout from './Payout';
 
 import ContentLoader from 'react-content-loader'
@@ -20,6 +22,19 @@ function Artist() {
     const toggleTab = (index) => {
         setToggleState(index);
     };
+
+    const [toggleState3, setToggleState3] = useState(1);
+
+    const toggleTab3 = (index) => {
+        setToggleState3(index);
+    };
+
+    const [toggleState4, setToggleState4] = useState(1);
+
+    const toggleTab4 = (index) => {
+        setToggleState4(index);
+    };
+
 
     const [loading, setLoading] = useState(true);
 
@@ -89,15 +104,13 @@ function Artist() {
                     )}
                 </div>
 
-
-                
-                <div className="px-4 mx-4 logout_btn_con">
+                {/* <div className="px-4 mx-4 logout_btn_con">
                     <Link to="/">
                         <Button className="submit-button py-2 px-5 logout_btn">
                             Logout
                         </Button>
                     </Link>
-                </div>
+                </div>*/}
             </div>
 
             <div className="col-sm-10 py-5 m-0 content_con">
@@ -119,15 +132,60 @@ function Artist() {
                     <ViewListedSongs />
                 </div>
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-
                     <h1>View contracts</h1>
-                    <ViewContracts />
+                    
+                    <div className=" mt-5 mb-4">Choose a contract type below:</div>
+                    <div className="row">
+                        <div className="col">
+                            <Button
+                                className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab3(1)}>
+                                Commercial
+                            </Button>
+                        </div>
+                        <div className="col">
+                            <Button
+                                className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab3(2)}>
+                                Streaming
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={toggleState3 === 1 ? "content  active-content" : "content"}>
+                        <CommercialContracts />
+                    </div>
+                    <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
+                        <StreamingContracts />
+                    </div>
                 </div>
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
                     <h1>View contract propoals</h1>
-                    <ViewContractProposals />
+                    
+                    <div className=" mt-5 mb-4">Choose a contract type below:</div>
+                    <div className="row">
+                        <div className="col">
+                            <Button
+                                className={toggleState4 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab4(1)}>
+                                Commercial
+                            </Button>
+                        </div>
+                        <div className="col">
+                            <Button
+                                className={toggleState4 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab4(2)}>
+                                Streaming
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={toggleState4 === 1 ? "content active-content" : "content"}>
+                        <CommercialProposals />
+                    </div>
+                    <div className={toggleState4 === 2 ? "content active-content" : "content"}>
+                        <StreamingProposals />
+                    </div>
                 </div>
-                <div className={toggleState === 4 ? "content  active-content" : "content"}>
+                <div className={toggleState === 4 ? "content active-content" : "content"}>
                     <h1>Payout</h1>
                     <Payout />
                 </div>
