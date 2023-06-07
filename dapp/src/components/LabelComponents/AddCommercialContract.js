@@ -293,12 +293,6 @@ function AddCommercialContract(){
                         onClick={mintERC721}>
                         Add contract
                     </Button>
-                    <Button
-                        className="submit-button py-3 px-5 btn_mod"
-                        // onClick={() => setModalShow(true)}>
-                        onClick={notify}>
-                        Add contract
-                    </Button>
                 </div>
             </div>
         </form>

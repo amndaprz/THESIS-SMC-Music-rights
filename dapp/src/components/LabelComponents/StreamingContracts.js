@@ -1,4 +1,4 @@
-import CardContract from '../Cards/CardContract'
+import CardContract from '../Cards/CardStreamContract'
 
 function ViewContracts(){
 

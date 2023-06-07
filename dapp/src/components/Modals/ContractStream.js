@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 
-function ContractCommPopup(props){
+function ContractStreamPopup(props){
 
     return (
       <Modal
@@ -12,7 +12,7 @@ function ContractCommPopup(props){
       >
         <Modal.Header closeButton className='pb-0'>
             <h4 className='col-sm-6'>{props.songs.title}</h4>
-            <div className='col-sm-6 text_pop modal_contracttype'>Commercial</div>
+            <div className='col-sm-6 text_pop modal_contracttype'>Streaming</div>
         </Modal.Header>
         <Modal.Body>
             <div className='py-0 m-0'>
@@ -23,7 +23,7 @@ function ContractCommPopup(props){
                 <div className='row my-2'>
                     <div className='col m-3  modal_percentartist_con'>
                         <div>Label</div>
-                        <div className='modal_perce ntartist'>30%</div>
+                        <div className='modal_percentartist'>30%</div>
                     </div>
                     <div className='col m-3  modal_percentlabel_con'>
                         <div>Artist</div>
@@ -34,6 +34,10 @@ function ContractCommPopup(props){
                     <tr>
                         <td className='table_header'>Creation date:</td>
                         <td className='table_date text_sub'>10/10/2023</td>
+                    </tr>
+                    <tr>
+                        <td className='table_header'>End date:</td>
+                        <td className='table_date text_sub'>10/10/2024</td>
                     </tr>
                     <tr>
                         <td className='table_header'>Total fee:</td>
@@ -47,4 +51,4 @@ function ContractCommPopup(props){
     );
   }
 
-export default ContractCommPopup;
+export default ContractStreamPopup;

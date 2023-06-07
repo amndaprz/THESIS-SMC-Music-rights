@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-function ContractCommPopup(props){
+function ProposalCommPopup(props){
 
     return (
       <Modal
@@ -23,7 +24,7 @@ function ContractCommPopup(props){
                 <div className='row my-2'>
                     <div className='col m-3  modal_percentartist_con'>
                         <div>Label</div>
-                        <div className='modal_perce ntartist'>30%</div>
+                        <div className='modal_percentartist'>30%</div>
                     </div>
                     <div className='col m-3  modal_percentlabel_con'>
                         <div>Artist</div>
@@ -43,8 +44,16 @@ function ContractCommPopup(props){
             </div>
             
         </Modal.Body>
+        <Modal.Footer className='mt-3'>
+        <Button className="py-2 px-3 modal_btn_sub">
+                Decline
+            </Button>
+            <Button className="py-2 px-5 modal_btn">
+                Sign
+            </Button>
+        </Modal.Footer>
       </Modal>
     );
   }
 
-export default ContractCommPopup;
+export default ProposalCommPopup;

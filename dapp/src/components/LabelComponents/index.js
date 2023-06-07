@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button';
 import AddCommercialContract from './AddCommercialContract';
 import AddStreamingContract from './AddStreamingContract';
 import ViewListedSongs from './ViewListedSongs';
-import ViewContracts from './ViewContracts';
+import CommercialContracts from './CommercialContracts';
+import StreamingContracts from './StreamingContracts';
 import ViewContractProposals from './ViewContractProposals';
 import Payout from './Payout';
 
@@ -28,6 +29,12 @@ function Label() {
 
     const toggleTab2 = (index) => {
         setToggleState2(index);
+    };
+
+    const [toggleState3, setToggleState3] = useState(1);
+
+    const toggleTab3 = (index) => {
+        setToggleState3(index);
     };
 
     const [loading, setLoading] = useState(true);
@@ -94,24 +101,11 @@ function Label() {
                                 <Button
                                     className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(4)}>
-                                    <FaSignature className='mx-3'/>View contract proposals
-                                </Button>
-
-                                <Button
-                                    className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
-                                    onClick={() => toggleTab(5)}>
                                     <FaMoneyCheck className='mx-3'/>Payout
                                 </Button>
                             </div>
                         </>
                     )}
-                    <div className="px-4 mx-4 logout_btn_con">
-                        <Link to="/">
-                            <Button className="submit-button py-2 px-5 logout_btn">
-                                Logout
-                            </Button>
-                        </Link>
-                    </div>
                 </div>
 
                 <div className="col-sm-10 py-5  m-0 content_con">
@@ -173,15 +167,33 @@ function Label() {
 
                             <div className={toggleState === 3 ? "content  active-content" : "content"}>
                                 <h1>View contracts</h1>
-                                <ViewContracts />
+                                {/*<CommercialContracts />*/}
+                                <div className=" mt-5 mb-4">Choose a contract type below:</div>
+                                <div className="row">
+                                    <div className="col">
+                                        <Button
+                                            className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                            onClick={() => toggleTab3(1)}>
+                                            Commercial
+                                        </Button>
+                                    </div>
+                                    <div className="col">
+                                        <Button
+                                            className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                            onClick={() => toggleTab3(2)}>
+                                            Streaming
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={toggleState3 === 1 ? "content  active-content" : "content"}>
+                                    <CommercialContracts />
+                                </div>
+                                <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
+                                    <StreamingContracts />
+                                </div>
                             </div>
 
                             <div className={toggleState === 4 ? "content  active-content" : "content"}>
-                                <h1>View contract proposals</h1>
-                                <ViewContractProposals />
-                            </div>
-
-                            <div className={toggleState === 5 ? "content  active-content" : "content"}>
                                 <h1>Payout</h1>
                                 <Payout />
                             </div>
