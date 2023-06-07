@@ -20,18 +20,19 @@
 
 .tabs {
   padding: 20px;
-  padding-left: 50px;
+  
   padding-top: 25px;
   padding-bottom: 25px;
   text-align: left;
-  width: 100%;
-  background: #2B2833;
+  width: 80%;
+  background: none;
   cursor: pointer;
   outline: none;
 
   color: white;
 
   border: none;
+  border-radius: 20px;
 }
 
 
@@ -40,11 +41,12 @@
   display: block;
   position: absolute;
   height: 5px;
+  border-radius: 20px;
 }
 
 .active-tabs {
   background-color: #2C264B;
-  border-right: solid 5px #9988FF;
+  border-radius: 20px;
 }
 
 
@@ -96,10 +98,10 @@ button {
 
 .nav_con {
   overflow-y: scroll;
-  background-color: #2B2833;
+  background-color: #232226;
 
   height: 100vh;
-  border-radius: 0 20px 20px 0;
+  border-right: solid 1px #3A3747;
   position: fixed;
   left: 0px;
   color: white;
@@ -110,8 +112,13 @@ button {
 }
 
 .nav_btn_con {
-  margin-top: 100px;
+  margin-top: 30px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .content_con {
@@ -332,17 +339,32 @@ button {
   background-color: #2C264B;
   border-color: #9988FF;
   transition: 0.2s;
+  border-radius: 20px;
+}
+
+.table_con{
+  width: 100%;
+  padding-left: 50px;
+  margin-right: 100px;
+}
+
+
+
+.table_fee, .table_date{
+  text-align:right;
+  margin-right: 100px;
 }
 
 .modal_box_contract {
   background-color: #232226;
   background-size: cover;
   border-radius: 20px !important;
-  height: 80vh;
-  width: 40vw;
+  height: max-content;
+  width: 33vw;
   padding: 30px;
   padding-bottom: 40px;
-
+  padding-left: 50px;
+  padding-right: 50px;
 
   color: white;
 }
@@ -387,8 +409,12 @@ button {
   background-size: cover;
   border-radius: 20px !important;
   height: max-content;
-  width: 38vw;
+  width: 25vw;
   padding: 30px;
+  padding-bottom: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+
   color: white;
 }
 
@@ -450,9 +476,6 @@ button {
   border: solid 1px #595275;
 }
 
-.modal_contract_title {
-  padding-left: 0;
-}
 
 .input_con {
   display: flex;
@@ -498,7 +521,7 @@ button {
 }
 
 .input_search {
-  width: 20vw;
+  width: 22vw;
   background-color: #2B2833;
   color: white;
   border-color: #595275;
@@ -551,7 +574,7 @@ button {
   align-content: center;
   flex-direction: row;
   margin: 20px;
-  margin-left: 100px;
+  margin-left: 80px;
   margin-bottom: 50px;
 }
 
@@ -560,7 +583,7 @@ button {
   justify-content: center;
   flex-direction: column;
   margin-right: 20px;
-  margin-left: 100px;
+  margin-left: 50px;
 }
 .search_title2{
   display: flex;
@@ -578,7 +601,18 @@ button {
   flex-direction: row;
   margin: 20px;
   margin-bottom: 50px;
-  margin-right: 100px;
+  margin-right: 60px;
+}
+
+.sort_con2{
+  display: flex;
+  justify-content: end;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-bottom: 50px;
+  margin-right: 80px;
 }
 
 .sort_title{
@@ -600,18 +634,14 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  min-width: 100vw;
-  padding-left: 150px;
-  padding-right: 150px;
+  min-width: 83vw;
 }
 
 .filter_con2{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  min-width: 70vw;
-  padding-left: 150px;
-  padding-right: 150px;
+  min-width: 78vw;
 }
 
 .offer_con {
@@ -729,4 +759,54 @@ button {
 .tooltip>.tooltip-arrow::before {
   border-bottom-color: white !important;
   color: white !important;
+}
+
+
+.modal_contracttype{
+  display: flex;
+  justify-content: end;
+  padding-right: 30px;
+}
+
+.modal_percentartist_con{
+  background-color: #2B2833;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.modal_percentartist{
+  font-size: 50px;
+  font-weight: 500;
+  color: #9988FF;
+}
+
+.modal_percentlabel_con{
+  background-color: #2B2833;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.modal_percentlabel{
+  font-size: 50px;
+  font-weight: 500;
+  color: #9988FF;
+}
+
+.user_con{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo_tab{
+  width: 50px;
 }

@@ -8,7 +8,9 @@ import { Buffer } from 'buffer';
 import {utils} from 'web3';
 import ipfs from "./../IPFSComponents/ConnectIPFS"
 
-import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
+import {FaExclamationTriangle } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let account;
 
@@ -182,6 +184,8 @@ function AddCommercialContract(){
             console.log("percent_label is = %", MRC.percent_label)
         }
 
+        toast("Notify");
+
         console.log(MRC.song_title);
 
         console.log(MRC);
@@ -211,6 +215,10 @@ function AddCommercialContract(){
 
     }
 
+    const notify = () => {
+        toast("Notify");
+    }
+
     
 
     return(
@@ -219,6 +227,11 @@ function AddCommercialContract(){
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
+            <ToastContainer
+                    theme="dark"
+                    closeOnClick={true}
+                    autoClose={2000}
+                />
             <div className="input_con">
                 <div className="mb-3">
                     <span className='mx-3 my-2'>Song title</span>
@@ -278,6 +291,12 @@ function AddCommercialContract(){
                         className="submit-button py-3 px-5 btn_mod"
                         // onClick={() => setModalShow(true)}>
                         onClick={mintERC721}>
+                        Add contract
+                    </Button>
+                    <Button
+                        className="submit-button py-3 px-5 btn_mod"
+                        // onClick={() => setModalShow(true)}>
+                        onClick={notify}>
                         Add contract
                     </Button>
                 </div>

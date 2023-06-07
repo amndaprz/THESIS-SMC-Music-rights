@@ -2,9 +2,7 @@ import CardOwned from '../Cards/CardOwned'
 
 function OwnedSongs(){
     return(
-        <div class="row py-4 card-deck">
-            <CardOwned/>
-            <CardOwned/>
+        <div class="row py-4 px-1 card-deck">
             <CardOwned/>
         </div>
     );

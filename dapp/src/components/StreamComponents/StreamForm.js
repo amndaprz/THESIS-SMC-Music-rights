@@ -9,7 +9,6 @@ import CardStream from "../Cards/CardStream";
 let account;
 
 function StreamForm(){
-    const [modalShow, setModalShow] = React.useState(false);
 
     // Inputs
     const [smrcAddress, setSMRCAddress] = useState('');

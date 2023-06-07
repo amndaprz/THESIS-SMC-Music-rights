@@ -67,8 +67,6 @@ function CardStream() {
         setValue(e.target.value);
     };
 
-    console.log(sort)
-
     Songs.sort((a, b) =>
         a.title > b.title ? 1 : -1,
     );
@@ -85,6 +83,7 @@ function CardStream() {
         toast("Now playing:  " + title + " by " + artist);
         //console.log(event.target);
     }
+
     return (
         <>
             <div className='row filter_con'>
@@ -98,14 +97,18 @@ function CardStream() {
                 </div>
                 <div className='col sort_con'>
                     <h6 className='sort_title'>Sort by</h6>
-                    <select value={sort} onChange={handleChange} className="input_sort select_signup">
-                        <option value="a-z">A-Z</option>
-                        <option value="z-a">Z-A</option>
+                    <select value={sort} onChange={handleChange} className="input_sort ">
+                        <option value="a-z">Song title, A-Z</option>
+                        <option value="z-a">Song title, Z-A</option>
                     </select>
 
                 </div>
+                <ToastContainer
+                    theme="dark"
+                    closeOnClick={true}
+                    autoClose={2000}
+                />
             </div>
-
             {Songs.filter(song => {
                 if (query === '') {
                     return song;
@@ -116,8 +119,17 @@ function CardStream() {
                     return song;
                 }
                 else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+                    console.log("oasnasoi", song.label.toLowerCase().includes(query.toLowerCase()))
+                    
                     return song;
                 }
+
+                if(!song.title.toLowerCase().includes(query.toLowerCase()) && 
+                    !song.artist.toLowerCase().includes(query.toLowerCase()) &&
+                    !song.label.toLowerCase().includes(query.toLowerCase())){
+                }
+
+
 
             }).map((song, key) => (
                 <Card key={(key)}>
@@ -134,7 +146,7 @@ function CardStream() {
                             <rect x="10" y="110" rx="5" ry="5" width="250" height="12" />
                         </ContentLoader>
                     ) : (
-                        <>
+                        <>  
                             <Card.Body>
                                 <Card.Title>{song.title}</Card.Title>
                                 <Card.Text className="text_sub">
@@ -147,20 +159,19 @@ function CardStream() {
                                         <Button className='col mx-2 play_btn' onClick={() => notify(song.title, song.artist)} key={key}>
                                             <FaPlay className='play_icon' />
                                         </Button>
-                                        <ToastContainer
-                                            theme="dark"
-                                            closeOnClick={true}
-                                            autoClose={2000}
-                                        />
                                     </div>
 
                                 </Card.Text>
                             </Card.Body>
+                            
+                            
                         </>
                     )
                     }
                 </Card>
+                
             ))}
+            
         </>
 
     );

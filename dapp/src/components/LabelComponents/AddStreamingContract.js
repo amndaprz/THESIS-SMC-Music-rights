@@ -44,7 +44,7 @@ function AddStreamingContract(){
                 <div className="my-3">
                     <span className='mx-3 my-2'>End date</span>
                     <p className="text_sub p-0 mt-2">
-                    <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
+                    <input type="date" name="addr" className="inputfield_contract" defaultValue={date} />
                     </p>
                 </div>
                 <div className="my-3">
