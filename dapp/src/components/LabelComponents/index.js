@@ -72,6 +72,11 @@ function Label() {
         setUserName(result);
     }
     
+    const reloadPage = async() => {
+
+
+    }
+
 
     /*
     useEffect(() => {

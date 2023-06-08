@@ -176,10 +176,21 @@
     color: #595275;
 }
 
-select option {
+select {
     padding: 40px;
     color: #595275;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+
+option{
+    background: #595275;
+    border-color: white;
+}
+
+option:active, option:hover {
+    outline-color: #EA80FF;
 }
 
 .about_con{
@@ -301,3 +312,4 @@ select option {
     outline: none;
     padding: 20px;
 }
+

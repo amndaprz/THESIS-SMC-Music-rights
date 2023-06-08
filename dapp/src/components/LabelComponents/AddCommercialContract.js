@@ -24,38 +24,69 @@ function AddCommercialContract(){
     // Safe Mint (Replace with SafeMintLabel.js) 
     // File Path -- components > safeMint > SafeMintLabel.js
     const [balance, setBalance] = useState('');
+    const [songTitle, setSongTitle] = useState('');
     const [percentLabel, setPLabel] = useState('');
     const [percentArtist, setPArtist] = useState('');
     const [labelName, setLabelName] = useState('');
     const [artistName, setArtistName] = useState('');
     const [totalFee, setTotalFee] = useState('');
-    const [songTitle, setSongTitle] = useState('');
+
+    const handleSongTitle = (event) => { setSongTitle(event.target.value);} // Input Song Title
 
     // Input listener for Label Address
-    const handleNameLabel = (event) => { setLabelName(event.target.value); }
+    const handleNameLabel = (event) => { 
+        const value = event.target.value;
+        const regexUsername = /^[a-zA-Z0-9]*$/;
 
+        if (regexUsername.test(value) || value === '')  setLabelName(event.target.value);
+    }
+    
     // Input listener for Artist Address
-    const handleNameArtist = (event) => { setArtistName(event.target.value);}
+    const handleNameArtist = (event) => {
+        const value = event.target.value;
+        const regexUsername = /^[a-zA-Z0-9]*$/;
+        
+        if (regexUsername.test(value) || value === '') setArtistName(event.target.value);
+    }     
+    const regex = /^(?:100|[1-9][0-9]?|0)$/; // Number only from 0-100
 
     // Input listener for Label Percentage
-    const handlePLabel = (event) => { setPLabel(event.target.value); }
+    const handlePLabel = (event) => { 
+        const value = event.target.value;
+        if (regex.test(value) || value === '') { setPLabel(value);}
+    }    
 
     // Input listener for Label Artist
-    const handlePArtist = (event) => { setPArtist(event.target.value);}
+    const handlePArtist = (event) => { 
+        const value = event.target.value;
+        if (regex.test(value) || value === '') { setPArtist(value);}
+    }    
 
-    const handleTotalFee = (event) => { setTotalFee(event.target.value);} 
+    // Input Total Fee
+    const handleTotalFee = (event) => { 
+        const value = event.target.value;
+        const regexFee = /^\d*\.?\d*$/;
+        
+        if (regexFee.test(value) || value === '') { setTotalFee(value);}
+    }  
 
-    const handleSongTitle = (event) => { setSongTitle(event.target.value);}
+    // Error Handlers
+    const [error_title, setErrorTitle] = useState('');
+    const [error_PLabel, setErrorPLabel] = useState('');
+    const [error_PArtist, setErrorPArtist] = useState('');
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     mintERC721();
 
-        // console.log('From address:', addrLabel);
-        // console.log('Label %:', percentLabel);
-        // console.log('To address:', addrArtist);
-        // console.log('Artist %:', percentArtist);
-    // }
+    // Error States
+    const [error_title_state, setErrorTitleState] = useState(0);
+    const [error_PLabel_state, setErrorPercentLabelState] = useState(0);
+    const [error_PArtist_state, setErrorPercentArtistState] = useState(0);
+
+
+    const clearStates = () => {
+        setErrorTitleState(0);
+        setErrorPercentLabelState(0);
+        setErrorPercentArtistState(0);
+    };
 
     const ipfsClient = async() => {
         const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
@@ -85,71 +116,59 @@ function AddCommercialContract(){
     }
 
 
-    // Checkers 
-    const isValidPercentage = (pLabel, pArtist) => {
-        const LabelCut = parseInt(pLabel);
-        const ArtistCut = parseInt(pArtist);
-
-        if((LabelCut + ArtistCut) == 100){
-            return true
-        }else return false;
-
-    };
-
-    const isSenderValid = (addressInput, addressMetamask) => {
-        // Is the address given same as the one in metamask
-        const confirmAddr = addressInput === addressMetamask
-        return confirmAddr;
-        // Check if role fits this contract function
-        
-    };
-
-    // const isReceiverValid = (addressArtist) => {
-    //     return contract.methods._isArtist(addressArtist).call()
-    //       .then((isArtist) => {
-    //         console.log( isArtist);
-    //         return isArtist;
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   };;
-
-    // Error test
-
-    const [errors, setErrors] = useState({})
-    //var error_message = "Error 1";
-    const [error_title, setErrorTitle] = useState('');
-    const [error_title_state, setErrorTitleState] = useState(0);
-    const [error_percentlabel, setErrorPercentLabel] = useState('');
-    const [error_percentlabel_state, setErrorPercentLabelState] = useState(0);
-
     // Minting 
     // Generates IPFS hash
     const mintERC721 = async() => {
-        //setErrors(Validation(songTitle));
-        // Check for missing fields
         
-        // Check Percentage Count
-        console.log("ValidPercentage Total: " + isValidPercentage(percentLabel, percentArtist));
+        /// Check if percentages add up to 100
+        const total = parseInt(percentLabel) + parseInt(percentArtist);
+        let error = false;
+        try{
+            /*
+                    Field Checkers
+            */
+                
+            // Case 1: Percentages do NOT add to 100
+            if(total != 100){          
+                setErrorPArtist("!! Invalid Percentage Split !!  Must total to 100");
+                setErrorPLabel("!! Invalid Percentage Split !!  Must total to 100");
+
+                setErrorPercentLabelState(1);
+                setErrorPercentArtistState(1);
+                // throw new Error("!! Invalid Percentage Split !!  Must total to 100");
+                error = true;
+            }
+            
+            // Case 2: Song Title Cannot be Empty
+            if(songTitle === ""){ 
+                setErrorTitle("song_title is empty");
+                setErrorTitleState(1);
+                // throw new Error("!! Song Title is Empty !!");
+                error = true;
+            }               
+                
+
+            // If an Error with the Cases above has occurred, return an error and cancel the try-catch
+            if(error){
+                throw new Error("Invalid Inputs");
+            }
         
-        // Request for metamask account
-        const accounts = await web3.eth.requestAccounts();
-		account = accounts[0];
-
-        // Set Address to useState
-        //setAddrLabel(account);
         
-        // Check if Sender address is valid
-        //console.log("IsSenderValid: "+ isSenderValid(addrLabel,account));
+            /*
+                Store these in IPFS
+            */
 
-        // Check if Artist Address is Valid
-        //console.log(addrArtist);
-        //const isArtistValid  = await isReceiverValid(addrArtist);
-        //console.log("isReceiverValid: "+ isArtistValid);
+            console.log("Song Title: " + songTitle);
+            console.log("Percent Label: " + percentLabel);
+            console.log("Percent Artist: " + percentArtist);
+            console.log("Label Name: " + labelName);
+            console.log("Artist Name: " + artistName);
+            console.log("Total Fee: " + totalFee);
 
-        // temp
-    
+            // Request for metamask account
+            const accounts = await web3.eth.requestAccounts();
+            account = accounts[0];
+            clearStates();
 
         //setArtistName(artist_name);
         //setLabelName(label_name);
@@ -170,15 +189,33 @@ function AddCommercialContract(){
             creation_date: date
         };
 
-        //setErrors(Validation(MRC));
+            const users = await contract_RA.methods.getUsers().call();
+            console.log(users);
 
-        if(MRC.song_title === ""){
-            setErrorTitle("song_title is empty");
-            setErrorTitleState(1);
+
+            notify();
+
+            console.log(MRC.song_title);
+            console.log(MRC);
+
+            let mrcResult = await saveInput(MRC);
+
+            console.log(mrcResult);
+            
+            if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 6000000, sender:account})){
+                console.log("Initial contract minting successful");
+            }
+
+            const balance = await contract.methods.balanceOf(account).call();
+            setBalance(balance);
+            console.log("Balance = " + balance);
+
+            return mrcResult;
+
+        }catch(e){
+            console.log(e.message);
         }
-        else{
-            setErrorTitleState(0);
-        }
+        
 
         if(percentLabel === ""){
             setErrorPercentLabel("percent_label is empty");
@@ -234,7 +271,7 @@ function AddCommercialContract(){
         toast("Notify");
     }
 
-    
+
 
     return(
         <form className="m-4" onSubmit="">
@@ -274,8 +311,8 @@ function AddCommercialContract(){
                 <div className="my-3">
                     <span className='mx-3 my-2'>Percent of Label</span>
                     {
-                        error_percentlabel_state === 1 && 
-                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_percentlabel}</span>
+                        error_PLabel_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_PLabel}</span>
                         
                     }
                     <p className="text_sub p-0 mt-2">
@@ -284,6 +321,11 @@ function AddCommercialContract(){
                 </div>
                 <div className="my-3">
                     <span className='mx-3 my-2'>Percent of Artist</span>
+                    {
+                        error_PArtist_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_PArtist}</span>
+                        
+                    }
                     <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={percentArtist} onChange={handlePArtist} />
                     </p>

@@ -1,11 +1,29 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 //import CardBuy from '../Cards/CardBuy';
+import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+
 
 function ConfirmPurchasePopup(props) {
     console.log(props.content.songTitle)
     //const cardBuy = new CardBuy();
     //cardBuy.buy
+
+    const buySong = async() => {
+         
+        const accounts = await web3.eth.requestAccounts();
+		const account = accounts[0];
+
+        console.log(props.percentA);
+        console.log(props.percentL);
+        console.log(props.addrA);
+        console.log(props.addrL);
+        console.log("------------")
+
+        props.onHide();
+        console.log("MUSIC BOUGHT");
+    }
+
 
     return (
         <Modal
@@ -42,7 +60,7 @@ function ConfirmPurchasePopup(props) {
                 {/* change to buySong */}
                 <Button onClick={props.onHide} className="py-2 px-4 modal_btn_sub">Cancel</Button>
                 
-                <Button onClick={props.onHide} className="py-2 px-4 modal_btn">Confirm</Button>
+                <Button onClick={() => { buySong(); }} className="py-2 px-4 modal_btn">Confirm</Button>
             </Modal.Footer>
         </Modal>
     );
