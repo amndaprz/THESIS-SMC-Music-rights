@@ -88,9 +88,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "address",
 				"name": "r_Add",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"name": "_removeRoles",
@@ -102,13 +102,57 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "r_Alias",
+				"type": "string"
+			}
+		],
+		"name": "getAddress",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
 				"name": "r_Add",
 				"type": "string"
 			}
 		],
-		"name": "deleteUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "getAlias",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "r_Add",
+				"type": "string"
+			}
+		],
+		"name": "getRole",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -167,9 +211,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "address",
 				"name": "r_Add",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"name": "hasRole",

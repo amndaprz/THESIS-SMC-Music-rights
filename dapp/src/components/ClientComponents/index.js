@@ -31,7 +31,7 @@ function Client() {
     useEffect(() => {
         const t = setTimeout(() => {
             setLoading(false);
-            displayAllInfo();
+            //displayAllInfo();
         } , 3000);
 
         return () => {

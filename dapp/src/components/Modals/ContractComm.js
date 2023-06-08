@@ -23,7 +23,7 @@ function ContractCommPopup(props){
                 <div className='row my-2'>
                     <div className='col m-3  modal_percentartist_con'>
                         <div>Label</div>
-                        <div className='modal_perce ntartist'>30%</div>
+                        <div className='modal_percentartist'>30%</div>
                     </div>
                     <div className='col m-3  modal_percentlabel_con'>
                         <div>Artist</div>
