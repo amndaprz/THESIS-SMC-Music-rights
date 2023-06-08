@@ -154,8 +154,13 @@ function AddCommercialContract(){
         //setArtistName(artist_name);
         //setLabelName(label_name);
         // find label name
+        let tokenID = await contract.methods.getToken().call();
+
+        tokenID = parseInt(tokenID) + 1;
 
         const MRC = {
+
+            token_id: tokenID,
             song_title: songTitle,
             artist_name: artistName,
             label_name: labelName,
