@@ -50,14 +50,21 @@ const giveRole = async(username,role) => {
 
     const userExists = async (username) => {
         const list = await contract_RA.methods.getUsers().call();
+        let bool = false;
+        // const exist = await contract_RA.methods.getAddress(username).call();
+            
+        console.log(list);
 
         for(let i = 0; i<list.length; i++){
-            if(list[i][1] == username){
-                return true;
+            console.log("HERE ----");
+            if(list[i][1] === username){
+                console.log(list[i][1] + " " + username);
+                bool = true;
+                break;
             }
         }
 
-        return false;
+        return bool;
     };
 
 
@@ -71,9 +78,6 @@ function SignUp(){
     };
 
     // Checks if The Username Exists across the whole blockchain
-  
-    
-
     const [error_username, setErrorUsername] = useState('');
     const [error_username2, setErrorUsername2] = useState('');
     const [error_username_state, setErrorUsernameState] = useState(0);
@@ -135,47 +139,50 @@ function SignUp(){
         setRole(e.target.value);
     };
 
-    function handleValidation(event){
+    async function handleValidation(event) {
         event.preventDefault();
-        let error = false;
+        let errorblank = false;
+        let errorexist = false;
         try{
             if (username===""){
                 setErrorUsername("Username is required");
                 setErrorUsernameState(1);
-            }else{
-                setErrorUsernameState(0);
-    
-                // check for duplicates
-                if(userExists(username)){
-                    console.log("Username already exists");
-                    console.log(username);
-                    setErrorUsername2("Username is taken");
-                    setErrorUsernameState(2);
-                    error = true;
-                }else{
-                    console.log("HERE USERNAME: " + username);
-                   
-                }
-    
-                if(error){
-                    throw new Error("Invalid Inputs");
-                }
-                // let checker = getUsers();
-    
-                // Add to RoleAccess.sol
-                if(giveRole(username,signupRole)){
-                    console.log(signupRole + " SignupRole");
-                    switch(signupRole){
-                        /*
-                           1-Label, 2-Artist, 3-Client, 4-Admin
-                        */
-                        case 'label': navigate("../Label"); break;
-                        case 'artist': navigate("../Artist"); break;
-                        case 'client': navigate("../Client"); break;
-                        case 'admin': navigate('/destination'); break;
-                    }
+                errorblank = true;
+            }
+            
+            if(await userExists(username)){
+                console.log("Username already exists");
+                console.log(username);
+                console.log(typeof(username));
+                setErrorUsername2("Username is taken");
+                setErrorUsernameState(2);
+                errorexist = true;
+            }
+            
+                
+            if(errorblank){
+                throw new Error("BLANK");
+            }
+
+            if(errorexist){
+                throw new Error("EXITSS");
+            }
+            // let checker = getUsers();
+
+            // Add to RoleAccess.sol
+            if(giveRole(username,signupRole)){
+                console.log(signupRole + " SignupRole");
+                switch(signupRole){
+                    /*
+                        1-Label, 2-Artist, 3-Client, 4-Admin
+                    */
+                    case 'label': navigate("../Label"); break;
+                    case 'artist': navigate("../Artist"); break;
+                    case 'client': navigate("../Client"); break;
+                    case 'admin': navigate('/destination'); break;
                 }
             }
+            
         }catch(e){
             console.log(e.message);
         }

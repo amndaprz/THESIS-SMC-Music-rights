@@ -15,7 +15,7 @@ export const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 
 // RoleAccess.sol ------------------
-export const contractAddress_RA = "0x9bBf84fE1C15fA72b22BeE31ed1320D00Ead9e59";
+export const contractAddress_RA = "0x9C69E92c91aEF1f147f207bf80dcdC5d4C5E56F2";
 
 export const contractABI_RA = ERC721_RA;
 export const web3_RA = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
