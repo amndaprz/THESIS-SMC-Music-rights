@@ -7,14 +7,16 @@ let account;
 function ProposalCommPopup(props){
 
     console.log("HATDOG");
-    console.log(props.hashContent);
 
-    
 
     const mintWithToken = async() => {
+        // let allResults = await contract.methods.getAllNonMint().call();
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.safeMintWithHash(props.hashContent).send({from: account, gas: 6000000, sender: account })){
+
+        console.log("TOKEN ID: " + props.songs.token_id);
+    
+        if(await contract.methods.safeMintWithToken(props.songs.token_id).send({from: account, gas: 60000000, sender: account })){
             console.log("Minting successful");
         }
     }

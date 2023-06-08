@@ -6,6 +6,9 @@ import Card from 'react-bootstrap/Card';
 
 import { FaSearch } from "react-icons/fa";
 
+import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+
+
 function CardContract(props){
 
     const jsonObj = props;
@@ -17,14 +20,14 @@ function CardContract(props){
     const [contractContent, setContractContent] = useState([]);
     const [stringHash, setStringHash] = useState("");
 
-    console.log("WORD: " + hashes[0]);
 
-    const clickedContract  = (value, isOpen, key) =>{
+    const clickedContract  = async(value, isOpen, key) =>{        
+
         console.log("clicked", value);
         setModalShow(isOpen);   
         setContractContent(value);
-        setStringHash(hashes[key]);
-        console.log("HASH: " + hashes[key]);
+        //setStringHash(tokenID);
+       
     }
 
     // test
@@ -99,7 +102,6 @@ function CardContract(props){
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 songs = {contractContent}
-                hashContent = {stringHash}
             />
         </div>
         {jsonObj.data.filter(song => {
