@@ -14,7 +14,7 @@ function ProposalCommPopup(props){
     const mintWithToken = async() => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.safeMintWithHash(props.hashContent).send({from: account, gas: 6000000, sender: account })){
+        if(await contract.methods.safeMintWithToken(props.hashContent).send({from: account, gas: 6000000, sender: account })){
             console.log("Minting successful");
         }
     }

@@ -12,7 +12,7 @@ function ViewContractProposals(){
     const [toggleState, setToggleState] = useState(1);
 
     const [jsonObject, setJsonObj] = React.useState([]);
-    const [ipfsHash, setIPFS] = React.useState([]);
+    const [ipfsHash, setIPFS] = React.useState(0);
     const [tokenObject, setTokenObj] = React.useState("");
 
     useEffect(() => {
@@ -68,10 +68,10 @@ function ViewContractProposals(){
             
             for (let key in allResults)
             {
-                console.log("HASH is " + typeof allResults[key][1]);
+                console.log("HASH is " + typeof key);
                 //status.push(allResults[key][2]);
                 //console.log("status: " + allResults[key][2]);
-                ipfsHash.push(allResults[key][1]);
+                ipfsHash.push(key);
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 

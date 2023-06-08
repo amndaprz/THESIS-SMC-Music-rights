@@ -15,7 +15,7 @@ function CardContract(props){
     const [modalShow, setModalShow] = useState(false);
 
     const [contractContent, setContractContent] = useState([]);
-    const [stringHash, setStringHash] = useState("");
+    const [stringHash, setStringHash] = useState(0);
 
     console.log("WORD: " + hashes[0]);
 
