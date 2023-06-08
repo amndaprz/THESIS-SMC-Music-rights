@@ -31,7 +31,7 @@ function Client() {
     useEffect(() => {
         const t = setTimeout(() => {
             setLoading(false);
-            displayAllInfo();
+            //displayAllInfo();
         } , 3000);
 
         return () => {
@@ -77,6 +77,7 @@ function Client() {
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
         const data =[];
         const temp_data = [];
+        const status = [];
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
@@ -90,6 +91,8 @@ function Client() {
             for (let key in allResults)
             {
                 console.log("Data is " + allResults[key][0]);
+                status.push(allResults[key][2]);
+                console.log("status: " + allResults[key][2]);
 
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
@@ -213,13 +216,6 @@ function Client() {
                         </div>
                         </>
                     )}
-                    <div className="px-4 mx-4 logout_btn_con">
-                        <Link to="/">
-                            <Button className="submit-button py-2 px-5 logout_btn">
-                                Logout
-                            </Button>
-                        </Link>
-                    </div>
             </div>
             
             <div className="col-sm-10 py-5 px-0 m-0 content_con">

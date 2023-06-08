@@ -162,6 +162,7 @@ function AddCommercialContract(){
             percent_label: parseInt(percentLabel),
             percent_artist: parseInt(percentArtist),
             total_fee: parseFloat(totalFee),
+            creation_date: date
         };
 
         //setErrors(Validation(MRC));
@@ -205,7 +206,7 @@ function AddCommercialContract(){
         //     console.log("Minting successful");
         // }
 
-        if(await contract.methods.nonMint(mrcResult).call()){
+        if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 6000000, sender:account})){
             console.log("Initial contract minting successful");
         }
 
@@ -301,12 +302,6 @@ function AddCommercialContract(){
                         className="submit-button py-3 px-5 btn_mod"
                         // onClick={() => setModalShow(true)}>
                         onClick={mintERC721}>
-                        Add contract
-                    </Button>
-                    <Button
-                        className="submit-button py-3 px-5 btn_mod"
-                        // onClick={() => setModalShow(true)}>
-                        onClick={notify}>
                         Add contract
                     </Button>
                 </div>

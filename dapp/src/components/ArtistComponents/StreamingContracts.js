@@ -1,6 +1,6 @@
-import CardContract from '../Cards/CardContract'
+import CardContract from '../Cards/CardStreamContract'
 
-function ViewContracts(){
+function StreamingContracts(){
 
     return(
         <div class="row py-4 px-1 card-deck">
@@ -9,4 +9,4 @@ function ViewContracts(){
     );
 }
 
-export default ViewContracts;
+export default StreamingContracts;

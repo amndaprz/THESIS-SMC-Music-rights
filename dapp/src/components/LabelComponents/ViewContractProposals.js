@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardProposal from '../Cards/CardProposal';
+import CardProposal from '../Cards/CardCommProposal';
 
 function ViewContractProposals(){
     

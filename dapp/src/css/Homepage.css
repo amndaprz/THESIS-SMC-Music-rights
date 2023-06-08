@@ -233,6 +233,14 @@ button {
   margin-top: -10px;
 }
 
+.card_button_proposal{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+  align-items: baseline;
+}
+
 .card_button_delete {
   border-radius: 20px;
   background-color: #595275;
