@@ -217,53 +217,53 @@ function AddCommercialContract(){
         }
         
 
-        if(percentLabel === ""){
-            setErrorPercentLabel("percent_label is empty");
-            console.log("percent_label is empty")
-            setErrorPercentLabelState(1);
-        }
-        else{
-            setErrorPercentLabelState(0);
-            console.log("percent_label is not empty")
-            console.log("percent_label is = %", MRC.percent_label)
-        }
-
-        const users = await contract_RA.methods.getUsers().call();
-
-        console.log(users);
-
-        toast("Notify");
-
-        console.log(MRC.song_title);
-
-        console.log(MRC);
-
-        let mrcResult = await saveInput(MRC);
-
-        console.log(mrcResult);
-        
-        // Add Checker if all prereqs are satisfied
-        //console.log(account);
-        // if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 6000000, sender: account })){
-        //     console.log("Minting successful");
+        // if(percentLabel === ""){
+        //     setErrorPercentLabel("percent_label is empty");
+        //     console.log("percent_label is empty")
+        //     setErrorPercentLabelState(1);
+        // }
+        // else{
+        //     setErrorPercentLabelState(0);
+        //     console.log("percent_label is not empty")
+        //     console.log("percent_label is = %", MRC.percent_label)
         // }
 
-        if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 600000000, sender:account})){
-            console.log("Initial contract minting successful");
-        }
+        // const users = await contract_RA.methods.getUsers().call();
 
-        const balance = await contract.methods.balanceOf(account).call();
-        setBalance(balance);
-        console.log("Balance = " + balance);
+        // console.log(users);
+
+        // toast("Notify");
+
+        // console.log(MRC.song_title);
+
+        // console.log(MRC);
+
+        // let mrcResult = await saveInput(MRC);
+
+        // console.log(mrcResult);
+        
+        // // Add Checker if all prereqs are satisfied
+        // //console.log(account);
+        // // if(await contract.methods.safeMintWithHash(mrcResult).send({from: account, gas: 6000000, sender: account })){
+        // //     console.log("Minting successful");
+        // // }
+
+        // if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 600000000, sender:account})){
+        //     console.log("Initial contract minting successful");
+        // }
+
+        // const balance = await contract.methods.balanceOf(account).call();
+        // setBalance(balance);
+        // console.log("Balance = " + balance);
 
 
-        // Checkers
-        // console.log('From address:', addrLabel);
-        // console.log('Label %:', percentLabel);
-        // console.log('To address:', addrArtist);
-        // console.log('Artist %:', percentArtist);
+        // // Checkers
+        // // console.log('From address:', addrLabel);
+        // // console.log('Label %:', percentLabel);
+        // // console.log('To address:', addrArtist);
+        // // console.log('Artist %:', percentArtist);
 
-        return mrcResult;
+        // return mrcResult;
 
     }
 
