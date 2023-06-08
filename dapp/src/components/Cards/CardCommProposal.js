@@ -16,6 +16,7 @@ function CardContract(props){
 
     const [contractContent, setContractContent] = useState([]);
     const [stringHash, setStringHash] = useState(0);
+    const [numKey, setNumKey] = useState();
 
     console.log("WORD: " + hashes[0]);
 
@@ -25,6 +26,8 @@ function CardContract(props){
         setContractContent(value);
         setStringHash(hashes[key]);
         console.log("HASH: " + hashes[key]);
+        setNumKey(key);
+
     }
 
     // test
@@ -100,6 +103,7 @@ function CardContract(props){
                 onHide={() => setModalShow(false)}
                 songs = {contractContent}
                 hashContent = {stringHash}
+                numkey = {numKey}
             />
         </div>
         {jsonObj.data.filter(song => {

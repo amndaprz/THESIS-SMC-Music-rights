@@ -8,6 +8,7 @@ function ProposalCommPopup(props){
 
     console.log("HATDOG");
     console.log(typeof parseInt(props.hashContent));
+    console.log(props.hashContent);
 
     
 
@@ -29,6 +30,7 @@ function ProposalCommPopup(props){
       >
         <Modal.Header closeButton className='pb-0'>
             <h4 className='col-sm-6'>{props.songs.song_title}</h4>
+            <div>{props.numkey}</div>
             <div className='col-sm-6 text_pop modal_contracttype'>Commercial</div>
         </Modal.Header>
         <Modal.Body>
