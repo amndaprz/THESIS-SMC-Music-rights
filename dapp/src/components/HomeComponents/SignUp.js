@@ -121,7 +121,7 @@ function SignUp(){
         fetchData();
     }, []);
 
-    const [signupRole, setRole] = useState(0);
+    const [signupRole, setRole] = useState('client');
 
     const handleRoleChange = (e) => {
         console.log("Handle Role Change" + e.target.value);
