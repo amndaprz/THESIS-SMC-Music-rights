@@ -14,7 +14,6 @@ function ConfirmPurchasePopup(props) {
         const accounts = await web3.eth.requestAccounts();
 		const account = accounts[0];
 
-        // testETHTransfer()1
         console.log(props.percentA);
         console.log(props.percentL);
         console.log(props.addrA);

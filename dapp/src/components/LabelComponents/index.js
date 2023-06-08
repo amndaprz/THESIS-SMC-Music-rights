@@ -65,13 +65,18 @@ function Label() {
         console.log("ACCOUNT" + account);
 
         let result = await contract_RA.methods.getAlias(account).call();
-        if(result !== ""){
+        if(result === ""){
             window.location.reload();
         }
         console.log("RESULT" + result);
         setUserName(result);
     }
     
+    const reloadPage = async() => {
+
+
+    }
+
 
     /*
     useEffect(() => {

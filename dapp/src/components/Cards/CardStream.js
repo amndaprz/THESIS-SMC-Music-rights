@@ -6,12 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Sound from './ding.mp3';
 
 import { FaPause, FaPlay, FaSearch } from "react-icons/fa";
+import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
-
 
 function CardStream() {
 
@@ -83,6 +81,12 @@ function CardStream() {
         toast("Now playing:  " + title + " by " + artist);
         //console.log(event.target);
     }
+
+    const addStreamCount = async (title, artist) => {
+        notify(title, artist);
+        
+
+    };
 
     return (
         <>
@@ -156,7 +160,7 @@ function CardStream() {
                                             <div className='text_italic'>{song.label}</div>
                                         </div>
 
-                                        <Button className='col mx-2 play_btn' onClick={() => notify(song.title, song.artist)} key={key}>
+                                        <Button className='col mx-2 play_btn' onClick={() => addStreamCount(song.title, song.artist)} key={key}>
                                             <FaPlay className='play_icon' />
                                         </Button>
                                     </div>
