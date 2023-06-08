@@ -177,6 +177,30 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "_nonMint",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "token_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "to",
 				"type": "address"
@@ -213,12 +237,24 @@
 	},
 	{
 		"inputs": [],
-		"name": "fixedWallet",
+		"name": "getAllMRCs",
 		"outputs": [
 			{
-				"internalType": "address payable",
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "token_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsHash",
+						"type": "string"
+					}
+				],
+				"internalType": "struct MusicRightsToken.MRC[]",
 				"name": "",
-				"type": "address"
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -226,7 +262,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getAllMRCs",
+		"name": "getAllNonMint",
 		"outputs": [
 			{
 				"components": [
@@ -327,6 +363,19 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "nonMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
@@ -359,12 +408,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "ipfsHash",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "token_id",
+				"type": "uint256"
 			}
 		],
-		"name": "safeMintWithHash",
+		"name": "safeMintWithToken",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

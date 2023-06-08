@@ -88,9 +88,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "address",
 				"name": "r_Add",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"name": "_removeRoles",
@@ -167,9 +167,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "address",
 				"name": "r_Add",
-				"type": "string"
+				"type": "address"
 			}
 		],
 		"name": "hasRole",
