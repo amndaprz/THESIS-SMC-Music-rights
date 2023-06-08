@@ -9,6 +9,7 @@
 
 .error_username{
     font-style: italic;
-    color: rgb(169, 33, 33);
-    font-size: 12px;
+    color: rgb(194, 35, 35);
+    font-size: 13px;
+    font-weight: 500;
 }
