@@ -15,7 +15,7 @@ function CardContract(props){
     const [modalShow, setModalShow] = useState(false);
 
     const [contractContent, setContractContent] = useState([]);
-    const [stringHash, setStringHash] = useState(0);
+    const [tokenID, setTokenID] = useState(0);
 
     console.log("WORD: " + hashes[0]);
 
@@ -23,7 +23,7 @@ function CardContract(props){
         console.log("clicked", value);
         setModalShow(isOpen);   
         setContractContent(value);
-        setStringHash(hashes[key]);
+        setTokenID(hashes[key]); // hashes = tokenID
         console.log("HASH: " + hashes[key]);
     }
 
@@ -99,7 +99,7 @@ function CardContract(props){
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 songs = {contractContent}
-                hashContent = {stringHash}
+                hashContent = {tokenID}
             />
         </div>
         {jsonObj.data.filter(song => {

@@ -71,7 +71,8 @@ function ViewContractProposals(){
                 console.log("HASH is " + typeof key);
                 //status.push(allResults[key][2]);
                 //console.log("status: " + allResults[key][2]);
-                ipfsHash.push(key);
+                console.log(allResults[key][0]);
+                ipfsHash.push(allResults[key][0]);
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
                     data.push(chunk); 
