@@ -14,14 +14,34 @@ import Payout from './Payout';
 import { Link } from "react-router-dom";
 
 import {FaFileContract, FaMoneyCheck, FaMusic, FaPlus, FaSignature } from "react-icons/fa";
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
 
 document.body.style.background = "#232226";
 let account;
 
 function Label() {
 
-    
+    const getRole = async () => {
+        const getUsersList = await contract_RA.methods.getUsers().call();
+        const accounts = await web3_RA.eth.requestAccounts();
+        const account = accounts[0];
+        let userRole;
+
+        console.log(getUsersList);
+        for(let i = 0; i < getUsersList.length; i++){
+            if(getUsersList[i][0] === account){
+                 userRole = getUsersList[i][2];
+                 console.log(getUsersList[i][2]);
+                 console.log("User Role " + userRole);
+            }
+        }
+        // console.log(typeof(userRole));
+        userRole = parseInt(userRole);
+        return userRole;
+    };
+
+    const [roleString, setRoleString] = useState("Role");
+        
     const [name, setUserName] = useState("");
     const [toggleState, setToggleState] = useState(1);
 
@@ -46,15 +66,34 @@ function Label() {
     
     //Window.onload = getUserName();
     useEffect(() => {
-        const t = setTimeout(() => {
+        const fetchData = async () => {
+          const t = setTimeout(() => {
             setLoading(false);
-            
-        }, 3000);
-
-        return () => {
+          }, 3000);
+      
+          console.log("HERE");
+          switch (await getRole()) {
+            case 1:
+              setRoleString('Label');
+              break;
+            case 2:
+              setRoleString('Artist');
+              break;
+            case 3:
+              setRoleString('Client');
+              break;
+            case 4:
+              setRoleString('Admin');
+              break;
+          }
+      
+          return () => {
             clearTimeout(t);
-        }
-    }, []);
+          };
+        };
+      
+        fetchData();
+      }, []);
 
     
     const getUserName = async() => {
@@ -72,11 +111,6 @@ function Label() {
         setUserName(result);
     }
     
-    const reloadPage = async() => {
-
-
-    }
-
 
     /*
     useEffect(() => {
@@ -147,7 +181,7 @@ function Label() {
                                 <div className="px-4 pt-5 pb-3 user_con">
                                     <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
                                     <h2 className="mx-4 mt-5 client_name">{name}</h2>
-                                    <h5 className="mx-4 text_sub">Role name</h5>
+                                    <h5 className="mx-4 text_sub">{roleString}</h5>
                                 </div>
                             
                                 <div className="nav_btn_con">
@@ -209,14 +243,14 @@ function Label() {
                                     <div className="row">
                                         <div className="col">
                                             <Button
-                                                className={toggleState2 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                                className={toggleState2 === 1 ? "tabs_contract atabs_contract py-3 px-5 " : " dark_button py-3 px-5"}
                                                 onClick={() => toggleTab2(1)}>
                                                 Commercial
                                             </Button>
                                         </div>
                                         <div className="col">
                                             <Button
-                                                className={toggleState2 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                                className={toggleState2 === 2 ? "tabs_contract atabs_contract py-3 px-5" : " dark_button  py-3 px-5"}
                                                 onClick={() => toggleTab2(2)}>
                                                 Streaming
                                             </Button>
@@ -243,14 +277,14 @@ function Label() {
                                     <div className="row">
                                         <div className="col">
                                             <Button
-                                                className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                                className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : " dark_button  py-3 px-5"}
                                                 onClick={() => toggleTab3(1)}>
                                                 Commercial
                                             </Button>
                                         </div>
                                         <div className="col">
                                             <Button
-                                                className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                                className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "dark_button py-3 px-5 "}
                                                 onClick={() => toggleTab3(2)}>
                                                 Streaming
                                             </Button>

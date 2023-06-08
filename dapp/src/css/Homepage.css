@@ -46,12 +46,16 @@
 
 .active-tabs {
   background-color: #2C264B;
+  border-color: #2C264B;
   border-radius: 20px;
 }
 
 
 button {
-  border: none;
+  /* border: none; */
+  background-color: #2C264B;
+  border-color: #2C264B;
+  border-radius: 20px;
 
 }
 
@@ -335,7 +339,19 @@ button {
   flex-direction: column;
 }
 
+.dark_button{
+  background-color: #232226;
+  border-color: #2C264B ;
+  border-width: 2px;
+  border-radius: 20px;
 
+}
+.dark_button:hover{
+  background-color: #2C264B !important;
+  border-color: #2C264B;
+  transition: 0.2s;
+  border-radius: 20px;
+}
 
 .tabs:hover,
 .tabs_contract:hover,
@@ -344,7 +360,7 @@ button {
 .modal_btn:hover,
 .modal_btn_sub:hover,
 .card_button_delete:hover{
-  background-color: #2C264B;
+  background-color: #9988FF;
   border-color: #9988FF;
   transition: 0.2s;
   border-radius: 20px;
@@ -715,9 +731,9 @@ button {
 
 .tabs_contract {
   border-radius: 20px !important;
-  background-color: #9988FF;
+  background-color: #2C264B;
+  border-color: #2C264B;
   color: white;
-  border: none !important;
 }
 
 .atabs_contract::before {
@@ -730,7 +746,7 @@ button {
 
 .atabs_contract {
   border-radius: 20px !important;
-  background-color: #2C264B;
+  background-color: #9988FF;
 }
 
 .input-container {
