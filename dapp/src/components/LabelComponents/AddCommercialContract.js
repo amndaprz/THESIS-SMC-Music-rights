@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import ConfirmAddContract from "../Modals/ConfirmAddContract";
 import SafeMintLabel from "../safeMint/SafeMintLabel"
 import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import {utils} from 'web3';
@@ -23,7 +24,7 @@ function AddCommercialContract(){
 
     // Safe Mint (Replace with SafeMintLabel.js) 
     // File Path -- components > safeMint > SafeMintLabel.js
-    const [balance, setBalance] = useState('');
+    // const [balance, setBalance] = useState('');
     const [songTitle, setSongTitle] = useState('');
     const [percentLabel, setPLabel] = useState('');
     const [percentArtist, setPArtist] = useState('');
@@ -161,7 +162,7 @@ function AddCommercialContract(){
             console.log("Song Title: " + songTitle);
             console.log("Percent Label: " + percentLabel);
             console.log("Percent Artist: " + percentArtist);
-            console.log("Label Name: " + labelName);
+            console.log("Label Name: " + labelName); //Should be autocomplete
             console.log("Artist Name: " + artistName);
             console.log("Total Fee: " + totalFee);
 
@@ -177,12 +178,14 @@ function AddCommercialContract(){
                 percent_label: parseInt(percentLabel),
                 percent_artist: parseInt(percentArtist),
                 total_fee: parseFloat(totalFee),
-                creation_date: date
+                // creation_date: date //Do we still need this?
             };
 
 
-            const users = await contract_RA.methods.getUsers().call();
-            console.log(users);
+            // const users = await contract_RA.methods.getUsers().call();
+            // console.log(users);
+
+
 
 
             notify();
@@ -198,9 +201,9 @@ function AddCommercialContract(){
                 console.log("Initial contract minting successful");
             }
 
-            const balance = await contract.methods.balanceOf(account).call();
-            setBalance(balance);
-            console.log("Balance = " + balance);
+            // const balance = await contract.methods.balanceOf(account).call();
+            // setBalance(balance);
+            // console.log("Balance = " + balance);
 
             return mrcResult;
 
