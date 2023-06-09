@@ -8,15 +8,17 @@ import {contractAddress_RA, contractABI_RA, web3_RA, contract_RA} from '../../Co
 
 
 let result;
+//waitngi time
+function timeout(delay: number) {
+    return new Promise( res => setTimeout(res, delay) );
+}
 
-
-
-const giveRole = async(username,role) => {
+const giveRole = async(string, username,role) => {
 
     const accounts = await web3_RA.eth.requestAccounts();
     const account = accounts[0];
 
-    const alias = username;
+    // const alias = username;
 
     let roleInt = 0;
     switch(role){
@@ -25,6 +27,7 @@ const giveRole = async(username,role) => {
         */
         case 'label':
             roleInt = 1;
+            
         break;
         case 'artist':
             roleInt = 2;
@@ -35,30 +38,35 @@ const giveRole = async(username,role) => {
         case 'admin':
             roleInt = 4;
         break;
+        default:
+            roleInt = 3; break;
     }
 
-
-    const giveRoleResult = await contract_RA.methods.giveRole(account, alias, roleInt).send({ from: account });
+    await contract_RA.methods.giveRole(string, username, roleInt).send({ from: account });
     
-    result = await contract_RA.methods.getUsers().call();
+    
+    // result = await contract_RA.methods.getUsers().call();
 
-    // console.log(giveRoleResult);
+     // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+        const getAddressList = await contract_RA.methods.getAddresses().call();
+        let result = [];
+        for (const x in getAddressList){
+            const temp = await contract_RA.methods.getAlias(x).send({ from: account });
+            result.push(temp);
+        }
+
     // console.log(account);
     console.log(result);
     return true;
 }
 
     const userExists = async (username) => {
-        const list = await contract_RA.methods.getUsers().call();
         let bool = false;
-        // const exist = await contract_RA.methods.getAddress(username).call();
+        const list = await contract_RA.methods.getAddresses().call();
             
-        console.log(list);
-
         for(let i = 0; i<list.length; i++){
-            console.log("HERE ----");
-            if(list[i][1] === username){
-                console.log(list[i][1] + " " + username);
+            if(list[i] === username){
+                console.log("USERNAME FOUND");
                 bool = true;
                 break;
             }
@@ -74,7 +82,11 @@ function SignUp(){
     const [username, setUsername] = useState('');
 
     const handleUsername = (event) => { 
-        setUsername(event.target.value); 
+        const value = event.target.value;
+        const regexUsername = /^[a-zA-Z0-9]*$/;
+
+        if (regexUsername.test(value) || value === '')  {setUsername(event.target.value); 
+        }
     };
 
     // Checks if The Username Exists across the whole blockchain
@@ -83,60 +95,135 @@ function SignUp(){
     const [error_username_state, setErrorUsernameState] = useState(0);
    
     const getUsers = async () => {
-        const getUsersList = await contract_RA.methods.getUsers().call();
+        
+        const accounts = await web3_RA.eth.requestAccounts();
+        const account = accounts[0];
+
+        // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+        const getAddressList = await contract_RA.methods.getAddresses().call();
+        const getUsersList = [];
+        for (const x in getAddressList){
+            const temp = await contract_RA.methods.getAlias(x).send({ from: account });
+            getUsersList.push(temp);
+            console.log(temp);
+        }
+
         console.log(getUsersList);
         return getUsersList;
+
+        // return false;
     };
 
     const navigate = useNavigate();
     
     // ON LOAD CHECK IF USER ADDRESS WALLET ALREADY HAS AN EXISTING ACCOUNT
     useEffect(() => {
+        
         const fetchData = async () => {
-            let usersList = await getUsers();
-            let registerStatus = false;
+
             const accounts = await web3_RA.eth.requestAccounts();
             const account = accounts[0];
+            
+    
+            // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+            try{
+                let getAddressList = await contract_RA.methods.getAddresses().call();
+                // console.log(getAddressList);
 
-            console.log(" ** Account = " + account);
+                //check if address is in addreslist on load
+                for (let x = 0; x < getAddressList.length; x++){
+                    if(getAddressList[x] === account)
+                    console.log("ADDRESS EXISTS IN SMC");
 
-            for (let i = 0; i < usersList.length; i++) {
-                console.log(" *** UserList - " + usersList[i][0]);
-
-                if(account == usersList[i][0]){
-                    // ---------------- REDIRECT TO PAGE ---------------------------------
-                    let role = usersList[i][2];
-                    console.log("User has the role " + role);
-
-                    switch(parseInt(role)){
+                    const userRole = await contract_RA.methods.hasRole(account).call();
+                    switch(userRole){
                         /*
-                           1-Label, 2-Artist, 3-Client, 4-Admin
+                            1-Label, 2-Artist, 3-Client, 4-Admin
                         */
-                        case 1: navigate("../Label"); break;
-                        case 2: navigate("../Artist"); break;
-                        case 3: navigate("../Client"); break;
-                        case 4: navigate('/destination'); break;
+                        case '1': navigate("../Label");  break;
+                        case '2': navigate("../Artist"); break;
+                        case '3': navigate("../Client");  break;
+                        case '4': navigate('/Stream'); break;
+                        default: console.log("ADDRESS FOUND ON LOAD. ERROR IN ROLE " + userRole); 
+                        break;
                     }
-                    registerStatus = true;
-                    return;
                 }
-            }
 
-            if(registerStatus){
-                console.log("USER HAS EXISTING ACCOUNT");
-            }else{
-                console.log("USER HAS NOT REGISTERED YET, PROCEED TO SIGNUP PAGE.");
             }
+            catch(err){
+                console.log(err);
+            }     
+            
+            
+            // if(userRole == 0){
+                // console.log("User has no existing account");
+            // }else {
+                // console.log("User has account with role " + userRole);
+            // }
+
+            // console.log(getAddressList);
+        //     // let usersList = await getUsers();
+            // let registerStatus = false;
+        //     const accounts = await web3_RA.eth.requestAccounts();
+        //     const account = accounts[0];
+
+            // console.log(" ** Account = " + account);
+
+        //     // for (let i = 0; i < usersList.length; i++) {
+        //     //     console.log(" *** UserList - " + usersList[i][0]);
+
+        //         // if(account == usersList[i][0]){
+        //             // ---------------- REDIRECT TO PAGE ---------------------------------
+        //             let role = await contract_RA.methods.getRole(account).send({ from: account });
+        //             // let role = usersList[i][2];
+        //             console.log("User has the role " + role);
+
+        //             switch(parseInt(role)){
+        //                 /*
+        //                    1-Label, 2-Artist, 3-Client, 4-Admin
+        //                 */
+        //                 case 1: navigate("../Label"); break;
+        //                 case 2: navigate("../Artist"); break;
+        //                 case 3: navigate("../Client"); break;
+        //                 case 4: navigate('/destination'); break;
+        //             }
+        //             registerStatus = true;
+        //             return;
+        //         // }
+        //     // }
+
+        //     if(registerStatus){
+        //         console.log("USER HAS EXISTING ACCOUNT");
+        //     }else{
+        //         console.log("USER HAS NOT REGISTERED YET, PROCEED TO SIGNUP PAGE.");
+        //     }
         };
 
         fetchData();
     }, []);
 
-    const [signupRole, setRole] = useState('client');
+    let [signupRole, setRole] = useState('client'); //default role yung client
 
     const handleRoleChange = (e) => {
         console.log("Handle Role Change" + e.target.value);
         setRole(e.target.value);
+    };
+
+    const isUserExisting = async ( ) => {
+        const accounts = await web3_RA.eth.requestAccounts();
+        const account = accounts[0];
+
+        // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+        const getAddressList = await contract_RA.methods.getAddresses().call();
+
+        for(let i =0; i < getAddressList.length; i++){
+            if(getAddressList[i] === account){
+                console.log("USERNAME EXISTS")
+                return true;
+                break;
+            }
+        }
+        return false;
     };
 
     async function handleValidation(event) {
@@ -144,6 +231,13 @@ function SignUp(){
         let errorblank = false;
         let errorexist = false;
         try{
+            const accounts = await web3_RA.eth.requestAccounts();
+            const account = accounts[0];
+    
+            // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+            const getAddressList = await contract_RA.methods.getAddresses().call();
+            // console.log(getAddressList);
+
             if (username===""){
                 setErrorUsername("Username is required");
                 setErrorUsernameState(1);
@@ -167,21 +261,49 @@ function SignUp(){
             if(errorexist){
                 throw new Error("EXITSS");
             }
-            // let checker = getUsers();
+          
+            const exists = await isUserExisting();
+            // Sign Up First Time if user is not yet signed up
+            if(exists){
+               
+            }else{
+                // giveRole
+                console.log("-----------giveRole----------");
+                console.log("Signup role: " + signupRole);
 
-            // Add to RoleAccess.sol
-            if(giveRole(username,signupRole)){
-                console.log(signupRole + " SignupRole");
-                switch(signupRole){
-                    /*
-                        1-Label, 2-Artist, 3-Client, 4-Admin
-                    */
-                    case 'label': navigate("../Label"); break;
-                    case 'artist': navigate("../Artist"); break;
-                    case 'client': navigate("../Client"); break;
-                    case 'admin': navigate('/destination'); break;
+                if(signupRole != null){
+                    const success = giveRole(account, username, signupRole);
+                    if(success){
+
+                        const accounts = await web3_RA.eth.requestAccounts();
+                        const account = accounts[0];
+                
+                        // MAY BE USED FOR FOR-LOOP CODE -- Amanda
+                        const userRole = await contract_RA.methods.getRole(account).call();
+
+                        switch(userRole){
+                            /*
+                                1-Label, 2-Artist, 3-Client, 4-Admin
+                            */
+                            case '1': navigate("../Label");  break;
+                            case '2': navigate("../Artist"); break;
+                            case '3': navigate("../Client");  break;
+                            case '4': navigate('../Stream'); break;
+                            default: console.log("ADDRESS FOUND ON CLICK. ERROR IN ROLE " + userRole); 
+                                    await timeout(10000); //WAIT UNTIL METAMASK IS DONE
+                                    window.location.reload(false); //reload hehe
+                            break;
+                        }
+                    }
                 }
-            }
+
+            }       
+            // const getUsersList = [];
+            // for (const x in getAddressList){
+            //     const temp = await contract_RA.methods.getAlias(x).send({ from: account });
+            //     getUsersList.push(temp);
+            //     console.log(temp);
+            // }  
             
         }catch(e){
             console.log(e.message);

@@ -59,38 +59,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "_Users",
-		"outputs": [
-			{
 				"internalType": "string",
-				"name": "r_address",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "r_alias",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "role",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "r_Add",
-				"type": "address"
+				"type": "string"
 			}
 		],
 		"name": "_removeRoles",
@@ -101,17 +72,30 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "r_Alias",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "getAddress",
+		"name": "addresses",
 		"outputs": [
 			{
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAddresses",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -156,36 +140,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getUsers",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "r_address",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "r_alias",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "role",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct RoleAccess.User[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -211,12 +165,25 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
+				"internalType": "string",
 				"name": "r_Add",
-				"type": "address"
+				"type": "string"
 			}
 		],
 		"name": "hasRole",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "length",
 		"outputs": [
 			{
 				"internalType": "uint256",

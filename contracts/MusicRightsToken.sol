@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: DLSU--TINA
 pragma solidity >=0.5.17;
 
@@ -15,22 +16,21 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     struct MRC {
         uint256 token_id;
         string ipfsHash;
+        uint256 status;//0-undefined, 1 - pending, 2-listed, 3-bought, 4 - declined
+        string client; //"" - no client 
     }
 
-     //Role Access SMC Instance
-    RoleAccess roleAccessInstance;
-	 
     //IPFS hash
      uint256 public tokenIdCounter;
-	 MRC[] public _nonMint; 
-     MRC[] public _MRCs;
+    //  MRC[] public _MRCs; //listed
+    mapping(uint256 => MRC) internal _MRC;
+    uint256[] public Tokens;
+
 
     // 2. Lifecycle Methods ------------------------------------------------------------------------------------
     constructor() ERC721("MusicRights Token", "MRT") {
         //  Start token ID incrementor
         tokenIdCounter = 0;
-        //Put contract address ng role access here once implement na ung modifeirs
-        // roleAccessInstance = RoleAccess();
     }
 
     // 3. Minting Functions ------------------------------------------------------------------------------------
@@ -39,23 +39,23 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
          uint256 newTokenCounter = tokenIdCounter + 1;
 
         if(newTokenCounter < MAX_SUPPLY){
-            _nonMint.push(MRC(newTokenCounter, ipfsHash));
+            
+            _MRC[newTokenCounter] = MRC(newTokenCounter,ipfsHash,1,"");
+            tokenIdCounter = newTokenCounter;
         }
     }
 
     // Call when artist signs
     function safeMintWithToken(uint256 token_id) public {
-        //Check if id exists
-        uint256 i = tokenIdCounter;
 
-        for (uint x =0; x < i; x++){
-            if(_nonMint[x].token_id == token_id)
-                if(token_id < MAX_SUPPLY){
-                    _MRCs.push(_nonMint[x]);
-                    _safeMint(msg.sender, token_id);
-                }
-                
-        }
+        _MRC[token_id].status = 2;
+        _safeMint(msg.sender, token_id);
+    }
+
+    
+    // Call when artist rejects total fee offer
+    function rejectProposal(uint256 token_id) public {
+        _MRC[token_id].status = 4;
     }
 
 
@@ -68,40 +68,49 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     }
 
     // 5. Other Functions ------------------------------------------------------------------------------------  
-    function transferETH(address payable sender, address payable recipientAddress, uint amount) public {
+    function transferETH(address payable recipientAddress, uint amount) public {
         address payable recipient = recipientAddress;
         recipient.transfer(amount);
     }
 
-    function transferBuyout(address payable client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist, address payable artist, address payable label)payable public {
+    function transferBuyout(string calldata client, uint256 token_id, uint256 total_fee, uint256 percent_label, uint256 percent_artist, address payable artist, address payable label)payable public {
         //For demo purposes, sender does not need to be the owner. This will be implented during THS-ST3
         require(_exists(token_id), "Token ID does not exist");
         // require(msg.value == total_fee, "Amount of ethers sent does not match the total fee");
-        // address label = _Owner[token_id];
+
+        
         // Split total_fee
-        transferETH (client, artist, total_fee*(percent_artist/100));
-        transferETH (client, label, total_fee*(percent_label/100));
+        transferETH (artist, total_fee*(percent_artist/100));
+        transferETH (label, total_fee*(percent_label/100));
+        _MRC[token_id].status = 3;
 
-        safeTransferFrom(label, client, token_id);
+        safeTransferFrom(label, msg.sender , token_id); //double check if client address to pls thanks
     }
 
-    function getAllMRCs() public view returns (MRC[] memory){
-        return _MRCs;
+    // function getAllMRCs() public view returns (MRC[] memory){
+    //     return _MRCs;
+    // }
+
+    function getStatus(uint256 token_id) public view returns (uint256){
+        
+        return _MRC[token_id].status;
+
+
     }
 
-    function getAllNonMint() public view returns (MRC[] memory ){
-        return _nonMint;
+    function getTokenLength() public view returns (uint256){
+        return tokenIdCounter;
 
     }
+
+    function getTokens() public view returns (uint256[] memory){
+        return Tokens;
+    }
+
     
-    function getMRC(uint256 token_id) public view returns (string memory) {
-        uint256 i = tokenIdCounter;
-        string memory temp = "";
-        for (uint x =0; x < i; x++){
-            if(_MRCs[x].token_id == token_id)
-                temp = _MRCs[x].ipfsHash;
-        }
-        return temp;
+    function getMRC(uint256 token_id) public view returns (MRC memory) {
+        
+        return _MRC[token_id];
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
