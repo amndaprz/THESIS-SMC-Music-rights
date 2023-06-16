@@ -1,4 +1,3 @@
-import Test from './pages/Test';
 import Home from './pages/Home';
 import Client from './pages/Client';
 import Artist from './pages/Artist';
@@ -28,7 +27,6 @@ function App() {
           <Route exact path="/Client"element={<Client />}/>
           <Route path="/Artist"element={<Artist />}/>
           <Route path="/Label"element={<Label />}/>
-          <Route path="/Test"element={<Test />}/>
           <Route path="/Dev"element={<Dev />}/>
           <Route path="/Stream"element={<Stream />}/>
           <Route path="/ModalTest"element={<ModalTest />}/>
