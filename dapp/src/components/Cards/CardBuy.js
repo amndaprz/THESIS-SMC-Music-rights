@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 
