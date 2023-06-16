@@ -1,51 +1,40 @@
 import CardBuy from '../Cards/CardBuy'
 import React, { useState } from 'react';
-import { json } from 'react-router-dom';
-import { unstable_ClassNameGenerator } from '@mui/material';
-import { decryptCrowdsaleJson } from 'ethers';
-
 import { FaSearch } from "react-icons/fa";
-
-import { Buffer } from 'buffer';
-
 
 function BuySongs(props){
     
   const jsonObj = props;
 
-  //objectList.push(jsonObj)
-  // console.log("Buy songs = " + jsonObj.percent_artist);
   console.log("Object List: " + props);
-
-  //const data2 = JSON.parse(jsonObj);
   console.log("jsonObject 0000000001" + jsonObj.data.song_title);
   
   const [query, setQuery] = useState("");
 
-    const getInitialSort = () => {
-        const sort = "a-z";
-        return sort;
-    };
+  const getInitialSort = () => {
+      const sort = "a-z";
+      return sort;
+  };
 
-    const [sort, setValue] = useState(getInitialSort);
+  const [sort, setValue] = useState(getInitialSort);
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    };
+  const handleChange = (e) => {
+      setValue(e.target.value);
+  };
 
-    console.log(sort)
+  console.log(sort)
 
+  jsonObj.data.sort((a, b) =>
+      a.song_title > b.song_title ? 1 : -1,
+  );
+
+  //jsonObj.sort((a, b) => a.userId - b.userId);
+
+  if (sort === "z-a") {
     jsonObj.data.sort((a, b) =>
-        a.song_title > b.song_title ? 1 : -1,
-    );
-
-    //jsonObj.sort((a, b) => a.userId - b.userId);
-
-    if (sort === "z-a") {
-      jsonObj.data.sort((a, b) =>
-            a.song_title > b.song_title ? -1 : 1,
-        );
-    }
+          a.song_title > b.song_title ? -1 : 1,
+      );
+  }
 
   return (
     <>

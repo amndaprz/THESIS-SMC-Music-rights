@@ -1,11 +1,8 @@
 import Button from 'react-bootstrap/Button';
-import { Link , useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
-
-import { FaCheck, FaCross, FaExclamationTriangle, FaRegCheckCircle } from "react-icons/fa";
-
-import {contractAddress_RA, contractABI_RA, web3_RA, contract_RA} from '../../ContractProperties';
-
+import {FaExclamationTriangle} from "react-icons/fa";
+import {web3_RA, contract_RA} from '../../ContractProperties';
 
 let result;
 //waitngi time
@@ -13,80 +10,80 @@ function timeout(delay: number) {
     return new Promise( res => setTimeout(res, delay) );
 }
 
-const giveRole = async(string, username,role) => {
+/*
+    giveRole Function    
+    Assigns a role to the user upon signing up.
+
+    Parameters:
+        address     | STRING
+        username    | STRING
+        role        | INT           
+
+    Returns:
+        boolean     | Returns 'true' as a terminating statement 
+*/  
+const giveRole = async(address, username,role) => {
 
     const accounts = await web3_RA.eth.requestAccounts();
     const account = accounts[0];
 
-    // const alias = username;
-
     let roleInt = 0;
     switch(role){
-        /*
-           1-Label, 2-Artist, 3-Client, 4-Admin
-        */
-        case 'label':
-            roleInt = 1;
-            
-        break;
-        case 'artist':
-            roleInt = 2;
-        break;
-        case 'client':
-            roleInt = 3;
-        break;
-        case 'admin':
-            roleInt = 4;
-        break;
-        default:
-            roleInt = 3; break;
+        // 1-Label, 2-Artist, 3-Client, 4-Admin
+        case 'label': roleInt = 1; break;
+        case 'artist': roleInt = 2; break;
+        case 'client': roleInt = 3;  break;
+        case 'admin': roleInt = 4;  break;
+        default: roleInt = 3; break;
     }
 
-    await contract_RA.methods.giveRole(string, username, roleInt).send({ from: account });
-    
-    
-    // result = await contract_RA.methods.getUsers().call();
+    await contract_RA.methods.giveRole(address, username, roleInt).send({ from: account });
 
-     // MAY BE USED FOR FOR-LOOP CODE -- Amanda
-        const getAddressList = await contract_RA.methods.getAddresses().call();
-        let result = [];
-        for (const x in getAddressList){
-            const temp = await contract_RA.methods.getAlias(x).send({ from: account });
-            result.push(temp);
-        }
+    const getAddressList = await contract_RA.methods.getAddresses().call();
+    let result = [];
 
-    // console.log(account);
+    for (const index in getAddressList){
+        const temp = await contract_RA.methods.getAlias(index).send({ from: account });
+        result.push(temp);
+    }
+
     console.log(result);
     return true;
 }
 
-    const userExists = async (username) => {
-        let bool = false;
-        const list = await contract_RA.methods.getAddresses().call();
-            
-        for(let i = 0; i<list.length; i++){
-            if(list[i] === username){
-                console.log("USERNAME FOUND");
-                bool = true;
-                break;
-            }
+/*
+    userExists function
+    Checks if user wallet already exists in the dApp
+
+    Parameters:
+        username    | STRING
+    
+    Returns:
+        bool        | BOOLEAN true if user already has an existing account otherwise, false
+*/
+const userExists = async (username) => {
+    let bool = false;
+    const list = await contract_RA.methods.getAddresses().call();
+        
+    for(let i = 0; i<list.length; i++){
+        if(list[i] === username){
+            console.log("USERNAME FOUND");
+            bool = true;
+            break;
         }
+    }
 
-        return bool;
-    };
-
-
+    return bool;
+};
 
 function SignUp(){
-
     const [username, setUsername] = useState('');
 
     const handleUsername = (event) => { 
         const value = event.target.value;
         const regexUsername = /^[a-zA-Z0-9]*$/;
 
-        if (regexUsername.test(value) || value === '')  {setUsername(event.target.value); 
-        }
+        if (regexUsername.test(value) || value === '')  {setUsername(event.target.value); }
     };
 
     // Checks if The Username Exists across the whole blockchain
@@ -94,41 +91,22 @@ function SignUp(){
     const [error_username2, setErrorUsername2] = useState('');
     const [error_username_state, setErrorUsernameState] = useState(0);
    
-    const getUsers = async () => {
-        
-        const accounts = await web3_RA.eth.requestAccounts();
-        const account = accounts[0];
-
-        // MAY BE USED FOR FOR-LOOP CODE -- Amanda
-        const getAddressList = await contract_RA.methods.getAddresses().call();
-        const getUsersList = [];
-        for (const x in getAddressList){
-            const temp = await contract_RA.methods.getAlias(x).send({ from: account });
-            getUsersList.push(temp);
-            console.log(temp);
-        }
-
-        console.log(getUsersList);
-        return getUsersList;
-
-        // return false;
-    };
-
     const navigate = useNavigate();
     
     // ON LOAD CHECK IF USER ADDRESS WALLET ALREADY HAS AN EXISTING ACCOUNT
     useEffect(() => {
-        
+        /*
+            fetchData function
+            On website load, fetches the current wallet’s address and checks for an existing 
+            role. If role exists, redirect the user to the role page, skipping the signUp page.
+        */
         const fetchData = async () => {
-
             const accounts = await web3_RA.eth.requestAccounts();
             const account = accounts[0];
             
-    
             // MAY BE USED FOR FOR-LOOP CODE -- Amanda
             try{
                 let getAddressList = await contract_RA.methods.getAddresses().call();
-                // console.log(getAddressList);
 
                 //check if address is in addreslist on load
                 for (let x = 0; x < getAddressList.length; x++){
@@ -137,9 +115,7 @@ function SignUp(){
 
                     const userRole = await contract_RA.methods.hasRole(account).call();
                     switch(userRole){
-                        /*
-                            1-Label, 2-Artist, 3-Client, 4-Admin
-                        */
+                        // 1-Label, 2-Artist, 3-Client, 4-Admin
                         case '1': navigate("../Label");  break;
                         case '2': navigate("../Artist"); break;
                         case '3': navigate("../Client");  break;
@@ -148,83 +124,45 @@ function SignUp(){
                         break;
                     }
                 }
-
             }
             catch(err){
                 console.log(err);
             }     
-            
-            
-            // if(userRole == 0){
-                // console.log("User has no existing account");
-            // }else {
-                // console.log("User has account with role " + userRole);
-            // }
-
-            // console.log(getAddressList);
-        //     // let usersList = await getUsers();
-            // let registerStatus = false;
-        //     const accounts = await web3_RA.eth.requestAccounts();
-        //     const account = accounts[0];
-
-            // console.log(" ** Account = " + account);
-
-        //     // for (let i = 0; i < usersList.length; i++) {
-        //     //     console.log(" *** UserList - " + usersList[i][0]);
-
-        //         // if(account == usersList[i][0]){
-        //             // ---------------- REDIRECT TO PAGE ---------------------------------
-        //             let role = await contract_RA.methods.getRole(account).send({ from: account });
-        //             // let role = usersList[i][2];
-        //             console.log("User has the role " + role);
-
-        //             switch(parseInt(role)){
-        //                 /*
-        //                    1-Label, 2-Artist, 3-Client, 4-Admin
-        //                 */
-        //                 case 1: navigate("../Label"); break;
-        //                 case 2: navigate("../Artist"); break;
-        //                 case 3: navigate("../Client"); break;
-        //                 case 4: navigate('/destination'); break;
-        //             }
-        //             registerStatus = true;
-        //             return;
-        //         // }
-        //     // }
-
-        //     if(registerStatus){
-        //         console.log("USER HAS EXISTING ACCOUNT");
-        //     }else{
-        //         console.log("USER HAS NOT REGISTERED YET, PROCEED TO SIGNUP PAGE.");
-        //     }
         };
 
         fetchData();
     }, []);
 
-    let [signupRole, setRole] = useState('client'); //default role yung client
+    let [signupRole, setRole] = useState('client'); //default role is client since its the first dropdown option
 
-    const handleRoleChange = (e) => {
-        console.log("Handle Role Change" + e.target.value);
-        setRole(e.target.value);
+    /*
+        handleRoleChange Function
+        On change, updates the user's role dependent on user's dropdown choice
+
+        Parameters:
+            roleInput   | STRING role input 
+    */
+    const handleRoleChange = (roleInput) => {
+        console.log("Handle Role Change" + roleInput.target.value);
+        setRole(roleInput.target.value);
     };
 
-    const isUserExisting = async ( ) => {
-        const accounts = await web3_RA.eth.requestAccounts();
-        const account = accounts[0];
+    /*
+        handleValidation Function
+        Checks username input field for the following conditions:
+            1)  Username Field is not empty
+            2)  Username Field does NOT contain an existing username by another user
+        
+        If User already has a given role, fetchData() will handle this scenario.
+        If User does NOT have a given role, it will assign the user a role based on the
+            inputs from the signup page. Done through giveRole()
 
-        // MAY BE USED FOR FOR-LOOP CODE -- Amanda
-        const getAddressList = await contract_RA.methods.getAddresses().call();
+        Finally Redirect user to given role.
 
-        for(let i =0; i < getAddressList.length; i++){
-            if(getAddressList[i] === account){
-                console.log("USERNAME EXISTS")
-                return true;
-                break;
-            }
-        }
-        return false;
-    };
+        Parameters:
+            event       | onClick event
+
+    */
 
     async function handleValidation(event) {
         event.preventDefault();
@@ -234,10 +172,6 @@ function SignUp(){
             const accounts = await web3_RA.eth.requestAccounts();
             const account = accounts[0];
     
-            // MAY BE USED FOR FOR-LOOP CODE -- Amanda
-            const getAddressList = await contract_RA.methods.getAddresses().call();
-            // console.log(getAddressList);
-
             if (username===""){
                 setErrorUsername("Username is required");
                 setErrorUsernameState(1);
@@ -253,19 +187,18 @@ function SignUp(){
                 errorexist = true;
             }
             
-                
             if(errorblank){
                 throw new Error("BLANK");
             }
 
             if(errorexist){
-                throw new Error("EXITSS");
+                throw new Error("EXISTS");
             }
           
-            const exists = await isUserExisting();
+            const exists = await userExists(account);
+            
             // Sign Up First Time if user is not yet signed up
             if(exists){
-               
             }else{
                 // giveRole
                 console.log("-----------giveRole----------");
@@ -282,9 +215,7 @@ function SignUp(){
                         const userRole = await contract_RA.methods.getRole(account).call();
 
                         switch(userRole){
-                            /*
-                                1-Label, 2-Artist, 3-Client, 4-Admin
-                            */
+                            //1-Label, 2-Artist, 3-Client, 4-Admin
                             case '1': navigate("../Label");  break;
                             case '2': navigate("../Artist"); break;
                             case '3': navigate("../Client");  break;
@@ -298,17 +229,9 @@ function SignUp(){
                 }
 
             }       
-            // const getUsersList = [];
-            // for (const x in getAddressList){
-            //     const temp = await contract_RA.methods.getAlias(x).send({ from: account });
-            //     getUsersList.push(temp);
-            //     console.log(temp);
-            // }  
-            
         }catch(e){
             console.log(e.message);
         }
-        
     }
 
     return(

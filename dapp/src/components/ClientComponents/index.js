@@ -1,31 +1,17 @@
 import React, {useEffect, useState} from 'react';
-
 import ContentLoader from 'react-content-loader'
 import Button from 'react-bootstrap/Button';
-
 import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
-
-import { Link } from "react-router-dom";
-
-
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
-
 import { FaCartPlus, FaShoppingBag } from 'react-icons/fa';
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
-
-
-// let connectIPFS = new ConnectIPFS();
-
-let dataObject;
+import {web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
 
 function Client() {
 
     const [toggleState, setToggleState] = useState(1);
-
     const [jsonObject, setJsonObj] = React.useState([]);
-    const [tokenObject, setTokenObj] = React.useState("");
 
     const getRole = async () => {
         const getUsersList = await contract_RA.methods.getUsers().call();
@@ -47,7 +33,6 @@ function Client() {
     };
 
     const [roleString, setRoleString] = useState("Role");
-        
     const [name, setUserName] = useState("");
 
     useEffect(() => {
@@ -58,18 +43,10 @@ function Client() {
       
           console.log("HERE");
           switch (await getRole()) {
-            case 1:
-              setRoleString('Label');
-              break;
-            case 2:
-              setRoleString('Artist');
-              break;
-            case 3:
-              setRoleString('Client');
-              break;
-            case 4:
-              setRoleString('Admin');
-              break;
+            case 1: setRoleString('Label');  break;
+            case 2: setRoleString('Artist'); break;
+            case 3: setRoleString('Client'); break;
+            case 4: setRoleString('Admin');  break;
           }
       
           getUserName();
@@ -104,8 +81,6 @@ function Client() {
         setUserName(username);
     }
     
-
-    
     const toggleTab = (index) => {
         setToggleState(index);
     };
@@ -128,15 +103,6 @@ function Client() {
         return ipfs;
     }
 
-    const getDisplaySongs = async() => {
-
-        let allResults = await contract.methods.getAllMRCs().call();
-
-        console.log(allResults);
-
-        return allResults;
-    }
-
     const displayAllInfo = async() => {
         let IPFS = await ipfsClient();
         let info = [];
@@ -144,18 +110,16 @@ function Client() {
         const data =[];
         const temp_data = [];
         const status = [];
+
+        // CHANGE GETALLMRCS TO
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
         console.log(Object.keys(allResults).length);
 
         // iterates over allResults with tokenID and CID
-    
-
         try {
-            
-            for (let key in allResults)
-            {
+            for (let key in allResults){
                 console.log("Data is " + allResults[key][0]);
                 status.push(allResults[key][2]);
                 console.log("status: " + allResults[key][2]);
@@ -173,15 +137,14 @@ function Client() {
                         console.log(data);
                         temp_data.push(data);
                         //setJsonObj(temp_data);
-                      } catch (error) {
-                        const position = parseInt(error.message.split(' ').pop(), 10);
-                        const cleanJsonString = info.substring(0, position);
-                        const data = JSON.parse(cleanJsonString);
-                        console.log(temp_data);
-                        temp_data.push(data);
-                        //setJsonObj(temp_data);
-                        
-                      }
+                    } catch (error) {
+                    const position = parseInt(error.message.split(' ').pop(), 10);
+                    const cleanJsonString = info.substring(0, position);
+                    const data = JSON.parse(cleanJsonString);
+                    console.log(temp_data);
+                    temp_data.push(data);
+                    //setJsonObj(temp_data);
+                    }
                       
                       data.pop();
                 }
@@ -193,12 +156,11 @@ function Client() {
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-            
-            
-        
+
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
+
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
         //setJsonObj(data);
@@ -221,16 +183,10 @@ function Client() {
         // const jsonObj = JSON.parse(info);
         // console.log(typeof data);
         //getDisplaySongs();
-
-        
-    
-
-    
     }
     
     const [loading, setLoading] = useState(true);
 
-    
     return (
     <div onLoad={displayAllInfo}>
         {/*<NotificationContainer/>*/}
