@@ -7,7 +7,6 @@ import {contractAddress, contractABI, web3, contract, contract_RA} from '../../C
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import {utils} from 'web3';
-import ipfs from "./../IPFSComponents/ConnectIPFS"
 
 import {FaExclamationTriangle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';

@@ -8,7 +8,6 @@ import OwnedSongs from './OwnedSongs'
 
 import { Link } from "react-router-dom";
 
-import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
