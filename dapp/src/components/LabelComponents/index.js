@@ -9,7 +9,6 @@ import ViewListedSongs from './ViewListedSongs';
 import CommercialContracts from './CommercialContracts';
 import StreamingContracts from './StreamingContracts';
 import ViewContractProposals from './ViewContractProposals';
-import Payout from './Payout';
 
 import { Link } from "react-router-dom";
 
@@ -202,12 +201,6 @@ function Label() {
                                         onClick={() => toggleTab(3)}>
                                         <FaFileContract className='mx-3'/>View contracts
                                     </Button>
-    
-                                    <Button
-                                        className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
-                                        onClick={() => toggleTab(4)}>
-                                        <FaMoneyCheck className='mx-3'/>Payout
-                                    </Button>
                                 </div>
                             </>
                         )}
@@ -296,11 +289,6 @@ function Label() {
                                     <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
                                         <StreamingContracts />
                                     </div>
-                                </div>
-    
-                                <div className={toggleState === 4 ? "content  active-content" : "content"}>
-                                    <h1>Payout</h1>
-                                    <Payout />
                                 </div>
                             </>
                         )}

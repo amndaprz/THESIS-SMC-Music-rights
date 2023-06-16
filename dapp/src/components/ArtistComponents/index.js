@@ -8,7 +8,6 @@ import CommercialContracts from './CommercialContracts';
 import StreamingContracts from './StreamingContracts';
 import StreamingProposals from './StreamingProposals';
 import CommercialProposals from './CommercialProposals';
-import Payout from './Payout';
 
 import ContentLoader from 'react-content-loader'
 import { Link } from "react-router-dom";
@@ -159,12 +158,6 @@ function Artist() {
                                     onClick={() => toggleTab(3)}>
                                     <FaSignature className='mx-3'/>View contract proposals
                                 </Button>
-
-                                <Button
-                                    className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
-                                    onClick={() => toggleTab(4)}>
-                                    <FaMoneyCheck className='mx-3'/>Payout
-                                </Button>
                             </div>
                         </>
                     )}
@@ -250,10 +243,6 @@ function Artist() {
                     <div className={toggleState4 === 2 ? "content active-content" : "content"}>
                         <StreamingProposals />
                     </div>
-                </div>
-                <div className={toggleState === 4 ? "content active-content" : "content"}>
-                    <h1>Payout</h1>
-                    <Payout />
                 </div>
             </div>
         </div>
