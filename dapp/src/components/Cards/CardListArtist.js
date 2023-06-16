@@ -5,8 +5,8 @@ import { FaSearch } from "react-icons/fa";
 
 function CardList(props){
 
-    const jsonObj = props.data;
-
+    const jsonObj = props;
+    console.log("card list" + jsonObj.data)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -35,13 +35,13 @@ function CardList(props){
 
     console.log(sort)
 
-    jsonObj.sort((a, b) =>
-        a.title > b.title ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
     if (sort === "z-a") {
-        jsonObj.sort((a, b) =>
-            a.title > b.title ? -1 : 1,
+        jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
 
@@ -65,16 +65,16 @@ function CardList(props){
 
             </div>
         </div>
-        {jsonObj.filter(song => {
+        {jsonObj.data.filter(song => {
             if (query === '') {
                 return song;
-            } else if (song.title.toLowerCase().includes(query.toLowerCase())) {
+            } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
-            else if (song.artist.toLowerCase().includes(query.toLowerCase())) {
+            else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
-            else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+            else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
         }).map((song, key) => (
@@ -87,7 +87,7 @@ function CardList(props){
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">
-                <h5 class="text_pop">{song.total_fee}</h5>
+                <h5 class="text_pop">{song.total_fee} ETH</h5>
             </Card.Footer>
         </Card>
         ))}

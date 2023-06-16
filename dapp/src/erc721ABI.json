@@ -592,6 +592,11 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "client",
+				"type": "string"
+			},
+			{
 				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
