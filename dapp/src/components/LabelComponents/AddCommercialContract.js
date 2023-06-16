@@ -13,8 +13,21 @@ import {FaExclamationTriangle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Account -- Refers to the metamask address currently logged in
 let account;
 
+/*
+    AddCommercialContract Function
+    
+    Variables:
+        songTitle       | STRING input for song title
+        percentLabel    | INT input for label percentage (0-100)
+        percentArtist   | INT input for artist percentage (0-100)
+        labelName       | STRING input for Label name 
+        artistName      | STRING input for artist name
+        totalFee        | DECIMAL input for total fee
+
+*/
 function AddCommercialContract(){
     var curr = new Date();
     curr.setDate(curr.getDate());
@@ -34,7 +47,11 @@ function AddCommercialContract(){
 
     const handleSongTitle = (event) => { setSongTitle(event.target.value);} // Input Song Title
 
-    // Input listener for Label Address
+    /* 
+        Input listener for Label Address
+        
+        Regex | No special characters
+    */
     const handleNameLabel = (event) => { 
         const value = event.target.value;
         const regexUsername = /^[a-zA-Z0-9]*$/;
@@ -42,28 +59,46 @@ function AddCommercialContract(){
         if (regexUsername.test(value) || value === '')  setLabelName(event.target.value);
     }
     
-    // Input listener for Artist Address
+    /*
+        Input listener for Artist Address
+
+        Regex | No special characters
+    */
     const handleNameArtist = (event) => {
         const value = event.target.value;
         const regexUsername = /^[a-zA-Z0-9]*$/;
         
         if (regexUsername.test(value) || value === '') setArtistName(event.target.value);
-    }     
+    }  
+
+    
+    /* 
+        Input listener for Label Percentage
+
+        Regex | Number input from 0-100 only
+    */
     const regex = /^(?:100|[1-9][0-9]?|0)$/; // Number only from 0-100
 
-    // Input listener for Label Percentage
     const handlePLabel = (event) => { 
         const value = event.target.value;
         if (regex.test(value) || value === '') { setPLabel(value);}
     }    
 
-    // Input listener for Label Artist
+    /* 
+        Input listener for Label Artist
+      
+        Regex | Number input from 0-100 only
+    */
     const handlePArtist = (event) => { 
         const value = event.target.value;
         if (regex.test(value) || value === '') { setPArtist(value);}
     }    
 
-    // Input Total Fee
+    /* 
+        Input Total Fee
+
+        Regex | Whole Number / Decimal input only 
+    */
     const handleTotalFee = (event) => { 
         const value = event.target.value;
         const regexFee = /^\d*\.?\d*$/;
@@ -71,18 +106,35 @@ function AddCommercialContract(){
         if (regexFee.test(value) || value === '') { setTotalFee(value);}
     }  
 
-    // Error Handlers
+    /* 
+        Error Handlers
+
+        error_title     |   "Song Title cannot be empty"
+        error_PLabel    |   "!! Invalid Percentage Split !!  Must total to 100"
+        error_PArtist   |   "!! Invalid Percentage Split !!  Must total to 100"
+    */
     const [error_title, setErrorTitle] = useState('');
     const [error_PLabel, setErrorPLabel] = useState('');
     const [error_PArtist, setErrorPArtist] = useState('');
 
 
-    // Error States
+    /* 
+        Error States
+
+        Error Handlers are activated when states are 1, disabled when value is 0
+
+        ENABLE Error Message    |   State = 1
+        DISABLE Error Message   |   State = 0
+    */
     const [error_title_state, setErrorTitleState] = useState(0);
     const [error_PLabel_state, setErrorPercentLabelState] = useState(0);
     const [error_PArtist_state, setErrorPercentArtistState] = useState(0);
 
 
+    /*
+        clearStates Function
+            - sets all error messages state to 0 (hide all error messages)
+    */
     const clearStates = () => {
         setErrorTitleState(0);
         setErrorPercentLabelState(0);
@@ -120,10 +172,11 @@ function AddCommercialContract(){
     // Minting 
     // Generates IPFS hash
     const mintERC721 = async() => {
-        
+
         /// Check if percentages add up to 100
         const total = parseInt(percentLabel) + parseInt(percentArtist);
         let error = false;
+
         try{
             /*
                     Field Checkers
@@ -185,9 +238,6 @@ function AddCommercialContract(){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-
-
-
             notify();
 
             console.log(MRC.song_title);
@@ -210,14 +260,11 @@ function AddCommercialContract(){
         }catch(e){
             console.log(e.message);
         }
-
     }
 
     const notify = () => {
         toast("Notify");
     }
-
-
 
     return(
         <form className="m-4" onSubmit="">
