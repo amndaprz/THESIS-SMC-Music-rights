@@ -14,7 +14,15 @@ function ProposalCommPopup(props){
     const mintWithToken = async() => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.safeMintWithToken(props.tokenID).send({from: account, gas: 6000000, sender: account })){
+        if(await contract.methods.safeMintWithToken(props.tokenID).send({from: account, sender: account })){
+            console.log("Minting successful");
+        }
+    }
+
+    const rejectProposal = async() => {
+        const accounts = await web3.eth.requestAccounts();
+        account = accounts[0];
+        if(await contract.methods.rejectProposal(props.tokenID).send({from: account, sender: account })){
             console.log("Minting successful");
         }
     }
@@ -61,7 +69,7 @@ function ProposalCommPopup(props){
             
         </Modal.Body>
         <Modal.Footer className='mt-3'>
-        <Button className="py-2 px-3 modal_btn_sub">
+        <Button className="py-2 px-3 modal_btn_sub" onClick={rejectProposal}>
                 Decline
             </Button>
             <Button className="py-2 px-5 modal_btn" onClick={mintWithToken}>

@@ -251,7 +251,7 @@ function AddCommercialContract(){
 
             console.log(mrcResult);
             
-            if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 6000000, sender:account})){
+            if(await contract.methods.nonMint(mrcResult).send({from:account, sender:account})){
                 console.log("Initial contract minting successful");
             }
 
