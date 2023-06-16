@@ -1,7 +1,24 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
 
 function ConfirmAddContract(props) {
+
+    const addStreamSong = async() => {
+         
+        const accounts = await web3_Stream.eth.requestAccounts();
+		const account = accounts[0];
+
+        console.log("------------")
+     
+        // console.log("MUSIC streamed");
+
+        if(await contract_Stream.methods.addStream().send({from:account, gas: 6000000, sender:account})){
+            console.log("Initial Streaming contract minting successful");
+            props.onHide();
+        }
+    }
+
 
     return (
         <Modal
@@ -67,7 +84,7 @@ function ConfirmAddContract(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide} className="py-2 px-5 modal_btn_sub">Cancel</Button>
-                <Button onClick={props.onHide} className="py-2 px-5 modal_btn">Confirm</Button>
+                <Button onClick={() => { addStreamSong(); }} className="py-2 px-5 modal_btn">Confirm</Button>
             </Modal.Footer>
         </Modal>
     );

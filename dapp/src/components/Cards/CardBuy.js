@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import ConnectIPFS from "./../IPFSComponents/ConnectIPFS"
 import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+
 
 let account;
 
@@ -30,11 +30,37 @@ function CardBuy(props){
         await web3.eth.sendTransaction({from: account, to: props.addrL, value: convertedFee, gas: 21000});
     }
 
-    const callTransferBuyout = async() => {
+    const callTransferBuyout = async(isOpen) => {
         await contract.methods.transferBuyout(account, 1, convertedFee, props.percentL, props.percentA).send({from: account, to: props.addrL, value: convertedFee});
     }
-       
+    
+    const [purchaseContent, setPurchaseContent] = useState([]);
+
+
+    const buySongModal = async(value, isOpen) => {
+        /*
+        const accounts = await web3.eth.requestAccounts();
+		account = accounts[0];
+
+        testETHTransfer()
+        // callTransferBuyout();
+        console.log(props.percentA);
+        console.log(props.percentL);
+        console.log(props.addrA);
+        console.log(props.addrL);
+        console.log("------------")*/
+
+        setModalShow(isOpen);  
+        setPurchaseContent(value)
+
+        console.log(value.tokenID)
+        //console.log(value.songTitle)
+
+    }
+
+    // transfer to ConfirmPurchase.js ?
     const buySong = async() => {
+         
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
 
@@ -45,6 +71,8 @@ function CardBuy(props){
         console.log(props.addrA);
         console.log(props.addrL);
         console.log("------------")
+
+        console.log("buy song")
 
     }
 
@@ -61,11 +89,14 @@ function CardBuy(props){
     }, []);
 
     return(
-            <Card>
-                <ConfirmPurchasePopup
+            <>
+            <ConfirmPurchasePopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
+                    content = {purchaseContent}
                 />
+            <Card key={(props.tokenID)}>
+                
                 {loading ? (
                     <ContentLoader
                         width={450}
@@ -86,7 +117,9 @@ function CardBuy(props){
                     <Card.Body>
                         <Card.Title>{props.songTitle}</Card.Title>
                         <Card.Text className="text_sub">
-                            <div className="card_text">{props.percentA}</div>
+                            <div>by <span className='text_bold'>Artist name</span></div>
+                            <div className='text_italic'>Label name</div>
+                            {/* <div className="card_text">{props.percentA}</div>
                             <div className="card_text">{props.percentL}</div>
                             <div className="card_text">
                                 <span className="card_subtitle">Artist address</span>
@@ -129,7 +162,7 @@ function CardBuy(props){
                                     <span className="card_content">{props.tokenID}</span>
                                 </OverlayTrigger>
                                 
-                            </div>
+                            </div> */}
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-muted">
@@ -138,7 +171,7 @@ function CardBuy(props){
                             Buy
                         </Button>*/}
                         
-                        <Button onClick={buySong} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        <Button key={props.tokenID} onClick={() => buySongModal(props, true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                             Buy
                         </Button>
                     </Card.Footer>
@@ -146,7 +179,7 @@ function CardBuy(props){
                 )}
             
             </Card>
-        
+        </>
     );
 }
 

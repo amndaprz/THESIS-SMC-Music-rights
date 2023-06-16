@@ -1,5 +1,5 @@
 
-import SelectRole from "./SelectRole";
+import SignUp from "./SignUp";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -12,17 +12,14 @@ import {useRef} from 'react';
 
 function Title() {
     return (
-        <div className="row logo_con">
-            <div className="col">
-            
-                <div className="title_main">PROJECT TINA</div>
-                <h5 className="text_sub">
-                    The Use of Smart-Contracts to Help Reduce
-                    Royalty Issues in the Local Music Industry
-                </h5>
-            </div>
+        <div>
+            <div className="title_main">PROJECT 
+            <img src="../logo_name.png" alt="logo name" className="mb-4 mx-4 logo_name_nav2"/></div>
+            <h6 className="text_sub mt-3">
+                The Use of Smart-Contracts to Help Reduce
+                Royalty Issues in the Local Music Industry
+            </h6>
         </div>
-        
     );
 }
 
@@ -90,7 +87,7 @@ function Home() {
                 <Container>
                     <Navbar.Brand href="#home">
                         <img src="../tina_logo.png" alt="logo" className="logo_nav" />
-                        PROJECT TINA
+                        <img src="../logo_name.png" alt="logo name" className="logo_name_nav"/>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -111,7 +108,7 @@ function Home() {
                     </div>
                     <div className="col login_con">
                         <div className="selectrole_box">
-                            <SelectRole />
+                            <SignUp />
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import CardProposal from '../Cards/CardProposal';
+import CardProposal from '../Cards/CardCommProposal';
 
 function ViewContractProposals(){
     
     return(
-        <div class="row py-4 card-deck">
+        <div class="row py-4 px-1 card-deck">
             <CardProposal/>
             <CardProposal/>
             <CardProposal/>

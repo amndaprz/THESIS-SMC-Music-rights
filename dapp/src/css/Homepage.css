@@ -6,24 +6,33 @@
   padding: 0;
 }
 
+.text_bold{
+  font-weight: 700;
+}
+
+.text_italic{
+  font-style: italic;
+}
+
 .bloc-tabs {
   display: flex;
 }
 
 .tabs {
   padding: 20px;
-  padding-left: 50px;
+  
   padding-top: 25px;
   padding-bottom: 25px;
   text-align: left;
-  width: 100%;
-  background: #2B2833;
+  width: 80%;
+  background: none;
   cursor: pointer;
   outline: none;
 
   color: white;
 
   border: none;
+  border-radius: 20px;
 }
 
 
@@ -32,16 +41,21 @@
   display: block;
   position: absolute;
   height: 5px;
+  border-radius: 20px;
 }
 
 .active-tabs {
   background-color: #2C264B;
-  border-right: solid 5px #9988FF;
+  border-color: #2C264B;
+  border-radius: 20px;
 }
 
 
 button {
-  border: none;
+  /* border: none; */
+  background-color: #2C264B;
+  border-color: #2C264B;
+  border-radius: 20px;
 
 }
 
@@ -88,10 +102,10 @@ button {
 
 .nav_con {
   overflow-y: scroll;
-  background-color: #2B2833;
+  background-color: #232226;
 
   height: 100vh;
-  border-radius: 0 20px 20px 0;
+  border-right: solid 1px #3A3747;
   position: fixed;
   left: 0px;
   color: white;
@@ -102,8 +116,13 @@ button {
 }
 
 .nav_btn_con {
-  margin-top: 100px;
+  margin-top: 30px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .content_con {
@@ -111,6 +130,44 @@ button {
   position: absolute;
   left: 19vw;
   max-width: 80vw;
+}
+
+.stream_content {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px;
+  width: 100vw;
+}
+
+.play_btn{
+  max-width: 50px;
+  background-color: #9988FF;
+  border-radius: 50px;
+  border: none;
+}
+
+.play_icon{
+  margin: 7px;
+}
+
+.play_btn:hover{
+  background-color: #2C264B;
+  border: none;
+  transition: 0.2s;
+}
+
+.card_stream_con{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  max-width: 100vw;
+  margin-left: 100px !important;
+  margin-right: 100px !important;
 
 }
 
@@ -178,6 +235,14 @@ button {
   border: none;
 
   margin-top: -10px;
+}
+
+.card_button_proposal{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+  align-items: baseline;
 }
 
 .card_button_delete {
@@ -274,7 +339,19 @@ button {
   flex-direction: column;
 }
 
+.dark_button{
+  background-color: #232226;
+  border-color: #2C264B ;
+  border-width: 2px;
+  border-radius: 20px;
 
+}
+.dark_button:hover{
+  background-color: #2C264B !important;
+  border-color: #2C264B;
+  transition: 0.2s;
+  border-radius: 20px;
+}
 
 .tabs:hover,
 .tabs_contract:hover,
@@ -282,21 +359,36 @@ button {
 .card_button:hover,
 .modal_btn:hover,
 .modal_btn_sub:hover,
-.card_button_delete:hover {
-  background-color: #2C264B;
+.card_button_delete:hover{
+  background-color: #9988FF;
   border-color: #9988FF;
   transition: 0.2s;
+  border-radius: 20px;
+}
+
+.table_con{
+  width: 100%;
+  padding-left: 50px;
+  margin-right: 100px;
+}
+
+
+
+.table_fee, .table_date{
+  text-align:right;
+  margin-right: 100px;
 }
 
 .modal_box_contract {
   background-color: #232226;
   background-size: cover;
   border-radius: 20px !important;
-  height: 80vh;
-  width: 40vw;
+  height: max-content;
+  width: 33vw;
   padding: 30px;
   padding-bottom: 40px;
-
+  padding-left: 50px;
+  padding-right: 50px;
 
   color: white;
 }
@@ -341,8 +433,12 @@ button {
   background-size: cover;
   border-radius: 20px !important;
   height: max-content;
-  width: 38vw;
+  width: 25vw;
   padding: 30px;
+  padding-bottom: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
+
   color: white;
 }
 
@@ -404,9 +500,6 @@ button {
   border: solid 1px #595275;
 }
 
-.modal_contract_title {
-  padding-left: 0;
-}
 
 .input_con {
   display: flex;
@@ -427,16 +520,152 @@ button {
 }
 
 .inputfield_contract {
+  /*
   border: none;
   background: none;
   color: white;
   outline: none;
   margin-left: 10px;
   width: 500px;
+  */
+
+  width: 40vw;
+  background-color: #2B2833;
+  color: whitesmoke;
+  border-color: #595275;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  padding: 20px;
 }
 
 .inputfield_contract::placeholder {
   color: #595275;
+}
+
+.input_search {
+  width: 22vw;
+  background-color: #2B2833;
+  color: white;
+  border-color: #595275;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  padding: 20px;
+}
+
+.inputfield_search::placeholder {
+  color: #595275;
+}
+
+.inputfield_search{  
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  width: 90%;
+}
+
+.input_sort {
+  width: 10vw;
+  background-color: #2B2833;
+  color:#595275;
+  border-color: #595275;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  outline: none;
+  padding: 20px;
+}
+
+
+.search_con{
+  display: flex;
+  justify-content: start;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-bottom: 50px;
+}
+
+.search_con2{
+  display: flex;
+  justify-content: start;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-left: 80px;
+  margin-bottom: 50px;
+}
+
+.search_title{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 50px;
+}
+.search_title2{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 0px;
+}
+
+.sort_con{
+  display: flex;
+  justify-content: end;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-bottom: 50px;
+  margin-right: 60px;
+}
+
+.sort_con2{
+  display: flex;
+  justify-content: end;
+  align-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin: 20px;
+  margin-bottom: 50px;
+  margin-right: 80px;
+}
+
+.sort_title{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 100px;
+}
+
+.sort_title2{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.filter_con{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 83vw;
+}
+
+.filter_con2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 78vw;
 }
 
 .offer_con {
@@ -502,9 +731,9 @@ button {
 
 .tabs_contract {
   border-radius: 20px !important;
-  background-color: #9988FF;
+  background-color: #2C264B;
+  border-color: #2C264B;
   color: white;
-  border: none !important;
 }
 
 .atabs_contract::before {
@@ -517,7 +746,7 @@ button {
 
 .atabs_contract {
   border-radius: 20px !important;
-  background-color: #2C264B;
+  background-color: #9988FF;
 }
 
 .input-container {
@@ -554,4 +783,54 @@ button {
 .tooltip>.tooltip-arrow::before {
   border-bottom-color: white !important;
   color: white !important;
+}
+
+
+.modal_contracttype{
+  display: flex;
+  justify-content: end;
+  padding-right: 30px;
+}
+
+.modal_percentartist_con{
+  background-color: #2B2833;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.modal_percentartist{
+  font-size: 50px;
+  font-weight: 500;
+  color: #9988FF;
+}
+
+.modal_percentlabel_con{
+  background-color: #2B2833;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.modal_percentlabel{
+  font-size: 50px;
+  font-weight: 500;
+  color: #9988FF;
+}
+
+.user_con{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo_tab{
+  width: 50px;
 }

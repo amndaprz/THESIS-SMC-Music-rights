@@ -13,58 +13,61 @@ contract RoleAccess {
     bytes32 public constant ARTIST_ROLE = keccak256("ARTIST_ROLE");
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
 
-    struct User{
-        string r_address;
-        string r_alias;
-        uint256 role; // 1-Label, 2-Artist, 3-Client
-    }
-
-    User[] public _Users;
-
     constructor() {  
+        length = 0;
     }
 
 
     function giveRole(string calldata r_add, string calldata r_alias, uint256 role) public {
-        _Users.push(User(r_add,r_alias, role));
+        _Users[r_add] = User(r_alias, role);
+        addresses.push(r_add);
+        length += 1;
+
+     
+                
     }
-
-
-
 
     // Checking funcs
 
-    //returns role, 0 if no role or user does not exist
-    function hasRole(string calldata r_Add) public view returns (uint256){
-        uint256 r = 0;
-        for (uint x =0; x < _Users.length; x++){
-            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
-                r = _Users[x].role;
-        }
-
-        return r;
-
+     function _isClient (address from) public view returns (bool) {
+        require(hasRole(CLIENT_ROLE, from), "User is not a CLIENT");
+        return true;
     }
 
     function _removeRoles (string calldata r_Add) public {
-        for (uint x =0; x < _Users.length; x++){
-            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
-                _Users[x].role = 0;
-        }
+        
+        _Users[r_Add].role = 0;
     }
 
-    function deleteUser (string calldata r_Add) public {// Leaves an empty space sa array kung san nadelete ung user
-        for (uint x =0; x < _Users.length; x++){
-            if(keccak256(abi.encodePacked((_Users[x].r_address))) == keccak256(abi.encodePacked((r_Add))))
-                delete _Users[x];
-        }
+     function getAddresses() public view returns (string[] memory){
+        return addresses;
+    }
+    function getAlias(string calldata r_Add) public view returns (string memory) {
+        
+        return _Users[r_Add].r_alias;
     }
 
-    function getUsers() public view returns (User[] memory){
-        return _Users;
+
+    function getRole(string calldata r_Add) public view returns (uint256) {
+        
+
+        return _Users[r_Add].role;
+    
     }
 
     
-    
+    // The following functions are overrides required by Solidity.
+
+
+    // function supportsInterface(bytes4 interfaceId)
+    //     public
+    //     view
+    //     override(AccessControl)
+    //     returns (bool)
+    // {
+    //     return super.supportsInterface(interfaceId);
+    // }
+
+
+
 }
-    

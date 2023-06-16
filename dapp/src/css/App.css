@@ -121,7 +121,7 @@
   border: none !important;
 }
 
-.btn_mod:hover{
+.btn_mod:hover, .btn_mod_signup:hover{
   background-color: #2C264B !important;
   transition: 0.2s;
 }

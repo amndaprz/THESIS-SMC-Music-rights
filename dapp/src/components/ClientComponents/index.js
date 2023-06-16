@@ -6,12 +6,14 @@ import Button from 'react-bootstrap/Button';
 import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
-import ConnectIPFS from '../IPFSComponents/ConnectIPFS';
+import { Link } from "react-router-dom";
+
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
+import { FaCartPlus, FaShoppingBag } from 'react-icons/fa';
+import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
 
 
 // let connectIPFS = new ConnectIPFS();
@@ -25,16 +27,83 @@ function Client() {
     const [jsonObject, setJsonObj] = React.useState([]);
     const [tokenObject, setTokenObj] = React.useState("");
 
-    useEffect(() => {
-        const t = setTimeout(() => {
-            setLoading(false);
-            displayAllInfo();
-        } , 3000);
+    const getRole = async () => {
+        const getUsersList = await contract_RA.methods.getUsers().call();
+        const accounts = await web3_RA.eth.requestAccounts();
+        const account = accounts[0];
+        let userRole;
 
-        return () => {
-            clearTimeout(t);
+        console.log(getUsersList);
+        for(let i = 0; i < getUsersList.length; i++){
+            if(getUsersList[i][0] === account){
+                 userRole = getUsersList[i][2];
+                 console.log(getUsersList[i][2]);
+                 console.log("User Role " + userRole);
+            }
         }
-    }, []);
+        // console.log(typeof(userRole));
+        userRole = parseInt(userRole);
+        return userRole;
+    };
+
+    const [roleString, setRoleString] = useState("Role");
+        
+    const [name, setUserName] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const t = setTimeout(() => {
+            setLoading(false);
+          }, 3000);
+      
+          console.log("HERE");
+          switch (await getRole()) {
+            case 1:
+              setRoleString('Label');
+              break;
+            case 2:
+              setRoleString('Artist');
+              break;
+            case 3:
+              setRoleString('Client');
+              break;
+            case 4:
+              setRoleString('Admin');
+              break;
+          }
+      
+          getUserName();
+
+          return () => {
+            clearTimeout(t);
+          };
+        };
+      
+        fetchData();
+      }, []);
+
+
+      let username;
+      let result;
+
+      const getUserName = async() => {
+        const getUsersList = await contract_RA.methods.getUsers().call();
+        const accounts = await web3.eth.requestAccounts();
+		const account = accounts[0];
+        console.log("ACCOUNT" + account);
+        
+        for(let i = 0; i < getUsersList.length; i++){
+            if(getUsersList[i][0] === account){
+                 username = getUsersList[i][1];
+                 console.log(getUsersList[i][1]);
+                 console.log("User Role " + username);
+
+            }
+        }
+        console.log("RESULT" + result);
+        setUserName(username);
+    }
+    
 
     
     const toggleTab = (index) => {
@@ -74,6 +143,7 @@ function Client() {
         const cid = "QmcaJKcQ5h6QdYBaLYLaTosgCa8zF9nML18EgcLiHHAH1K";
         const data =[];
         const temp_data = [];
+        const status = [];
         let allResults = await contract.methods.getAllMRCs().call();
 
         console.log(allResults);
@@ -87,6 +157,8 @@ function Client() {
             for (let key in allResults)
             {
                 console.log("Data is " + allResults[key][0]);
+                status.push(allResults[key][2]);
+                console.log("status: " + allResults[key][2]);
 
                 for await (const chunk of IPFS.cat(allResults[key][1])) {
                     console.log(chunk);
@@ -130,7 +202,7 @@ function Client() {
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
         //setJsonObj(data);
-        console.log(typeof data);
+        console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
         
         
@@ -164,62 +236,52 @@ function Client() {
         {/*<NotificationContainer/>*/}
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">
-                <div className="px-4 pb-5">
                     {loading ? (
                         <ContentLoader
-                            width={450}
-                            height={126}
-                            speed={2}
-                            backgroundColor={'#383447'}
-                            foregroundColor={'#2B2833'}
-                        >
-                            <rect x="20" y="70" rx="5" ry="5" width="220" height="12" />
-                            <rect x="20" y="102" rx="5" ry="5" width="220" height="12" />
-                        </ContentLoader>
+                        width={450}
+                        height={1000}
+                        speed={2}
+                        backgroundColor={'#383447'}
+                        foregroundColor={'#2B2833'}
+                    >
+                        <rect x="50" y="70" rx="5" ry="5" width="220" height="12" />
+                        <rect x="50" y="102" rx="5" ry="5" width="220" height="12" />
+                        <rect x="40" y="300" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="370" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="440" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="510" rx="5" ry="5" width="270" height="50" />
+                        <rect x="40" y="580" rx="5" ry="5" width="270" height="50" />
+                    </ContentLoader>
                     ): (
                         <>
-                        <h2 className="mx-4 mt-5 client_name">Client name</h2>
-                        <h5 className="mx-4 text_sub">Role name</h5>
+                        <div className="px-4 pt-5 pb-3 user_con">
+                                <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
+                                <h2 className="mx-4 mt-5 client_name">{name}</h2>
+                                <h5 className="mx-4 text_sub">{roleString}</h5>
+                        </div>
+                        
+                        <div className="nav_btn_con">
+                        
+                            <Button
+                                className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+                                onClick={() => toggleTab(1)}>
+                                <FaCartPlus className='mx-3'/>Buy songs
+                            </Button>
+
+                            <Button
+                                className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+                                onClick={() => toggleTab(2)}>
+                                <FaShoppingBag className='mx-3'/>Owned songs
+                            </Button>
+
+                            {/* Replace with on website refresh */}
+                            {/* <Button
+                                onClick={displayAllInfo}>
+                            Refresh
+                            </Button> */}
+                        </div>
                         </>
                     )}
-                    
-                </div>
-                <div className="nav_btn_con">
-                {loading ? (
-                        <ContentLoader
-                            width={450}
-                            height={200}
-                            speed={2}
-                            backgroundColor={'#383447'}
-                            foregroundColor={'#2B2833'}
-                        >
-                            <rect x="40" y="10" rx="5" ry="5" width="270" height="50" />
-                            <rect x="40" y="80" rx="5" ry="5" width="270" height="50" />
-                        </ContentLoader>
-                    ): (
-                        <>
-                        <Button
-                            className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                            onClick={() => toggleTab(1)}>
-                        Buy songs
-                        </Button>
-
-                        <Button
-                            className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                            onClick={() => toggleTab(2)}>
-                        Owned songs
-                        </Button>
-
-                        {/* Replace with on website refresh */}
-                        {/* <Button
-                            onClick={displayAllInfo}>
-                        Refresh
-                        </Button> */}
-                        </>
-                    )}
-                    
-                </div>
-                    
             </div>
             
             <div className="col-sm-10 py-5 px-0 m-0 content_con">
