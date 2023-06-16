@@ -17,6 +17,7 @@ function ProposalCommPopup(props){
         if(await contract.methods.safeMintWithToken(props.tokenID).send({from: account, sender: account })){
             console.log("Minting successful");
         }
+        window.location.reload();
     }
 
     const rejectProposal = async() => {

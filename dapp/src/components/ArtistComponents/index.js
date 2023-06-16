@@ -12,53 +12,52 @@ import CommercialProposals from './CommercialProposals';
 import ContentLoader from 'react-content-loader'
 import { Link } from "react-router-dom";
 import { FaFileContract, FaMoneyCheck, FaMusic, FaSignature } from 'react-icons/fa';
-
+let account;
 document.body.style.background = "#232226";
 
 function Artist() {
 
-    const getRole = async () => {
-        const getUsersList = await contract_RA.methods.getUsers().call();
-        const accounts = await web3_RA.eth.requestAccounts();
-        const account = accounts[0];
-        let userRole;
+    // const getRole = async () => {
+    //     //const getUsersList = await contract_RA.methods.getUsers().call();
+    //     const accounts = await web3_RA.eth.requestAccounts();
+    //     const account = accounts[0];
+    //     let userRole;
 
-        console.log(getUsersList);
-        for(let i = 0; i < getUsersList.length; i++){
-            if(getUsersList[i][0] === account){
-                 userRole = getUsersList[i][2];
-                 console.log(getUsersList[i][2]);
-                 console.log("User Role " + userRole);
-            }
-        }
-        // console.log(typeof(userRole));
-        userRole = parseInt(userRole);
-        return userRole;
-    };
+    //     console.log(getUsersList);
+    //     for(let i = 0; i < getUsersList.length; i++){
+    //         if(getUsersList[i][0] === account){
+    //              userRole = getUsersList[i][2];
+    //              console.log(getUsersList[i][2]);
+    //              console.log("User Role " + userRole);
+    //         }
+    //     }
+    //     // console.log(typeof(userRole));
+    //     userRole = parseInt(userRole);
+    //     return userRole;
+    // };
 
     let username;
     let result;
+    
+    const [name, setUserName] = useState("");
+    const [roleString, setRoleString] = useState("Role");
 
     const getUserName = async() => {
-        const getUsersList = await contract_RA.methods.getUsers().call();
+        //window.location.reload();
+        //Window.location.reload();
         const accounts = await web3.eth.requestAccounts();
-		const account = accounts[0];
+		account = accounts[0];
         console.log("ACCOUNT" + account);
-        
-        for(let i = 0; i < getUsersList.length; i++){
-            if(getUsersList[i][0] === account){
-                 username = getUsersList[i][1];
-                 console.log(getUsersList[i][1]);
-                 console.log("User Role " + username);
 
-            }
+        let result = await contract_RA.methods.getAlias(account).call();
+        if(result === ""){
+            window.location.reload();
         }
         console.log("RESULT" + result);
-        setUserName(username);
+        setUserName(result);
     }
     
-    const [name, setUserName] = useState("Name");
-    const [roleString, setRoleString] = useState("Role");
+    
 
     const [toggleState, setToggleState] = useState(1);
 
@@ -88,20 +87,7 @@ function Artist() {
           }, 3000);
       
           console.log("HERE");
-          switch (await getRole()) {
-            case 1:
-              setRoleString('Label');
-              break;
-            case 2:
-              setRoleString('Artist');
-              break;
-            case 3:
-              setRoleString('Client');
-              break;
-            case 4:
-              setRoleString('Admin');
-              break;
-          }
+          
 
           getUserName();
       
@@ -138,7 +124,7 @@ function Artist() {
                                 <div className="px-4 pt-5 pb-3 user_con">
                                     <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
                                     <h2 className="mx-4 mt-5 client_name">{name}</h2>
-                                    <h5 className="mx-4 text_sub">{roleString}</h5>
+                                    <h5 className="mx-4 text_sub">Artist</h5>
                                 </div>
                             <div className="nav_btn_con">
                                 <Button

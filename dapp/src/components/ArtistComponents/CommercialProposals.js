@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
+
 import CardProposal from '../Cards/CardCommProposal';
 
 import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
