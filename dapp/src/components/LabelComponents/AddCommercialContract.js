@@ -215,9 +215,9 @@ function AddCommercialContract(){
             console.log("Initial contract minting successful");
         }
 
-        const balance = await contract.methods.balanceOf(account).call();
-        setBalance(balance);
-        console.log("Balance = " + balance);
+        // const balance = await contract.methods.balanceOf(account).call();
+        // setBalance(balance);
+        // console.log("Balance = " + balance);
 
 
         // Checkers
