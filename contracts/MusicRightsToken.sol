@@ -8,8 +8,7 @@ import "@openzeppelin/contracts@4.8.2/security/Pausable.sol";
 import "./RoleAccess.sol";
 
 contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
-    // 1. Property Variables ------------------------------------------------------------------------------------
-    // Token price and supply cap
+
     uint256 public MINT_PRICE = 0.005 ether;
     uint256 public MAX_SUPPLY = 10000;
     
@@ -33,8 +32,14 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
         tokenIdCounter = 0;
     }
 
-    // 3. Minting Functions ------------------------------------------------------------------------------------
-    //Call when label inputs form
+    /*
+    nonMint Function
+   
+    Variables:
+        ipfsHash        | STRING input for ipfs hash where supplementary information 
+                          about the contract is stored
+    */
+
     function nonMint(string calldata ipfsHash) public  {
          uint256 newTokenCounter = tokenIdCounter + 1;
 
@@ -42,11 +47,17 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
             
             _MRC[newTokenCounter] = MRC(newTokenCounter,ipfsHash,1,"");
             tokenIdCounter = newTokenCounter;
+            Tokens.push(tokenIDCounter);
         }
     }
 
-    // Call when artist signs
-    function safeMintWithToken(uint256 token_id) public {
+    /*
+    safeMintWithToken Function
+   
+    Variables:
+        tokenId         | INT input for the corresponding tokenID representing the index of 
+    */
+    function safeMintWithToken(uint256 tokenId) public {
 
         _MRC[token_id].status = 2;
         _safeMint(msg.sender, token_id);
