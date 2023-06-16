@@ -6,7 +6,7 @@ import Web3 from "web3";
 // import dotenv from "dotenv";
 
 // MusicRightsToken.sol -------------------------
-export const contractAddress = "0xa41119573425252C3f78842e714a2B9E0DfED2C3";
+export const contractAddress = "0x394d5fd9924585aEb33c16AdC2E5e9C7D915eE63";
 
 export const contractABI = ERC721;
 export const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
