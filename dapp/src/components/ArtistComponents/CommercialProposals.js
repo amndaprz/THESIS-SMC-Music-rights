@@ -54,51 +54,68 @@ function ViewContractProposals(){
         let info = [];
         const data =[];
         const temp_data = [];
-        const status = [];
-        const ipfsHash = [];
-        let allResults = await contract.methods.getAllNonMint().call();
+        let allResults = await contract.methods.getTokens().call();
+        let data_status;
+        let getMRC = [];
+        let hash;
 
-        console.log(allResults);
-        console.log(Object.keys(allResults).length);
 
         // iterates over allResults with tokenID and CID
     
 
         try {
-            
-            for (let key in allResults)
+
+            console.log("allResults: " + allResults);
+            console.log(Object.keys(allResults).length);
+
+            for (let count in allResults)
             {
-                console.log("HASH is " + typeof allResults[key][1]);
-                //status.push(allResults[key][2]);
-                //console.log("status: " + allResults[key][2]);
-                ipfsHash.push(allResults[key][1]);
-                for await (const chunk of IPFS.cat(allResults[key][1])) {
-                    console.log(chunk);
-                    data.push(chunk); 
-                    
-                    // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+                console.log("AAAAAAAAAA");
+                data_status = await contract.methods.getStatus(allResults[count]).call();
 
-                    info = Buffer.concat(data).toString();
-                    console.log("INFO - " + info);
+                console.log(typeof data_status);
 
-                    try {
-                        const data = JSON.parse(info);
-                        console.log(data);
-                        temp_data.push(data);
-                        //setJsonObj(temp_data);
-                      } catch (error) {
-                        const position = parseInt(error.message.split(' ').pop(), 10);
-                        const cleanJsonString = info.substring(0, position);
-                        const data = JSON.parse(cleanJsonString);
-                        console.log(temp_data);
-                        temp_data.push(data);
-                        //setJsonObj(temp_data);
-                        
-                      }
-                      
-                      data.pop();
+                if(data_status === "1")
+                {
+
+                    getMRC = await contract.methods.getMRC(allResults[count]).call();
+
+                    hash = getMRC.ipfsHash;
+
+                    console.log("HASH IS HERE: " + typeof hash);
+
+                    for await (const chunk of IPFS.cat(hash)) {
+                        console.log(chunk);
+                        data.push(chunk); 
+                                
+                                // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+            
+                        info = Buffer.concat(data).toString();
+                        console.log("INFO - " + info);
+            
+                        try {
+                            const data = JSON.parse(info);
+                            console.log(data);
+                            temp_data.push(data);
+                            //setJsonObj(temp_data);
+                            } catch (error) {
+                            const position = parseInt(error.message.split(' ').pop(), 10);
+                            const cleanJsonString = info.substring(0, position);
+                            const data = JSON.parse(cleanJsonString);
+                            console.log(temp_data);
+                            temp_data.push(data);
+                            //setJsonObj(temp_data);
+                            
+                            }
+                            
+                            data.pop();
+                    }
+
+
                 }
             }
+            
+            
             console.log("Extraction successful!");
 
             //console.log(allResults.size());
@@ -114,11 +131,10 @@ function ViewContractProposals(){
         }
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
-        setIPFS(ipfsHash);
-        console.log("HASHES: " + ipfsHash[0]);
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
-        console.log(Buffer.concat(data).toString()); // log the contents of the file to the console
+        console.log(Buffer.concat(data).toString());
+         // log the contents of the file to the console
         
         
         // info = Buffer.concat(data).toString();

@@ -158,27 +158,12 @@
 				"type": "uint256"
 			}
 		],
-		"name": "_MRCs",
+		"name": "Tokens",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "token_id",
+				"name": "",
 				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "ipfsHash",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "status",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "client",
-				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -222,41 +207,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAllMRCs",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "token_id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "ipfsHash",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "status",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "client",
-						"type": "string"
-					}
-				],
-				"internalType": "struct MusicRightsToken.MRC[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -286,9 +236,31 @@
 		"name": "getMRC",
 		"outputs": [
 			{
-				"internalType": "string",
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "token_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "ipfsHash",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "status",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "client",
+						"type": "string"
+					}
+				],
+				"internalType": "struct MusicRightsToken.MRC",
 				"name": "",
-				"type": "string"
+				"type": "tuple"
 			}
 		],
 		"stateMutability": "view",
@@ -315,12 +287,25 @@
 	},
 	{
 		"inputs": [],
-		"name": "getToken",
+		"name": "getTokenLength",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTokens",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -425,7 +410,7 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "token_id",
+				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
@@ -659,11 +644,6 @@
 				"internalType": "address payable",
 				"name": "label",
 				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "ipfshash",
-				"type": "string"
 			}
 		],
 		"name": "transferBuyout",

@@ -7,14 +7,14 @@ let account;
 function ProposalCommPopup(props){
 
     console.log("HATDOG");
-    console.log(props.hashContent);
+    console.log(props.tokenID);
 
     
 
     const mintWithToken = async() => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.safeMintWithHash(props.hashContent).send({from: account, gas: 6000000, sender: account })){
+        if(await contract.methods.safeMintWithToken(props.tokenID).send({from: account, gas: 6000000, sender: account })){
             console.log("Minting successful");
         }
     }
@@ -40,11 +40,11 @@ function ProposalCommPopup(props){
                 <div className='row my-2'>
                     <div className='col m-3  modal_percentartist_con'>
                         <div>Label</div>
-                        <div className='modal_percentartist'>{props.songs.percent_artist}%</div>
+                        <div className='modal_percentartist'>{props.songs.percent_label}%</div>
                     </div>
                     <div className='col m-3  modal_percentlabel_con'>
                         <div>Artist</div>
-                        <div className='modal_percentartist'>{props.songs.percent_label}%</div>
+                        <div className='modal_percentartist'>{props.songs.percent_artist}%</div>
                     </div>
                 </div>
                 <table className='table_con'>
