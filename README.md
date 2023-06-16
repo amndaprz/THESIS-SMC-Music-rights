@@ -4,7 +4,7 @@
 
 Yay, no errors, warnings, or alerts!
 
-Conversion time: 0.477 seconds.
+Conversion time: 0.463 seconds.
 
 
 Using this Markdown file:
@@ -17,7 +17,7 @@ Using this Markdown file:
 Conversion notes:
 
 * Docs to Markdown version 1.0β34
-* Fri Jun 16 2023 05:17:10 GMT-0700 (PDT)
+* Fri Jun 16 2023 05:21:17 GMT-0700 (PDT)
 * Source doc: README_GITHUB
 * Tables are currently converted to HTML tables.
 ----->
@@ -26,11 +26,11 @@ Conversion notes:
 
 <table>
   <tr>
-   <td>
+   <td><strong>Filename</strong>
    </td>
-   <td>
+   <td><strong>Function</strong>
    </td>
-   <td>
+   <td><strong>Link</strong>
    </td>
   </tr>
   <tr>
@@ -38,7 +38,7 @@ Conversion notes:
    </td>
    <td>
    </td>
-   <td>
+   <td><strong>ajuajua</strong>
    </td>
   </tr>
   <tr>
