@@ -6,36 +6,13 @@ import Button from 'react-bootstrap/Button';
 import Sound from './ding.mp3';
 
 import { FaPause, FaPlay, FaSearch } from "react-icons/fa";
-import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
+import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream, contract_RA} from '../../ContractProperties';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-function CardStream() {
-
-    // test
-    const Songs = [
-        {
-            title: "meiji",
-            artist: "ina",
-            label: "evangelista"
-        },
-        {
-            title: "tres",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "unna",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "dos",
-            artist: "nicole",
-            label: "cheng"
-        }
-    ];
+let account;
+function CardStream(props) {
+    const jsonObj = props;
 
     const [loading, setLoading] = useState(true);
 
@@ -65,13 +42,13 @@ function CardStream() {
         setValue(e.target.value);
     };
 
-    Songs.sort((a, b) =>
-        a.title > b.title ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
     if (sort === "z-a") {
-        Songs.sort((a, b) =>
-            a.title > b.title ? -1 : 1,
+        jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
 
@@ -82,9 +59,109 @@ function CardStream() {
         //console.log(event.target);
     }
 
-    const addStreamCount = async (title, artist) => {
-        notify(title, artist);
+    const distributePayment = async() => {
+        const batch = new web3_Stream.BatchRequest();
+        let numStreams = 0;
+        let smrcAddress = account;
+
+        console.log("SMRC Address = " + smrcAddress)
+        console.log("numStreams = " + numStreams);
+
+        const testAddress1 = "0x7E4216c925c5A11DC672196403171411Ee748F88";
+        const testAddress2 = "0xD077221195986B32B6B64Fe2A66EE26493B09aDA";
+        const Addr1Percent = 30;
+        const Addr2Percent = 70;
+        const totalFee = 3;
+
+        const addr1Cut = totalFee * (Addr1Percent/100);
+        const addr2Cut = totalFee * (Addr2Percent/100);
+
+        const valueInWei1 = web3_Stream.utils.toWei(addr1Cut.toString(), 'ether');
+        const valueInWei2 = web3_Stream.utils.toWei(addr2Cut.toString(), 'ether');
+        console.log(addr1Cut);
+        console.log(addr2Cut);
+
+
+        const tx1Req = web3_Stream.eth.sendTransaction({from: account, to: testAddress1, value: valueInWei1, gas: 21000});
+        const tx2Req = web3_Stream.eth.sendTransaction({from: account, to: testAddress2, value: valueInWei2, gas: 21000});
         
+        batch.add(tx1Req);
+        batch.add(tx2Req);
+
+        batch.execute();
+
+        tx2Req.on('confirmation', (confirmationNumber, receipt) => {
+
+            console.log(confirmationNumber);
+            console.log(receipt);
+            if( confirmationNumber === 1){
+
+            }else if( confirmationNumber === 0){
+                batch.cancel(tx1Req.requestManager.provider, tx1Req.id);
+            }
+        });
+
+    }
+
+    const addStreamCount = async (value) => {
+        const accounts = await web3_Stream.eth.requestAccounts();
+        const account = accounts[0];
+
+        
+
+        notify(value.song_title, value.artist_name);
+
+        console.log("NGEIJEJI: " + value.token_id + typeof value.token_id);
+
+        await contract_Stream.methods.simulateStreams(1, parseInt(value.token_id)).send({from:account, sender: account});
+        
+        const update = await contract_Stream.methods.getUpdate(parseInt(value.token_id)).call();
+
+        // let update = await contract_Stream.methods.simulateStreams(0, parseInt(value.token_id)).call();
+
+        console.log("UPDATE: " + update + typeof update);
+
+
+        
+        //const curr_stream = await contract_Stream.methods.getCurrStreams(value.token_id).call();
+        console.log("PREV STREAM: " + await contract_Stream.methods.getPrevStreams(value.token_id).call())
+        console.log("CURR STREAM: " + await contract_Stream.methods.getCurrStreams(value.token_id).call())
+
+        let addresses = await contract_RA.methods.getAddresses().call();
+        let username;
+        let artist_address, label_address;
+
+        const num_update = parseInt(update);
+
+        if (num_update !== 0){ // update is 10
+            console.log("CURR STREAM2: " + await contract_Stream.methods.getCurrStreams(value.token_id).call())
+            for (let key in addresses)
+            {
+                username = await contract_RA.methods.getAlias(addresses[key]).call();
+
+                if(value.artist_name === username)
+                {
+                    console.log("nice")
+                    artist_address = addresses[key];
+                }
+                if(value.label_name === username)
+                {
+                    console.log("good")
+                    label_address = addresses[key];
+                }
+                
+            }
+
+            console.log("UPDATE2: " + update)
+
+            await contract_Stream.methods.transferStream(parseInt(value.total_fee), parseInt(update), parseInt(value.percent_label), parseInt(value.percent_artist), artist_address, label_address).send({from: account, to: label_address, gas: 800000, value: parseInt(value.total_fee)})
+            //await contract_Stream.methods.transferStream(parseInt(value.total_fee), parseInt(update), parseInt(value.percent_label), parseInt(value.percent_artist), artist_address, label_address).send({from: account, to: artist_address, gas: 800000, value: parseInt(value.total_fee)})
+            if (await contract_Stream.methods.clearUpdate(parseInt(value.token_id)).send({from:account, sender: account})){
+                // num_update = 0;
+                // update = 0;
+                const update = await contract_Stream.methods.getUpdate(parseInt(value.token_id)).call();
+                console.log("NUM_UPDATE: "+ update);}
+        }
 
     };
 
@@ -113,24 +190,24 @@ function CardStream() {
                     autoClose={2000}
                 />
             </div>
-            {Songs.filter(song => {
+            {jsonObj.data.filter(song => {
                 if (query === '') {
                     return song;
-                } else if (song.title.toLowerCase().includes(query.toLowerCase())) {
+                } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
                     return song;
                 }
-                else if (song.artist.toLowerCase().includes(query.toLowerCase())) {
+                else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
                     return song;
                 }
-                else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+                else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
                     console.log("oasnasoi", song.label.toLowerCase().includes(query.toLowerCase()))
                     
                     return song;
                 }
 
-                if(!song.title.toLowerCase().includes(query.toLowerCase()) && 
-                    !song.artist.toLowerCase().includes(query.toLowerCase()) &&
-                    !song.label.toLowerCase().includes(query.toLowerCase())){
+                if(!song.song_title.toLowerCase().includes(query.toLowerCase()) && 
+                    !song.artist_name.toLowerCase().includes(query.toLowerCase()) &&
+                    !song.label_name.toLowerCase().includes(query.toLowerCase())){
                 }
 
 
@@ -152,15 +229,15 @@ function CardStream() {
                     ) : (
                         <>  
                             <Card.Body>
-                                <Card.Title>{song.title}</Card.Title>
+                                <Card.Title>{song.song_title}</Card.Title>
                                 <Card.Text className="text_sub">
                                     <div className='row'>
                                         <div className='col'>
-                                            <div>by <span className='text_bold'>{song.artist}</span></div>
-                                            <div className='text_italic'>{song.label}</div>
+                                            <div>by <span className='text_bold'>{song.artist_name}</span></div>
+                                            <div className='text_italic'>{song.label_name}</div>
                                         </div>
 
-                                        <Button className='col mx-2 play_btn' onClick={() => addStreamCount(song.title, song.artist)} key={key}>
+                                        <Button className='col mx-2 play_btn' onClick={() => addStreamCount(song)} key={key}>
                                             <FaPlay className='play_icon' />
                                         </Button>
                                     </div>
@@ -168,7 +245,7 @@ function CardStream() {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <div></div>
+                                <div>Stream count</div>
                             </Card.Footer>
                             
                             

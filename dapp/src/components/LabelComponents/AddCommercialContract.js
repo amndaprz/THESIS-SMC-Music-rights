@@ -227,6 +227,8 @@ function AddCommercialContract(){
 
             tokenID = parseInt(tokenID) + 1;
 
+            console.log("TOKEN ID STREAM IS : " + tokenID + typeof tokenID);
+
             const MRC = {
                 token_id: tokenID,
                 song_title: songTitle,

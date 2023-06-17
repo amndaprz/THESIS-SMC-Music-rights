@@ -25,6 +25,7 @@ function AddStreamingContract(){
     const [artistName, setArtistName] = useState('');
     const [totalFee, setTotalFee] = useState('');
 
+    const [endDate, setEndDate] = useState('');
     const handleSongTitle = (event) => { setSongTitle(event.target.value);} // Input Song Title
 
     // Input listener for Label Address
@@ -166,7 +167,11 @@ function AddStreamingContract(){
 
                 let tokenID = await contract_Stream.methods.getStreamLength().call();
 
+                
+
             tokenID = parseInt(tokenID) + 1;
+
+            console.log("TOKEN ID STREAM IS : " + tokenID + typeof tokenID);
 
             const MRC = {
                 token_id: tokenID,
@@ -176,7 +181,8 @@ function AddStreamingContract(){
                 percent_label: parseInt(percentLabel),
                 percent_artist: parseInt(percentArtist),
                 total_fee: parseFloat(totalFee),
-                creation_date: date //Do we still need this?
+                creation_date: date ,//Do we still need this?
+                end_date: endDate
             };
 
 
@@ -265,7 +271,7 @@ function AddStreamingContract(){
                 <div className="my-3">
                     <span className='mx-3 my-2'>End Date</span>
                     <p className="text_sub p-0 mt-2">
-                        <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
+                        <input type="date" name="addr" disabled="true" className="inputfield_contract" value={endDate} onChange={setEndDate} />
                     </p>
                 </div>
                 <div className="my-3">
