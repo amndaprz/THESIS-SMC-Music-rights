@@ -7,7 +7,7 @@
 
 
 
-This code is made in partial fulfillment of the requirements for the Thesis of 4th year Computer Studies students from De La Salle University – Manila. Keep in mind that this code may have potential security risks if deployed on the Ethereum network mainnet. The students and the institution will not be held liable for any losses or damages done in the event of a misuse. This code is strictly for research purposes. 
+This code is made in partial fulfillment of the requirements for the Thesis of 4th year Computer Studies students from De La Salle University – Manila. Keep in mind that this code may pose security risks if deployed on the Ethereum network mainnet. The students and the institution will not be held liable for any losses or damages done in the event of a misuse. This code is strictly for research purposes. 
 
 ## **Setup**
 
@@ -64,9 +64,8 @@ This code is made in partial fulfillment of the requirements for the Thesis of 4
 
 
 
-1. User Manual
-2. Technical Manual
-3. Code Documentation
+1. Technical Manual
+2. Code Documentation
 
 
 ---
