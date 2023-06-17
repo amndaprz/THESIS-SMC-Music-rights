@@ -10,8 +10,8 @@ import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function CardCommContract() {
-
+function CardCommContract(props) {
+    const jsonObj = props;
     const [modalShow, setModalShow] = useState(false);
 
     const [contractContent, setContractContent] = useState([]);
@@ -22,28 +22,7 @@ function CardCommContract() {
         setContractContent(value)
     }
     // test
-    const Songs = [
-        {
-            title: "meiji",
-            artist: "ina",
-            label: "evangelista"
-        },
-        {
-            title: "tres",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "unna",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "dos",
-            artist: "nicole",
-            label: "cheng"
-        }
-    ];
+    
     
     const [query, setQuery] = useState("");
 
@@ -60,13 +39,13 @@ function CardCommContract() {
 
     console.log(sort)
 
-    Songs.sort((a, b) =>
-        a.title > b.title ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
     if (sort === "z-a") {
-        Songs.sort((a, b) =>
-            a.title > b.title ? -1 : 1,
+        jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
 
@@ -92,33 +71,34 @@ function CardCommContract() {
                 <ContractCommPopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
-                    songs = {contractContent}
+                    data = {contractContent}
                 />
             </div>
-            {Songs.filter(song => {
+            {jsonObj.data.filter(song => {
                 if (query === '') {
                     return song;
-                } else if (song.title.toLowerCase().includes(query.toLowerCase())) {
+                } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
                     return song;
                 }
-                else if (song.artist.toLowerCase().includes(query.toLowerCase())) {
+                else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
                     return song;
                 }
-                else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+                else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
                     return song;
                 }
             }).map((song, key) => (
             <Card key={(key)}>
 
                 <Card.Body>
-                    <Card.Title>{song.title}</Card.Title>
+                    <Card.Title>{song.song_title}</Card.Title>
                     <Card.Text className="text_sub">
-                        <div>by <span className='text_bold'>{song.artist}</span></div>
-                        <div className='text_italic'>{song.label}</div>
+                        <div>by <span className='text_bold'>{song.artist_name}</span></div>
+                        <div className='text_italic'>{song.label_name}</div>
+                        <div className='text_italic'>{song.total_fee}</div>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Date</h5>
+                    <h5 class="text_sub">{song.creation_date}</h5>
                     <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button">
                         View
                     </Button>

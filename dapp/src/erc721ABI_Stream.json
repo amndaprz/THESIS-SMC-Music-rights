@@ -19,32 +19,27 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "n_streams",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "stream_id",
-				"type": "uint256"
-			}
-		],
-		"name": "simulateStreams",
+		"inputs": [],
+		"name": "getAllStreamId",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "uint256"
+				"type": "uint256[]"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAllStreams",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getStream",
 		"outputs": [
 			{
 				"components": [
@@ -65,13 +60,26 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "stream_id",
+						"name": "streamId",
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct StreamContract.Stream[]",
+				"internalType": "struct StreamContract.Stream",
 				"name": "",
-				"type": "tuple[]"
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStreamLength",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -81,34 +89,24 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "id",
+				"name": "nStreams",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "streamId",
 				"type": "uint256"
 			}
 		],
-		"name": "getStream",
+		"name": "simulateStreams",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

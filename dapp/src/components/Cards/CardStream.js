@@ -167,6 +167,9 @@ function CardStream() {
 
                                 </Card.Text>
                             </Card.Body>
+                            <Card.Footer>
+                                <div></div>
+                            </Card.Footer>
                             
                             
                         </>

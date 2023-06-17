@@ -7,7 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
 
-
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddStreamingContract(){
     var curr = new Date();
@@ -83,6 +85,33 @@ function AddStreamingContract(){
         setErrorPercentArtistState(0);
     };
 
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
+    }
+
+    const saveInput = async(MRC) => {
+        let ipfs = await ipfsClient();
+        let mrcToString = Buffer.from(JSON.stringify(MRC));
+        let result = await ipfs.add(mrcToString);
+        //console.log(address);
+        console.log(result);
+
+        return result.path;
+    }
+
     const mintERC721_Stream = async() => {
         // Check if percentages add up to 100
         const total = parseInt(percentLabel) + parseInt(percentArtist);
@@ -134,12 +163,54 @@ function AddStreamingContract(){
                 // if(await contract_Stream.methods.addStream().send({from:account, gas: 6000000, sender:account})){
                 //     console.log("Initial contract minting successful");
                 // }
+
+                let tokenID = await contract_Stream.methods.getStreamLength().call();
+
+            tokenID = parseInt(tokenID) + 1;
+
+            const MRC = {
+                token_id: tokenID,
+                song_title: songTitle,
+                artist_name: artistName,
+                label_name: labelName,
+                percent_label: parseInt(percentLabel),
+                percent_artist: parseInt(percentArtist),
+                total_fee: parseFloat(totalFee),
+                creation_date: date //Do we still need this?
+            };
+
+
+            // const users = await contract_RA.methods.getUsers().call();
+            // console.log(users);
+
+            notify();
+
+            console.log(MRC.song_title);
+            console.log(MRC);
+
+            let mrcResult = await saveInput(MRC);
+
+            console.log(mrcResult);
+            
+            if(await contract_Stream.methods.addStream(mrcResult).send({from:account, sender:account})){
+                console.log("Stream contract creation successful");
+            }
+
+            // const balance = await contract.methods.balanceOf(account).call();
+            // setBalance(balance);
+            // console.log("Balance = " + balance);
+
+            return mrcResult;
             
         }catch(e){
             // Error Message
             console.log(e.message);
         }
     };
+
+    const notify = () => {
+        toast("Notify");
+    }
 
     return(
         <form className="m-4" onSubmit="">
