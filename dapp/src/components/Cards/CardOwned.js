@@ -3,30 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { FaSearch } from "react-icons/fa";
 
-function CardOwned(){
-    const Songs = [
-        {
-            title: "meiji",
-            artist: "ina",
-            label: "evangelista"
-        },
-        {
-            title: "tres",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "unna",
-            artist: "nicole",
-            label: "cheng"
-        },
-        {
-            title: "dos",
-            artist: "nicole",
-            label: "cheng"
-        }
-    ];
-
+function CardOwned(props){
+    const jsonObj = props;
+    console.log("card list" + jsonObj.data)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -55,15 +34,16 @@ function CardOwned(){
 
     console.log(sort)
 
-    Songs.sort((a, b) =>
-        a.title > b.title ? 1 : -1,
+    jsonObj.data.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
     );
 
     if (sort === "z-a") {
-        Songs.sort((a, b) =>
-            a.title > b.title ? -1 : 1,
+        jsonObj.data.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
         );
     }
+
 
     return(
         <>
@@ -84,25 +64,26 @@ function CardOwned(){
 
             </div>
         </div>
-        {Songs.filter(song => {
+        {jsonObj.data.filter(song => {
             if (query === '') {
                 return song;
-            } else if (song.title.toLowerCase().includes(query.toLowerCase())) {
+            } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
-            else if (song.artist.toLowerCase().includes(query.toLowerCase())) {
+            else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
-            else if (song.label.toLowerCase().includes(query.toLowerCase())) {
+            else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
                 return song;
             }
         }).map((song, key) => (
         <Card key={(key)}>
             <Card.Body>
-                <Card.Title>{song.title}</Card.Title>
+                <Card.Title>{song.song_title}</Card.Title>
                 <Card.Text className="text_sub">
-                    <div>by <span className='text_bold'>{song.artist}</span></div>
-                    <div className='text_italic'>{song.label}</div>
+                    <div>by <span className='text_bold'>{song.artist_name}</span></div>
+                    <div className='text_italic'>{song.label_name}</div>
+                    <div className='text_italic'>{song.total_fee} ETH</div>
                 </Card.Text>
             </Card.Body>
         </Card>

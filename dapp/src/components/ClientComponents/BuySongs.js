@@ -66,11 +66,8 @@ function BuySongs(props){
                 }
               }).map((song, index) => (
             <CardBuy 
-            songTitle = {song.song_title}
-            addrA = {song.artist_address}
-            addrL = {song.label_address}
-            tokenID = {index}
-            totalFee = {song.total_fee}/>
+            key = {index}
+            data = {song}/>
         ))}
       </div>
     </>

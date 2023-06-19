@@ -22,16 +22,116 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "n_streams",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "clearUpdate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "nStreams",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "stream_id",
+				"name": "streamId",
 				"type": "uint256"
 			}
 		],
 		"name": "simulateStreams",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "recipientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferETH",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalFeePerStream",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "nStreams",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percent_label",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percent_artist",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address payable",
+				"name": "artist",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "label",
+				"type": "address"
+			}
+		],
+		"name": "transferStream",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "getAllStreamId",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getCurrStreams",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -39,12 +139,37 @@
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAllStreams",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getPrevStreams",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getStream",
 		"outputs": [
 			{
 				"components": [
@@ -65,13 +190,31 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "stream_id",
+						"name": "streamId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "update",
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct StreamContract.Stream[]",
+				"internalType": "struct StreamContract.Stream",
 				"name": "",
-				"type": "tuple[]"
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStreamLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -85,23 +228,8 @@
 				"type": "uint256"
 			}
 		],
-		"name": "getStream",
+		"name": "getUpdate",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
 			{
 				"internalType": "uint256",
 				"name": "",

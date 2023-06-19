@@ -112,29 +112,19 @@ contract RoleAccess {
     
     }
 
-
-
-    // modifier onlyLabel() {
-    //     require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == LABEL_ROLE, "Access denied. Only Label.");
-    //     _;
-    // }
-
-
-    // modifier onlyArtist() {
-    //     require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == ARTIST_ROLE, "Access denied. Only Artist.");
-    //     _;
-    // }
-
-    // modifier onlyClient() {
-    //     require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == CLIENT_ROLE, "Access denied. Only Client.");
-    //     _;
-    // }
-
-    // modifier onlyAdmin() {
-    //     require(keccak256(abi.encodePacked((hasRole(msg.sender)))) == ADMIN_ROLE, "Access denied. Only Admin.");
-    //     _;
-    // }
-
     
-    
+    // The following functions are overrides required by Solidity.
+
+
+    // function supportsInterface(bytes4 interfaceId)
+    //     public
+    //     view
+    //     override(AccessControl)
+    //     returns (bool)
+    // {
+    //     return super.supportsInterface(interfaceId);
+    // }
+
+
+
 }

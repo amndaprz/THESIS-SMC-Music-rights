@@ -13,6 +13,7 @@ let account;
 
 function CardBuy(props){
     const [modalShow, setModalShow] = React.useState(false); 
+    const jsonObj = props;
 
     // console.log("PROPS = " + props.percentA);
 
@@ -53,7 +54,7 @@ function CardBuy(props){
         setModalShow(isOpen);  
         setPurchaseContent(value)
 
-        console.log(value.tokenID)
+        //console.log(value.tokenID)
         //console.log(value.songTitle)
 
     }
@@ -66,11 +67,7 @@ function CardBuy(props){
 
         testETHTransfer()
         // callTransferBuyout();
-        console.log(props.percentA);
-        console.log(props.percentL);
-        console.log(props.addrA);
-        console.log(props.addrL);
-        console.log("------------")
+        
 
         console.log("buy song")
 
@@ -93,9 +90,9 @@ function CardBuy(props){
             <ConfirmPurchasePopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
-                    content = {purchaseContent}
+                    data = {purchaseContent}
                 />
-            <Card key={(props.tokenID)}>
+            <Card key={(jsonObj.key)}>
                 
                 {loading ? (
                     <ContentLoader
@@ -115,10 +112,10 @@ function CardBuy(props){
                 ): (
                     <>
                     <Card.Body>
-                        <Card.Title>{props.songTitle}</Card.Title>
+                        <Card.Title>{jsonObj.data.song_title}</Card.Title>
                         <Card.Text className="text_sub">
-                            <div>by <span className='text_bold'>Artist name</span></div>
-                            <div className='text_italic'>Label name</div>
+                            <div>by <span className='text_bold'>{jsonObj.data.artist_name}</span></div>
+                            <div className='text_italic'>{jsonObj.data.label_name}</div>
                             {/* <div className="card_text">{props.percentA}</div>
                             <div className="card_text">{props.percentL}</div>
                             <div className="card_text">
@@ -166,12 +163,12 @@ function CardBuy(props){
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-muted">
-                        <h5 className="text_pop">{props.totalFee} ETH</h5>
+                        <h5 className="text_pop">{jsonObj.data.total_fee} ETH</h5>
                         {/* <Button onClick={() => setModalShow(true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                             Buy
                         </Button>*/}
                         
-                        <Button key={props.tokenID} onClick={() => buySongModal(props, true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        <Button key={jsonObj.key} onClick={() => buySongModal(jsonObj.data, true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                             Buy
                         </Button>
                     </Card.Footer>

@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button';
 import ConfirmStream from "../Modals/ConfirmStream";
-import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
+import {contractAddress_Stream, contractABI_Stream, contract_RA, web3_Stream, contract_Stream} from '../../ContractProperties';
+import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
 
 import CardStream from "../Cards/CardStream";
 
@@ -13,53 +15,91 @@ function StreamForm(){
     // Inputs
     const [smrcAddress, setSMRCAddress] = useState('');
     const [numStreams, setNumStreams] = useState('');
+    const [jsonObj, setJsonObj] = React.useState([]);
 
     // onChange Handlers
     const handleSMRCAddress = (event) => { setSMRCAddress(event.target.value); }
     const handleNumStreams = (event) => { setNumStreams(event.target.value); }
 
+    useEffect(() => {
+        const t = setTimeout(() => {
+            simulateStreamPayout();
+        } , 0);
+
+        return () => {
+        }
+    }, []);
+
+    
+    const ipfsClient = async() => {
+        const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
+        const projectSecret = '208442d6bd98466af54320034f4d6087';
+        const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        const ipfs = create({
+            host: 'infura-ipfs.io',
+            port: 5001,
+            protocol: 'https',
+            headers: {
+                authorization: auth,
+            },
+            
+        })
+
+        return ipfs;
+    }
+
     const simulateStreamPayout = async() => {
+        let IPFS = await ipfsClient();
         const accounts = await web3_Stream.eth.requestAccounts();
 		account = accounts[0];
+        let allStreamID = await contract_Stream.methods.getAllStreamId().call();
+        let hash;
+        let data = [];
+        let temp_data = [];
+        let info = [];
+        let alias = await contract_RA.methods.getAlias(account).call();
 
-        const batch = new web3_Stream.BatchRequest();
+        try{
+            for(let key in allStreamID)
+            {
+                let stream = await contract_Stream.methods.getStream(allStreamID[key]).call();
 
-        console.log("SMRC Address = " + smrcAddress)
-        console.log("numStreams = " + numStreams);
+                hash = stream.ipfsHash;
 
-        const testAddress1 = "0x7E4216c925c5A11DC672196403171411Ee748F88";
-        const testAddress2 = "0xD077221195986B32B6B64Fe2A66EE26493B09aDA";
-        const Addr1Percent = 30;
-        const Addr2Percent = 70;
-        const totalFee = 3;
-
-        const addr1Cut = totalFee * (Addr1Percent/100);
-        const addr2Cut = totalFee * (Addr2Percent/100);
-
-        const valueInWei1 = web3_Stream.utils.toWei(addr1Cut.toString(), 'ether');
-        const valueInWei2 = web3_Stream.utils.toWei(addr2Cut.toString(), 'ether');
-        console.log(addr1Cut);
-        console.log(addr2Cut);
-
-
-        const tx1Req = web3_Stream.eth.sendTransaction({from: account, to: testAddress1, value: valueInWei1, gas: 21000});
-        const tx2Req = web3_Stream.eth.sendTransaction({from: account, to: testAddress2, value: valueInWei2, gas: 21000});
+                for await (const chunk of IPFS.cat(hash)) {
+                    console.log(chunk);
+                    data.push(chunk); 
+                                        
+                    info = Buffer.concat(data).toString();
+                    console.log("INFO - " + info);
         
-        batch.add(tx1Req);
-        batch.add(tx2Req);
-
-        batch.execute();
-
-        tx2Req.on('confirmation', (confirmationNumber, receipt) => {
-
-            console.log(confirmationNumber);
-            console.log(receipt);
-            if( confirmationNumber === 1){
-
-            }else if( confirmationNumber === 0){
-                batch.cancel(tx1Req.requestManager.provider, tx1Req.id);
+                    try {
+                        let data = JSON.parse(info);
+                        console.log(data);
+                        temp_data.push(data);
+                                                    
+                    } catch (error) {
+                    const position = parseInt(error.message.split(' ').pop(), 10);
+                    const cleanJsonString = info.substring(0, position);
+                    const data = JSON.parse(cleanJsonString);
+                    console.log(temp_data);
+                    temp_data.push(data);
+                    
+                    }
+                        
+                        data.pop();
+                }   
+                
             }
-        });
+        }catch(err){
+            console.error("Error while retrieving data from IPFS:", err); // handle any errors
+        }
+
+        console.log("temp_data datatype: " + data);
+        setJsonObj(temp_data);
+        console.log("TEMP_DATA" + typeof(temp_data));
+        console.log(Buffer.concat(data).toString());
+
     
 
         // try{
@@ -125,7 +165,7 @@ function StreamForm(){
             </div>
             
             <div class="row py-4 card-deck card_stream_con">
-                <CardStream/>
+                <CardStream data={jsonObj}/>
             </div>
         </div>
         

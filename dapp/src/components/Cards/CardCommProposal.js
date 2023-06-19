@@ -9,22 +9,22 @@ import { FaSearch } from "react-icons/fa";
 function CardContract(props){
 
     const jsonObj = props;
-    const hashes = props.hash;
+    //const hashes = props.hash;
 
 
     const [modalShow, setModalShow] = useState(false);
 
     const [contractContent, setContractContent] = useState([]);
-    const [stringHash, setStringHash] = useState("");
+    const [stringTokenID, setStringTokenID] = useState("");
 
-    console.log("WORD: " + hashes[0]);
+    //console.log("WORD: " + hashes[0]);
 
-    const clickedContract  = (value, isOpen, key) =>{
+    const clickedContract  = (value, isOpen) =>{
         console.log("clicked", value);
         setModalShow(isOpen);   
         setContractContent(value);
-        setStringHash(hashes[key]);
-        console.log("HASH: " + hashes[key]);
+        setStringTokenID(value.token_id);
+        //console.log("HASH: " + hashes[key]);
     }
 
     // test
@@ -99,7 +99,7 @@ function CardContract(props){
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 songs = {contractContent}
-                hashContent = {stringHash}
+                tokenID = {stringTokenID}
             />
         </div>
         {jsonObj.data.filter(song => {
@@ -126,7 +126,7 @@ function CardContract(props){
                     <h5 class="text_pop">{song.total_fee} ETH</h5>
                 </div>
                 
-                <Button key={key} onClick={() => clickedContract(song, true, key)} variant="primary" className="py-2 px-5 card_button_proposal">
+                <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button_proposal">
                     View
                 </Button>
             </Card.Footer>

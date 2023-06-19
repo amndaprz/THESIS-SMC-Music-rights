@@ -223,14 +223,21 @@ function AddCommercialContract(){
             account = accounts[0];
             clearStates();
 
+            let tokenID = await contract.methods.getTokenLength().call();
+
+            tokenID = parseInt(tokenID) + 1;
+
+            console.log("TOKEN ID STREAM IS : " + tokenID + typeof tokenID);
+
             const MRC = {
+                token_id: tokenID,
                 song_title: songTitle,
                 artist_name: artistName,
                 label_name: labelName,
                 percent_label: parseInt(percentLabel),
                 percent_artist: parseInt(percentArtist),
                 total_fee: parseFloat(totalFee),
-                // creation_date: date //Do we still need this?
+                creation_date: date //Do we still need this?
             };
 
 
@@ -246,7 +253,7 @@ function AddCommercialContract(){
 
             console.log(mrcResult);
             
-            if(await contract.methods.nonMint(mrcResult).send({from:account, gas: 6000000, sender:account})){
+            if(await contract.methods.nonMint(mrcResult).send({from:account, sender:account})){
                 console.log("Initial contract minting successful");
             }
 
