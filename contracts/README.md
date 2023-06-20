@@ -67,9 +67,9 @@ amount –uint
 <p>
 total_fee – uint256 
 <p>
-percent_label – uint256 
+percentLabel – uint256 
 <p>
-percent_artist – uint 256 
+percentArtist – uint 256 
 <p>
 artist – address payable 
 <p>
@@ -225,6 +225,38 @@ streamId – uint256
    </td>
   </tr>
   <tr>
+   <td>transferETH
+   </td>
+   <td>This function transfers the input amount into the recipientAddress from the senders wallet
+   </td>
+   <td>recipientAddress – address payable 
+<p>
+amount –uint 
+   </td>
+   <td>N/A
+   </td>
+  </tr>
+  <tr>
+   <td>transferBuyout
+   </td>
+   <td>This function is called when an Admin is prompted to pay for the number of streams they have simulated. Calls the transferETH function to split the total fee according to the percentages assigned to the Label and Artist
+   </td>
+   <td>totalFeePerStream– uint256
+<p>
+nStreams – uint256 
+<p>
+percentLabel – uint256 
+<p>
+percentArtist – uint 256 
+<p>
+artist – address payable 
+<p>
+label – address payable 
+   </td>
+   <td>transferETH
+   </td>
+  </tr>
+  <tr>
    <td>getStream
    </td>
    <td>This function returns the following information:
@@ -246,13 +278,64 @@ streamId – uint256
    </td>
   </tr>
   <tr>
-   <td>getAllStreams
+   <td>getAllStreamId
    </td>
-   <td>This function returns all the stream structs that are stored into the smart contract.
+   <td>This function returns the array of stream ids that are stored in the smart contract
    </td>
    <td>N/A
    </td>
    <td>N/A
    </td>
   </tr>
+  <tr>
+   <td>getStreamLength
+   </td>
+   <td>This function returns the total number of streams stored in the smart contract
+   </td>
+   <td>N/A
+   </td>
+   <td>N/A
+   </td>
+  </tr>
+  <tr>
+   <td>getCurrStreams
+   </td>
+   <td>This function returns the number of unpaid streams corresponding to the stream struct that is stored in the input index.
+   </td>
+   <td>streamId – uint256
+   </td>
+   <td>N/A
+   </td>
+  </tr>
+  <tr>
+   <td>getPrevStreams
+   </td>
+   <td>This function returns the number of paid streams corresponding to the stream struct that is stored in the input index.
+   </td>
+   <td>streamId – uint256
+   </td>
+   <td>N/A
+   </td>
+  </tr>
+  <tr>
+   <td>getUpdateStreams
+   </td>
+   <td>This function returns the number of streams to be paid corresponding to the stream struct that is stored in the input index.
+   </td>
+   <td>streamId – uint256
+   </td>
+   <td>N/A
+   </td>
+  </tr>
+  <tr>
+   <td>clearUpdate
+   </td>
+   <td>This function clears the number streams to be paid  corresponding to the stream struct that is stored in the input index.
+   </td>
+   <td>streamId – uint256
+   </td>
+   <td>N/A
+   </td>
+  </tr>
 </table>
+
