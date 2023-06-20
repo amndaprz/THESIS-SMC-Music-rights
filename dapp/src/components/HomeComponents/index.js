@@ -16,7 +16,7 @@ function Title() {
             <div> 
             <img src="../ritmo.png" alt="logo name" className="mb-4 logo_name_nav2"/></div>
             <h5 className="text_sub mt-3">
-                Revolutionizing Income distribution by Tokenizing Music Operations
+                Revolutionizing Income Distribution by Tokenizing Music Operations
             </h5>
         </div>
     );
