@@ -27,7 +27,7 @@ let account;
         totalFee        | DECIMAL input for total fee
 
 */
-function AddCommercialContract(){
+function AddCommercialContract(props){
     var curr = new Date();
     curr.setDate(curr.getDate());
     var date = curr.toISOString().substring(0,10);
@@ -51,8 +51,9 @@ function AddCommercialContract(){
         
         Regex | No special characters
     */
+    var user = props.user;
     const handleNameLabel = (event) => { 
-        const value = event.target.value;
+        const value = user;
         const regexUsername = /^[a-zA-Z0-9]*$/;
 
         if (regexUsername.test(value) || value === '')  setLabelName(event.target.value);
@@ -77,6 +78,8 @@ function AddCommercialContract(){
         Regex | Number input from 0-100 only
     */
     const regex = /^(?:100|[1-9][0-9]?|0)$/; // Number only from 0-100
+
+    
 
     const handlePLabel = (event) => { 
         const value = event.target.value;
@@ -233,7 +236,7 @@ function AddCommercialContract(){
                 token_id: tokenID,
                 song_title: songTitle,
                 artist_name: artistName,
-                label_name: labelName,
+                label_name: user,
                 percent_label: parseInt(percentLabel),
                 percent_artist: parseInt(percentArtist),
                 total_fee: parseFloat(totalFee),
@@ -244,7 +247,7 @@ function AddCommercialContract(){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify();
+            notify("Adding contract...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -268,8 +271,8 @@ function AddCommercialContract(){
         }
     }
 
-    const notify = () => {
-        toast("Notify");
+    const notify = (message) => {
+        toast(message);
     }
 
     return(
@@ -298,7 +301,7 @@ function AddCommercialContract(){
                 <div className="my-3">
                     <span className='mx-3 my-2'>Name of Label</span>
                     <p className="text_sub p-0 mt-2">
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={labelName} onChange={handleNameLabel} />
+                        <input type="text" name="addr" disabled="true" className="inputfield_contract" placeholder="Type here" defaultValue={user}/>
                     </p>
                 </div>
                 <div className="my-3">

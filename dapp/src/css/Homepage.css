@@ -360,8 +360,8 @@ button {
 .modal_btn:hover,
 .modal_btn_sub:hover,
 .card_button_delete:hover{
-  background-color: #9988FF;
-  border-color: #9988FF;
+  background-color: #2C264B;
+  
   transition: 0.2s;
   border-radius: 20px;
 }
@@ -731,7 +731,7 @@ button {
 
 .tabs_contract {
   border-radius: 20px !important;
-  background-color: #2C264B;
+  background-color: #9988FF;
   border-color: #2C264B;
   color: white;
 }
@@ -746,7 +746,8 @@ button {
 
 .atabs_contract {
   border-radius: 20px !important;
-  background-color: #9988FF;
+  background-color: #2C264B;
+  border-color: #595275;
 }
 
 .input-container {

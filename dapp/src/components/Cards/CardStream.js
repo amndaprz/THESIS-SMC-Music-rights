@@ -10,7 +10,12 @@ import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 let account;
+let stream_cnt;
+let count;
+
+
 function CardStream(props) {
     const jsonObj = props;
 
@@ -103,6 +108,10 @@ function CardStream(props) {
 
     }
 
+  
+
+    const [currCount, setCurrCount] = useState(0);
+
     const addStreamCount = async (value) => {
         const accounts = await web3_Stream.eth.requestAccounts();
         const account = accounts[0];
@@ -133,8 +142,18 @@ function CardStream(props) {
 
         const num_update = parseInt(update);
 
+        count = await contract_Stream.methods.getCurrStreams(value.token_id).call();
+        
+        setCurrCount(count);
+
+        //curr_count = curr_count + 1;
+
+        //setCurrCount(curr_count);
+
+        console.log("CURR_COUNT: "+ count);
+
         if (num_update !== 0){ // update is 10
-            console.log("CURR STREAM2: " + await contract_Stream.methods.getCurrStreams(value.token_id).call())
+            
             for (let key in addresses)
             {
                 username = await contract_RA.methods.getAlias(addresses[key]).call();
@@ -162,6 +181,7 @@ function CardStream(props) {
                 const update = await contract_Stream.methods.getUpdate(parseInt(value.token_id)).call();
                 console.log("NUM_UPDATE: "+ update);}
         }
+
 
     };
 
@@ -228,6 +248,7 @@ function CardStream(props) {
                         </ContentLoader>
                     ) : (
                         <>  
+                            
                             <Card.Body>
                                 <Card.Title>{song.song_title}</Card.Title>
                                 <Card.Text className="text_sub">
@@ -245,7 +266,7 @@ function CardStream(props) {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <div>Stream count</div>
+                                <h5 className='text_pop'>{currCount} stream(s)</h5>
                             </Card.Footer>
                             
                             

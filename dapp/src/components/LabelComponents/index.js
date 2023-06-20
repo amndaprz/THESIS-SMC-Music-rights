@@ -8,7 +8,6 @@ import AddStreamingContract from './AddStreamingContract';
 import ViewListedSongs from './ViewListedSongs';
 import CommercialContracts from './CommercialContracts';
 import StreamingContracts from './StreamingContracts';
-import ViewContractProposals from './ViewContractProposals';
 
 import { Link } from "react-router-dom";
 
@@ -90,7 +89,7 @@ function Label() {
             clearTimeout(t);
           };
         };
-      
+        getUserName();
         fetchData();
       }, []);
 
@@ -178,9 +177,9 @@ function Label() {
                         ) : (
                             <>
                                 <div className="px-4 pt-5 pb-3 user_con">
-                                    <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
+                                    <img src="../ritmo_logo.png" alt="logo" className="mt-3 logo_tab" />
                                     <h2 className="mx-4 mt-5 client_name">{name}</h2>
-                                    <h5 className="mx-4 text_sub">{roleString}</h5>
+                                    <h5 className="mx-4 text_sub">Label</h5>
                                 </div>
                             
                                 <div className="nav_btn_con">
@@ -199,7 +198,7 @@ function Label() {
                                     <Button
                                         className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                         onClick={() => toggleTab(3)}>
-                                        <FaFileContract className='mx-3'/>View contracts
+                                        <FaFileContract className='mx-3'/>View sold
                                     </Button>
                                 </div>
                             </>
@@ -236,24 +235,24 @@ function Label() {
                                     <div className="row">
                                         <div className="col">
                                             <Button
-                                                className={toggleState2 === 1 ? "tabs_contract atabs_contract py-3 px-5 " : " dark_button py-3 px-5"}
+                                                className={toggleState2 === 1 ? "tabs_contract atabs_contract py-3 px-5 " : " tabs_contract py-3 px-5"}
                                                 onClick={() => toggleTab2(1)}>
                                                 Commercial
                                             </Button>
                                         </div>
                                         <div className="col">
                                             <Button
-                                                className={toggleState2 === 2 ? "tabs_contract atabs_contract py-3 px-5" : " dark_button  py-3 px-5"}
+                                                className={toggleState2 === 2 ? "tabs_contract atabs_contract py-3 px-5" : " tabs_contract  py-3 px-5"}
                                                 onClick={() => toggleTab2(2)}>
                                                 Streaming
                                             </Button>
                                         </div>
                                     </div>
                                     <div className={toggleState2 === 1 ? "content  active-content" : "content"}>
-                                        <AddCommercialContract />
+                                        <AddCommercialContract user = {name}/>
                                     </div>
                                     <div className={toggleState2 === 2 ? "content  active-content" : "content"}>
-                                        <AddStreamingContract />
+                                        <AddStreamingContract user = {name}/>
                                     </div>
     
                                 </div>
@@ -264,20 +263,20 @@ function Label() {
                                 </div>
     
                                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                                    <h1>View contracts</h1>
+                                    <h1>View sold</h1>
                                     {/*<CommercialContracts />*/}
                                     <div className=" mt-5 mb-4">Choose a contract type below:</div>
                                     <div className="row">
                                         <div className="col">
                                             <Button
-                                                className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : " dark_button  py-3 px-5"}
+                                                className={toggleState3 === 1 ? "tabs_contract atabs_contract py-3 px-5" : " tabs_contract  py-3 px-5"}
                                                 onClick={() => toggleTab3(1)}>
                                                 Commercial
                                             </Button>
                                         </div>
                                         <div className="col">
                                             <Button
-                                                className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "dark_button py-3 px-5 "}
+                                                className={toggleState3 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5 "}
                                                 onClick={() => toggleTab3(2)}>
                                                 Streaming
                                             </Button>

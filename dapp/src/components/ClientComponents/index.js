@@ -19,6 +19,7 @@ import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from 
 // let connectIPFS = new ConnectIPFS();
 
 let dataObject;
+let account;
 
 function Client() {
 
@@ -72,36 +73,29 @@ function Client() {
               break;
           }
       
-          getUserName();
+          
 
           return () => {
             clearTimeout(t);
           };
         };
-      
+        getUserName();
         fetchData();
       }, []);
 
-
-      let username;
-      let result;
-
       const getUserName = async() => {
-        const getUsersList = await contract_RA.methods.getUsers().call();
+        //window.location.reload();
+        //Window.location.reload();
         const accounts = await web3.eth.requestAccounts();
-		const account = accounts[0];
+		account = accounts[0];
         console.log("ACCOUNT" + account);
-        
-        for(let i = 0; i < getUsersList.length; i++){
-            if(getUsersList[i][0] === account){
-                 username = getUsersList[i][1];
-                 console.log(getUsersList[i][1]);
-                 console.log("User Role " + username);
 
-            }
+        let result = await contract_RA.methods.getAlias(account).call();
+        if(result === ""){
+            window.location.reload();
         }
         console.log("RESULT" + result);
-        setUserName(username);
+        setUserName(result);
     }
     
 
@@ -253,9 +247,9 @@ function Client() {
                     ): (
                         <>
                         <div className="px-4 pt-5 pb-3 user_con">
-                                <img src="../tina_logo.png" alt="logo" className="mt-3 logo_tab" />
+                                <img src="../ritmo_logo.png" alt="logo" className="mt-3 logo_tab" />
                                 <h2 className="mx-4 mt-5 client_name">{name}</h2>
-                                <h5 className="mx-4 text_sub">{roleString}</h5>
+                                <h5 className="mx-4 text_sub">Client</h5>
                         </div>
                         
                         <div className="nav_btn_con">

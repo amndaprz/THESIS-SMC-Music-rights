@@ -13,12 +13,11 @@ import {useRef} from 'react';
 function Title() {
     return (
         <div>
-            <div className="title_main">PROJECT 
-            <img src="../logo_name.png" alt="logo name" className="mb-4 mx-4 logo_name_nav2"/></div>
-            <h6 className="text_sub mt-3">
-                The Use of Smart-Contracts to Help Reduce
-                Royalty Issues in the Local Music Industry
-            </h6>
+            <div> 
+            <img src="../ritmo.png" alt="logo name" className="mb-4 logo_name_nav2"/></div>
+            <h5 className="text_sub mt-3">
+                Revolutionizing Income distribution by Tokenizing Music Operations
+            </h5>
         </div>
     );
 }
@@ -26,8 +25,13 @@ function Title() {
 function About() {
     return (
         <div className="mx-0 px-0 about_con" id="about">
-            <img src="../tina_logo.png" alt="logo" className="logo"/>
-            <div className="pt-4 title_submain">About the project</div>
+            <img src="../ritmo_logo.png" alt="logo" className="logo"/>
+            <h1 className="pt-4">About the project</h1>
+            <h5 className="about_content">
+            RITMO (Revolutionizing Income distribution by Tokenizing Music Operations) is a decentralized application that uses 
+            Ethereum smart contracts to manage and  ensure fair distribution of fees involved in the 
+            monetary transactions done by the Philippine music industry.
+            </h5>
         </div>
         
     );
@@ -43,7 +47,13 @@ function Team() {
                     <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
                 </svg>
             </div>
-            <div className="pt-5 title_submain top_z">Team</div>
+            <h1 className="pt-5 top_z">Team</h1>
+            <div className="row team_logo_con">
+                <img src="../tina_logo.png" alt="logo name" className="col mx-4 logo"/>
+                <img src="../logo_name.png" alt="logo name" className="col mx-4 team_logo_name"/>
+            </div>
+            
+
         </div>
         
     );
@@ -86,8 +96,8 @@ function Home() {
                 style={{ top: visible ? '0' : '-100px' }}>
                 <Container>
                     <Navbar.Brand href="#home">
-                        <img src="../tina_logo.png" alt="logo" className="logo_nav" />
-                        <img src="../logo_name.png" alt="logo name" className="logo_name_nav"/>
+                        <img src="../ritmo_logo.png" alt="logo" className="logo_nav" />
+                        <img src="../ritmo.png" alt="logo name" className="logo_name_nav"/>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">

@@ -94,11 +94,10 @@ function CardCommContract(props) {
                     <Card.Text className="text_sub">
                         <div>by <span className='text_bold'>{song.artist_name}</span></div>
                         <div className='text_italic'>{song.label_name}</div>
-                        <div className='text_italic'>{song.total_fee}</div>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">{song.creation_date}</h5>
+                    <h5 class="text_pop">{song.total_fee} ETH</h5>
                     <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button">
                         View
                     </Button>

@@ -74,6 +74,10 @@ function ConfirmPurchasePopup(props) {
                     <td className='table_header text_sub'>Label:</td>
                     <td>{props.data.label_name}</td>
                 </tr>
+                <tr>
+                    <td className='table_header text_sub'>Total fee:</td>
+                    <td className='text_pop'><h5>{props.data.total_fee} ETH</h5></td>
+                </tr>
             </table>
             </Modal.Body>
             <Modal.Footer className='mt-3'>

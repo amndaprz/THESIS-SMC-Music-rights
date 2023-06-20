@@ -97,7 +97,7 @@ function CardStreamContract(props) {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">
-                    <h5 class="text_sub">Date</h5>
+                    <h5 class="text_pop">{song.total_fee} ETH</h5>
                     <Button key={key} onClick={() => clickedContract(song, true)} variant="primary" className="py-2 px-5 card_button">
                         View
                     </Button>

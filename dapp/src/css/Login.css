@@ -195,14 +195,39 @@ option:active, option:hover {
 
 .about_con{
     width: 100%;
-    height: 800px;
+    height: max-content;
     background-color: #595275;
     color: white;
     padding-top: 100px;
+    padding-bottom: 100px;
     display: flex;
     justify-content: start;
     align-items: center;
     flex-direction: column;
+}
+
+.about_content{
+    width: 55%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.team_logo{
+    width: 100%;
+    
+}   
+
+.team_logo_name{
+    margin-top: 30px;
+    height: 80px;
+}
+
+.team_logo_con{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    margin-top: 130px;
 }
 
 .team_con{

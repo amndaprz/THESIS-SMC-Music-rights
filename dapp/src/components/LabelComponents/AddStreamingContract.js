@@ -11,7 +11,7 @@ import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import 'react-toastify/dist/ReactToastify.css';
 
-function AddStreamingContract(){
+function AddStreamingContract(props){
     var curr = new Date();
     curr.setDate(curr.getDate());
     var date = curr.toISOString().substring(0,10);
@@ -28,9 +28,11 @@ function AddStreamingContract(){
     const [endDate, setEndDate] = useState('');
     const handleSongTitle = (event) => { setSongTitle(event.target.value);} // Input Song Title
 
+    var user = props.user;
+
     // Input listener for Label Address
     const handleNameLabel = (event) => { 
-        const value = event.target.value;
+        const value = user;
         const regexUsername = /^[a-zA-Z0-9]*$/;
 
         if (regexUsername.test(value) || value === '')  setLabelName(event.target.value);
@@ -152,7 +154,7 @@ function AddStreamingContract(){
                 console.log("Song Title: " + songTitle);
                 console.log("Percent Label: " + percentLabel);
                 console.log("Percent Artist: " + percentArtist);
-                console.log("Label Name: " + labelName);
+                console.log("Label Name: " + user);
                 console.log("Artist Name: " + artistName);
                 console.log("Total Fee: " + totalFee);
                 
@@ -177,7 +179,7 @@ function AddStreamingContract(){
                 token_id: tokenID,
                 song_title: songTitle,
                 artist_name: artistName,
-                label_name: labelName,
+                label_name: user,
                 percent_label: parseInt(percentLabel),
                 percent_artist: parseInt(percentArtist),
                 total_fee: parseFloat(totalFee),
@@ -189,7 +191,7 @@ function AddStreamingContract(){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify();
+            notify("Adding contract...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -214,8 +216,8 @@ function AddStreamingContract(){
         }
     };
 
-    const notify = () => {
-        toast("Notify");
+    const notify = (message) => {
+        toast(message);
     }
 
     return(
@@ -242,6 +244,18 @@ function AddStreamingContract(){
                     </p>
                 </div>
                 <div className="my-3">
+                    <span className='mx-3 my-2'>Name of Label</span>
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" disabled="true" className="inputfield_contract" placeholder="Type here" defaultValue={user}/>
+                    </p>
+                </div>
+                <div className="my-3">
+                    <span className='mx-3 my-2'>Name of Artist</span>
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={artistName} onChange={handleNameArtist}/>
+                    </p>
+                </div>
+                <div className="my-3">
                     <span className='mx-3 my-2'>Percent of Label</span>
                     {
                         error_PLabel_state === 1 && 
@@ -263,6 +277,12 @@ function AddStreamingContract(){
                     </p>
                 </div>
                 <div className="my-3">
+                    <span className='mx-3 my-2'>Total Fee per Stream</span>
+                    <p className="text_sub p-0 mt-2">
+                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
+                    </p>
+                </div>
+                <div className="my-3">
                     <span className='mx-3 my-2'>Creation Date</span>
                     <p className="text_sub p-0 mt-2">
                         <input type="date" name="addr" disabled="true" className="inputfield_contract" defaultValue={date} />
@@ -272,24 +292,6 @@ function AddStreamingContract(){
                     <span className='mx-3 my-2'>End Date</span>
                     <p className="text_sub p-0 mt-2">
                         <input type="date" name="addr" disabled="true" className="inputfield_contract" value={endDate} onChange={setEndDate} />
-                    </p>
-                </div>
-                <div className="my-3">
-                    <span className='mx-3 my-2'>Label Name</span>
-                    <p className="text_sub p-0 mt-2">
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={labelName} onChange={handleNameLabel}/>
-                    </p>
-                </div>
-                <div className="my-3">
-                    <span className='mx-3 my-2'>Artist Name</span>
-                    <p className="text_sub p-0 mt-2">
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={artistName} onChange={handleNameArtist}/>
-                    </p>
-                </div>
-                <div className="my-3">
-                    <span className='mx-3 my-2'>Total Fee per Stream</span>
-                    <p className="text_sub p-0 mt-2">
-                        <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
                     </p>
                 </div>
                

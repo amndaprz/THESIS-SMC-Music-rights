@@ -83,9 +83,11 @@ function CardOwned(props){
                 <Card.Text className="text_sub">
                     <div>by <span className='text_bold'>{song.artist_name}</span></div>
                     <div className='text_italic'>{song.label_name}</div>
-                    <div className='text_italic'>{song.total_fee} ETH</div>
                 </Card.Text>
             </Card.Body>
+            <Card.Footer>
+                <h5 className='text_pop'>{song.total_fee} ETH</h5>
+            </Card.Footer>
         </Card>
         ))}
     </>
