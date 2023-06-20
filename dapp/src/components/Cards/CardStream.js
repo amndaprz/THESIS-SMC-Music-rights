@@ -265,9 +265,12 @@ function CardStream(props) {
 
                                 </Card.Text>
                             </Card.Body>
-                            <Card.Footer>
+                            {/*
+                                <Card.Footer>
                                 <h5 className='text_pop'>{currCount} stream(s)</h5>
                             </Card.Footer>
+                            */}
+                            
                             
                             
                         </>
