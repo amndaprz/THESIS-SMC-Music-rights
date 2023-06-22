@@ -3,8 +3,6 @@ import ContentLoader from 'react-content-loader'
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Tooltip from 'react-bootstrap/Tooltip';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import ConfirmPurchasePopup from '../Modals/ModalConfirmPurchase'
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 
@@ -102,50 +100,6 @@ function CardBuy(props){
                         <Card.Text className="text_sub">
                             <div>by <span className='text_bold'>{jsonObj.data.artist_name}</span></div>
                             <div className='text_italic'>{jsonObj.data.label_name}</div>
-                            {/* <div className="card_text">{props.percentA}</div>
-                            <div className="card_text">{props.percentL}</div>
-                            <div className="card_text">
-                                <span className="card_subtitle">Artist address</span>
-                                <OverlayTrigger
-                                    delay={{ hide: 50, show: 500 }}
-                                    overlay={(props) => (
-                                    <Tooltip {...props}>
-                                        Artist address
-                                    </Tooltip>
-                                    )}
-                                    placement="bottom">
-                                    <span className="card_content">{props.addrA}</span>
-                                </OverlayTrigger>
-                                
-                            </div>
-                            <div className="card_text text_sub">
-                                <span className="card_subtitle">Label address</span>
-                                <OverlayTrigger
-                                    delay={{ hide: 50, show: 500 }}
-                                    overlay={(props) => (
-                                    <Tooltip {...props}>
-                                        Label address
-                                    </Tooltip>
-                                    )}
-                                    placement="bottom">
-                                    <span className="card_content">{props.addrL}</span>
-                                </OverlayTrigger>
-                            </div>
-                            <div className="card_text text_sub">
-                                <span className="card_subtitle_token">Token ID</span>
-                                <OverlayTrigger
-                                    delay={{ hide: 100, show: 500 }}
-                                    overlay={(props) => (
-                                    <Tooltip {...props}>
-                                        Token ID
-                                    </Tooltip>
-                                    )}
-                                    placement="bottom"
-                                    className="tooltip_card">
-                                    <span className="card_content">{props.tokenID}</span>
-                                </OverlayTrigger>
-                                
-                            </div> */}
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-muted">

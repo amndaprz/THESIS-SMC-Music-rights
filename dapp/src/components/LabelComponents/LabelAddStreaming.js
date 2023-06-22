@@ -243,6 +243,7 @@ function AddStreamingContract(props){
             
             if(await contract_Stream.methods.addStream(mrcResult).send({from:account, sender:account})){
                 console.log("Stream contract creation successful");
+                clearInputs();
             }
 
             // const balance = await contract.methods.balanceOf(account).call();
@@ -257,6 +258,15 @@ function AddStreamingContract(props){
             notify(e.message);
         }
     };
+
+    const clearInputs = () =>{
+        setSongTitle("");
+        setPLabel("");
+        setPArtist("");
+        setArtistName("");
+        setTotalFee("");
+        setEndDate("");
+    }
 
     const notify = (message) => {
         toast(message);

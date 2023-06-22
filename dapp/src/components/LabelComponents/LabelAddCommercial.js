@@ -279,6 +279,7 @@ function AddCommercialContract(props){
             
             if(await contract.methods.nonMint(mrcResult).send({from:account, sender:account})){
                 console.log("Initial contract minting successful");
+                clearInputs();
             }
 
             // const balance = await contract.methods.balanceOf(account).call();
@@ -291,6 +292,15 @@ function AddCommercialContract(props){
             console.log(e.message);
             notify(e.message);
         }
+    }
+
+    const clearInputs = () =>{
+        setSongTitle("");
+        setPLabel("");
+        setPArtist("");
+        setLabelName("");
+        setArtistName("");
+        setTotalFee("");
     }
 
     const notify = (message) => {

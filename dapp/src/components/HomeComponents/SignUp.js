@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import {FaExclamationTriangle} from "react-icons/fa";
 import {web3_RA, contract_RA} from '../../ContractProperties';
+import { ToastContainer, toast } from 'react-toastify';
 
 /*
     timeout Function
@@ -92,6 +93,7 @@ function SignUp(){
     const [error_username, setErrorUsername] = useState('');
     const [error_username2, setErrorUsername2] = useState('');
     const [error_username_state, setErrorUsernameState] = useState(0);
+    const [error_username2_state, setErrorUsername2State] = useState(0);
    
     const getUsers = async () => {
         const accounts = await web3_RA.eth.requestAccounts();
@@ -213,23 +215,39 @@ function SignUp(){
                 setErrorUsernameState(1);
                 errorblank = true;
             }
+            else{
+                setErrorUsernameState(0);
+            }
+
+            let users = await contract_RA.methods.getAddresses().call();
+            let exist;
+            for(let x in users){
+                let user = await contract_RA.methods.getAlias(users[x]).call();
+                if(user === username){
+                    exist = true;
+                }
+            }
             
-            if(await userExists(username)){
+            if(exist){
                 console.log("Username already exists");
                 console.log(username);
                 console.log(typeof(username));
                 setErrorUsername2("Username is taken");
-                setErrorUsernameState(2);
+                setErrorUsername2State(1);
                 errorexist = true;
             }
+            else{
+                setErrorUsername2State(0);
+            }
             
-            if(errorblank){ throw new Error("BLANK"); }
+        
+            if(errorblank){ throw new Error("Invalid username!"); }
 
-            if(errorexist){ throw new Error("EXITSS"); }
+            if(exist){ throw new Error("Invalid username!"); }
           
             const exists = await isUserExisting();
             // Sign Up First Time if user is not yet signed up
-            if(exists){
+            if(exist){
             }else{
                 // giveRole
                 console.log("-----------giveRole----------");
@@ -262,11 +280,20 @@ function SignUp(){
             }                   
         }catch(e){
             console.log(e.message);
+            notify(e.message);
         }
+    }
+
+    const notify = (message) => {
+        toast(message);
     }
 
     return(
         <div className="selectrole_con py-5">
+            <ToastContainer
+                    theme="dark"
+                    closeOnClick={true}
+                    autoClose={2000}/>
             <h5>SIGN UP</h5>
             <form className="mt-2 input_con" onSubmit="">
                     <div className="mb-2">
@@ -276,7 +303,7 @@ function SignUp(){
                             <span className="mr-2 error_username"><FaExclamationTriangle /> {error_username}</span>
                         }
                         {
-                            error_username_state === 2 && 
+                            error_username2_state === 1 && 
                             <span className="mr-2 error_username"><FaExclamationTriangle /> {error_username2}</span>
                         }
                         <p className="text_sub p-0 mt-1">
