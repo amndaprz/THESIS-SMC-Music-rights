@@ -21,10 +21,11 @@ function Label() {
 
     const[userRole, setUserRole] = useState("")
     
-    window.ethereum.on('accountsChanged', function () {
-        //getRole();
-        window.location.reload();
-    })
+
+    window.ethereum.on("accountsChanged", () => {
+        //window.location.reload();
+        getRole();
+      });
 
     const getRole = async() => {
         const accounts = await web3_RA.eth.requestAccounts();
@@ -78,17 +79,6 @@ function Label() {
       
           getUserName();
           getRole();
-          switch(userRole){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
-            case '1': navigate("../Label"); break;
-            case '2': navigate("../Artist"); break;
-            case '3': navigate("../Client"); break;
-            case '4': navigate('../Stream'); break;
-            default: navigate('../'); break;
-          }
-      
           return () => {
             clearTimeout(t);
           };

@@ -44,24 +44,24 @@ function Artist() {
 
     const[userRole, setUserRole] = useState("")
     
-    window.ethereum.on('accountsChanged', function () {
-        //getRole();
-        window.location.reload();
-    })
+    window.ethereum.on("accountsChanged", () => {
+        //window.location.reload();
+        getRole();
+      });
     
 
     const getRole = async() => {
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
-            switch(role){
+        switch(role){
             /*
                 1-Label, 2-Artist, 3-Client, 4-Admin
             */
-            case '1': navigate("../Label"); console.log("aolaksfnasf"); break;
-            case '2': navigate("../Artist"); console.log("aolaksfnasf"); break;
-            case '3': navigate("../Client"); console.log("aolaksfnasf"); break;
-            case '4': navigate('../Stream');console.log("aolaksfnasf"); break;
+            case '1': navigate("../Label"); break;
+            case '2': navigate("../Artist"); break;
+            case '3': navigate("../Client"); break;
+            case '4': navigate('../Stream'); break;
             default: navigate('../'); break;
         }
           
@@ -123,16 +123,6 @@ function Artist() {
           
           getUserName();
           getRole();
-          switch(userRole){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
-            case '1': navigate("../Label"); break;
-            case '2': navigate("../Artist"); break;
-            case '3': navigate("../Client"); break;
-            case '4': navigate('../Stream'); break;
-            default: navigate('../'); break;
-        }
       
           return () => {
             clearTimeout(t);

@@ -33,10 +33,10 @@ function Client() {
 
     const[userRole, setUserRole] = useState("")
     
-    window.ethereum.on('accountsChanged', function () {
-        //getRole();
-        window.location.reload();
-    })
+    window.ethereum.on("accountsChanged", () => {
+        //window.location.reload();
+        getRole();
+      });
 
     const getRole = async() => {
         const accounts = await web3_RA.eth.requestAccounts();
@@ -74,16 +74,6 @@ function Client() {
           
           getUserName();
           getRole();
-          switch(userRole){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
-            case '1': navigate("../Label"); console.log("aolaksfnasf"); break;
-            case '2': navigate("../Artist"); console.log("aolaksfnasf"); break;
-            case '3': navigate("../Client"); console.log("aolaksfnasf"); break;
-            case '4': navigate('../Stream');console.log("aolaksfnasf"); break;
-            default: navigate('../'); break;
-        }
 
           return () => {
             clearTimeout(t);
