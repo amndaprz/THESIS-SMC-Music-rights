@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
-import ConfirmAddContract from "../Modals/ConfirmAddContract";
 
 import {FaExclamationTriangle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
@@ -265,10 +264,6 @@ function AddStreamingContract(props){
 
     return(
         <form className="m-4" onSubmit="">
-            <ConfirmAddContract
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-            />
             <ToastContainer
                     theme="dark"
                     closeOnClick={true}

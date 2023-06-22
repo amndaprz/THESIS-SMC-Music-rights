@@ -1,12 +1,9 @@
 import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
-import ConfirmAddContract from "../Modals/ConfirmAddContract";
-import SafeMintLabel from "../safeMint/SafeMintLabel"
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA} from '../../ContractProperties';
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
-import {utils} from 'web3';
 
 import {FaExclamationTriangle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
@@ -302,10 +299,6 @@ function AddCommercialContract(props){
 
     return(
         <form className="m-4" onSubmit="">
-            <ConfirmAddContract
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-            />
             <ToastContainer
                     theme="dark"
                     closeOnClick={true}

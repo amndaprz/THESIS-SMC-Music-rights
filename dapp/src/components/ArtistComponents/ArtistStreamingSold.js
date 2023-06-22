@@ -1,9 +1,9 @@
-import CardContract from '../Cards/CardStreamContract'
+import CardContract from '../Cards/CardStreamingSold'
 import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
+import {web3, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account;
 function StreamingContracts(){

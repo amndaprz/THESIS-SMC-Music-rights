@@ -1,17 +1,16 @@
-import CardContract from '../Cards/CardCommContract'
-import React, {useEffect } from 'react';
+import CardOwned from '../Cards/CardOwned'
+import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import { web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
-function ViewContracts(){
-
+function OwnedSongs(){
     useEffect(() => {
     
-        listSoldSongs();
+        listLabelSongs();
 
         return () => {
         }
@@ -36,7 +35,7 @@ function ViewContracts(){
 
     const [jsonObj, setJsonObj] = React.useState([]);
 
-    const listSoldSongs = async() => {
+    const listLabelSongs = async() => {
         console.log("FCFGVH");
         // get address of current user
         const accounts = await web3.eth.requestAccounts();
@@ -78,41 +77,37 @@ function ViewContracts(){
                     console.log("CLIENT ADD: " + typeof clientAddress);
                     console.log("CLIENT ACC: " + account);
 
-                    
-                    for await (const chunk of IPFS.cat(hash)) {
-                        console.log(chunk);
-                        data.push(chunk); 
-                                
-                                // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
-            
-                        info = Buffer.concat(data).toString();
-                        console.log("INFO - " + info);
-            
-                        try {
-                            const data = JSON.parse(info);
-                            //console.log("LABEL NAME: " + data.label_name);
-                            if(data.label_name === alias)
-                            {
+                    if(clientAddress === account)
+                    {
+                        for await (const chunk of IPFS.cat(hash)) {
+                            console.log(chunk);
+                            data.push(chunk); 
+                                    
+                                    // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+                
+                            info = Buffer.concat(data).toString();
+                            console.log("INFO - " + info);
+                
+                            try {
+                                const data = JSON.parse(info);
+                                //console.log("LABEL NAME: " + data.label_name);
                                 console.log("ALIAS NAME: " + alias);
                                 temp_data.push(data);
-                            }
-
-                            
-                            
-                            //setJsonObj(temp_data);
-                            } catch (error) {
-                            const position = parseInt(error.message.split(' ').pop(), 10);
-                            const cleanJsonString = info.substring(0, position);
-                            const data = JSON.parse(cleanJsonString);
-                            console.log(temp_data);
-                            temp_data.push(data);
-                            //setJsonObj(temp_data);
-                            
-                            }
-                            
-                            data.pop();
+                                
+                                //setJsonObj(temp_data);
+                                } catch (error) {
+                                const position = parseInt(error.message.split(' ').pop(), 10);
+                                const cleanJsonString = info.substring(0, position);
+                                const data = JSON.parse(cleanJsonString);
+                                console.log(temp_data);
+                                temp_data.push(data);
+                                //setJsonObj(temp_data);
+                                
+                                }
+                                
+                                data.pop();
+                        }
                     }
-                   
 
                 }
             }
@@ -124,7 +119,9 @@ function ViewContracts(){
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-
+            
+            
+        
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
@@ -133,14 +130,16 @@ function ViewContracts(){
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
+            
+
+
+
     }
-
-
     return(
         <div class="row py-4 px-1 card-deck">
-            <CardContract data={jsonObj}/>
+            <CardOwned data={jsonObj}/>
         </div>
     );
 }
 
-export default ViewContracts;
+export default OwnedSongs;

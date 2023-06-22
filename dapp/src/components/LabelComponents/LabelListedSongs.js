@@ -1,13 +1,14 @@
-import CardOwned from '../Cards/CardOwned'
-import React, { useState, useEffect } from 'react';
+import CardList from '../Cards/CardListedSongs';
+import React, { useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
-function OwnedSongs(){
+function ViewListedSongs() {
+
     useEffect(() => {
     
         listLabelSongs();
@@ -51,7 +52,7 @@ function OwnedSongs(){
         let allResults = await contract.methods.getTokens().call();
         let data_status;
         let getMRC = [];
-        let hash, clientAddress;
+        let hash;
 
         try {
 
@@ -64,7 +65,7 @@ function OwnedSongs(){
 
                 console.log(typeof data_status);
 
-                if(data_status === "3")
+                if(data_status === "2")
                 {
 
                     getMRC = await contract.methods.getMRC(allResults[count]).call();
@@ -73,41 +74,39 @@ function OwnedSongs(){
 
                     console.log("HASH IS HERE: " + typeof hash);
 
-                    clientAddress = getMRC.client
-                    console.log("CLIENT ADD: " + typeof clientAddress);
-                    console.log("CLIENT ACC: " + account);
-
-                    if(clientAddress === account)
-                    {
-                        for await (const chunk of IPFS.cat(hash)) {
-                            console.log(chunk);
-                            data.push(chunk); 
-                                    
-                                    // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
-                
-                            info = Buffer.concat(data).toString();
-                            console.log("INFO - " + info);
-                
-                            try {
-                                const data = JSON.parse(info);
-                                //console.log("LABEL NAME: " + data.label_name);
-                                console.log("ALIAS NAME: " + alias);
+                    for await (const chunk of IPFS.cat(hash)) {
+                        console.log(chunk);
+                        data.push(chunk); 
+                                
+                                // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+            
+                        info = Buffer.concat(data).toString();
+                        console.log("INFO - " + info);
+            
+                        try {
+                            const data = JSON.parse(info);
+                            console.log("LABEL NAME: " + data.label_name);
+                            console.log("ALIAS NAME: " + alias);
+                            if(alias === data.label_name)
+                            {
+                                console.log("IS LABEL: " + data.label_name)
                                 temp_data.push(data);
-                                
-                                //setJsonObj(temp_data);
-                                } catch (error) {
-                                const position = parseInt(error.message.split(' ').pop(), 10);
-                                const cleanJsonString = info.substring(0, position);
-                                const data = JSON.parse(cleanJsonString);
-                                console.log(temp_data);
-                                temp_data.push(data);
-                                //setJsonObj(temp_data);
-                                
-                                }
-                                
-                                data.pop();
-                        }
+                            }
+                            
+                            //setJsonObj(temp_data);
+                            } catch (error) {
+                            const position = parseInt(error.message.split(' ').pop(), 10);
+                            const cleanJsonString = info.substring(0, position);
+                            const data = JSON.parse(cleanJsonString);
+                            console.log(temp_data);
+                            temp_data.push(data);
+                            //setJsonObj(temp_data);
+                            
+                            }
+                            
+                            data.pop();
                     }
+
 
                 }
             }
@@ -119,9 +118,7 @@ function OwnedSongs(){
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-            
-            
-        
+
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
@@ -130,16 +127,13 @@ function OwnedSongs(){
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
-            
-
-
-
     }
+
     return(
-        <div class="row py-4 px-1 card-deck">
-            <CardOwned data={jsonObj}/>
+        <div class="row py-4 px-1 card-deck" >
+            <CardList data={jsonObj}/>
         </div>
     );
 }
 
-export default OwnedSongs;
+export default ViewListedSongs;

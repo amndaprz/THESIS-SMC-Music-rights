@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import ProposalPopup from '../Modals/ProposalComm';
+import ProposalPopup from '../Modals/ModalViewCommercialProposal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 

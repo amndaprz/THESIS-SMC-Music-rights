@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader'
 import Button from 'react-bootstrap/Button';
-import AddCommercialContract from './AddCommercialContract';
-import AddStreamingContract from './AddStreamingContract';
-import ViewListedSongs from './ViewListedSongs';
-import CommercialContracts from './CommercialContracts';
-import StreamingContracts from './StreamingContracts';
+import AddCommercialContract from './LabelAddCommercial';
+import AddStreamingContract from './LabelAddStreaming';
+import ViewListedSongs from './LabelListedSongs';
+import CommercialContracts from './LabelCommercialSold';
+import StreamingContracts from './LabelStreamingSold';
 
-import { BrowserRouter as Router, Switch, Route, Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
-import {FaFileContract, FaMoneyCheck, FaMusic, FaPlus, FaSignature } from "react-icons/fa";
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
+import {FaFileContract, FaMusic, FaPlus } from "react-icons/fa";
+import {web3,web3_RA, contract_RA} from '../../ContractProperties';
 
 document.body.style.background = "#232226";
 let account;

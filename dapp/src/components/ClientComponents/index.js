@@ -3,17 +3,17 @@ import React, {useEffect, useState} from 'react';
 import ContentLoader from 'react-content-loader'
 import Button from 'react-bootstrap/Button';
 
-import BuySongs from './BuySongs'
-import OwnedSongs from './OwnedSongs'
+import BuySongs from './ClientBuySongs'
+import OwnedSongs from './ClientOwnedSongs'
 
-import { Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
 import { FaCartPlus, FaShoppingBag } from 'react-icons/fa';
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
+import {web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
 
 
 // let connectIPFS = new ConnectIPFS();

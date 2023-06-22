@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 //import ContractStreamPopup from '../Modals/ContractStream';
-import ContractCommPopup from '../Modals/ContractComm';
+import ContractCommPopup from '../Modals/ModalViewCommercialSold';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 

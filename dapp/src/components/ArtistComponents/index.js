@@ -1,41 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
+import { web3, contract_RA} from '../../ContractProperties';
 
 import Button from 'react-bootstrap/Button';
 
-import ViewListedSongs from './ViewListedSongs';
-import CommercialContracts from './CommercialContracts';
-import StreamingContracts from './StreamingContracts';
-import CommercialProposals from './CommercialProposals';
+import ViewListedSongs from './ArtistListedSongs';
+import CommercialContracts from './ArtistCommercialSold';
+import StreamingContracts from './ArtistStreamingSold';
+import CommercialProposals from './ArtistCommercialProposal';
 
 import ContentLoader from 'react-content-loader'
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaFileContract, FaMoneyCheck, FaMusic, FaSignature } from 'react-icons/fa';
+import {useNavigate } from "react-router-dom";
+import { FaFileContract, FaMusic, FaSignature } from 'react-icons/fa';
 let account;
-let accounts;
 let role;
 document.body.style.background = "#232226";
 
 function Artist() {
-
-    // const getRole = async () => {
-    //     //const getUsersList = await contract_RA.methods.getUsers().call();
-    //     const accounts = await web3_RA.eth.requestAccounts();
-    //     const account = accounts[0];
-    //     let userRole;
-
-    //     console.log(getUsersList);
-    //     for(let i = 0; i < getUsersList.length; i++){
-    //         if(getUsersList[i][0] === account){
-    //              userRole = getUsersList[i][2];
-    //              console.log(getUsersList[i][2]);
-    //              console.log("User Role " + userRole);
-    //         }
-    //     }
-    //     // console.log(typeof(userRole));
-    //     userRole = parseInt(userRole);
-    //     return userRole;
-    // };
 
     let username;
     let result;

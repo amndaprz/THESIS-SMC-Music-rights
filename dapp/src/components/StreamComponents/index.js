@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import StreamForm from "./StreamForm";
+import StreamForm from "./StreamSimulate";
 
-import { BrowserRouter as Router, Switch, Route, Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
-import {FaFileContract, FaMoneyCheck, FaMusic, FaPlus, FaSignature } from "react-icons/fa";
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
+import {web3_RA, contract_RA} from '../../ContractProperties';
 
 document.body.style.background = "#232226";
 let role;
@@ -41,7 +40,6 @@ function Stream() {
 
     useEffect(() => {
         const fetchData = async () => {
-      
           getRole();
         };
         fetchData();

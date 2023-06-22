@@ -35,11 +35,13 @@ function ConfirmPurchasePopup(props) {
             }
 
             
-            //if(label_)
+            
         }
 
         console.log("TOTAL FEE: " + props.data.total_fee);
         await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address, gas: 800000, value: parseInt(props.data.total_fee)});
+
+        window.location.reload();
 
         props.onHide();
     }

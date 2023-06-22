@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import ConfirmPurchasePopup from '../Modals/ConfirmPurchase'
+import ConfirmPurchasePopup from '../Modals/ModalConfirmPurchase'
 import {contractAddress, contractABI, web3, contract} from '../../ContractProperties';
 
 
@@ -56,20 +56,6 @@ function CardBuy(props){
 
         //console.log(value.tokenID)
         //console.log(value.songTitle)
-
-    }
-
-    // transfer to ConfirmPurchase.js ?
-    const buySong = async() => {
-         
-        const accounts = await web3.eth.requestAccounts();
-		account = accounts[0];
-
-        testETHTransfer()
-        // callTransferBuyout();
-        
-
-        console.log("buy song")
 
     }
 

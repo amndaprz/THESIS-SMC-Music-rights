@@ -1,17 +1,17 @@
-import CardList from '../Cards/CardListLabel';
-import React, { useEffect } from 'react';
+import CardContract from '../Cards/CardCommercialSold'
+import React, {useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {web3, contract, contract_RA} from '../../ContractProperties';
+import { web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
-function ViewListedSongs() {
+function ViewContracts(){
 
     useEffect(() => {
     
-        listLabelSongs();
+        listSoldSongs();
 
         return () => {
         }
@@ -36,7 +36,7 @@ function ViewListedSongs() {
 
     const [jsonObj, setJsonObj] = React.useState([]);
 
-    const listLabelSongs = async() => {
+    const listSoldSongs = async() => {
         console.log("FCFGVH");
         // get address of current user
         const accounts = await web3.eth.requestAccounts();
@@ -52,7 +52,7 @@ function ViewListedSongs() {
         let allResults = await contract.methods.getTokens().call();
         let data_status;
         let getMRC = [];
-        let hash;
+        let hash, clientAddress;
 
         try {
 
@@ -65,7 +65,7 @@ function ViewListedSongs() {
 
                 console.log(typeof data_status);
 
-                if(data_status === "2")
+                if(data_status === "3")
                 {
 
                     getMRC = await contract.methods.getMRC(allResults[count]).call();
@@ -74,6 +74,11 @@ function ViewListedSongs() {
 
                     console.log("HASH IS HERE: " + typeof hash);
 
+                    clientAddress = getMRC.client
+                    console.log("CLIENT ADD: " + typeof clientAddress);
+                    console.log("CLIENT ACC: " + account);
+
+                    
                     for await (const chunk of IPFS.cat(hash)) {
                         console.log(chunk);
                         data.push(chunk); 
@@ -85,13 +90,14 @@ function ViewListedSongs() {
             
                         try {
                             const data = JSON.parse(info);
-                            console.log("LABEL NAME: " + data.label_name);
-                            console.log("ALIAS NAME: " + alias);
-                            if(alias === data.label_name)
+                            //console.log("LABEL NAME: " + data.label_name);
+                            if(data.label_name === alias)
                             {
-                                console.log("IS LABEL: " + data.label_name)
+                                console.log("ALIAS NAME: " + alias);
                                 temp_data.push(data);
                             }
+
+                            
                             
                             //setJsonObj(temp_data);
                             } catch (error) {
@@ -106,7 +112,7 @@ function ViewListedSongs() {
                             
                             data.pop();
                     }
-
+                   
 
                 }
             }
@@ -129,11 +135,12 @@ function ViewListedSongs() {
         console.log(Buffer.concat(data).toString());
     }
 
+
     return(
-        <div class="row py-4 px-1 card-deck" >
-            <CardList data={jsonObj}/>
+        <div class="row py-4 px-1 card-deck">
+            <CardContract data={jsonObj}/>
         </div>
     );
 }
 
-export default ViewListedSongs;
+export default ViewContracts;

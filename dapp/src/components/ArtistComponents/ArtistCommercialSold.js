@@ -1,39 +1,22 @@
+import CardContract from '../Cards/CardCommercialSold'
 import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-
-import CardProposal from '../Cards/CardCommProposal';
-
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import { web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
-function ViewContractProposals(){
-
-    const [toggleState, setToggleState] = useState(1);
-
-    const [jsonObject, setJsonObj] = React.useState([]);
-    const [ipfsHash, setIPFS] = React.useState([]);
-    const [tokenObject, setTokenObj] = React.useState("");
+function CommercialContracts(){
 
     useEffect(() => {
-        const t = setTimeout(() => {
-            setLoading(false);
-            displayAllInfo();
-        } , 3000);
+    
+        listSoldSongs();
 
         return () => {
-            clearTimeout(t);
         }
     }, []);
 
-    
-    const toggleTab = (index) => {
-        setToggleState(index);
-    };
-
-    // IPFS
     const ipfsClient = async() => {
         const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
         const projectSecret = '208442d6bd98466af54320034f4d6087';
@@ -51,26 +34,25 @@ function ViewContractProposals(){
         return ipfs;
     }
 
-    const displayAllInfo = async() => {
-        let IPFS = await ipfsClient();
+    const [jsonObj, setJsonObj] = React.useState([]);
 
+    const listSoldSongs = async() => {
+        console.log("FCFGVH");
+        // get address of current user
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
         // get alias of current user with address
         console.log("ACCOUNT: " + typeof account);
         let alias = await contract_RA.methods.getAlias(account).call();
 
+        let IPFS = await ipfsClient();
         let info = [];
         const data =[];
         const temp_data = [];
         let allResults = await contract.methods.getTokens().call();
         let data_status;
         let getMRC = [];
-        let hash;
-
-
-        // iterates over allResults with tokenID and CID
-    
+        let hash, clientAddress;
 
         try {
 
@@ -79,12 +61,11 @@ function ViewContractProposals(){
 
             for (let count in allResults)
             {
-                console.log("AAAAAAAAAA");
                 data_status = await contract.methods.getStatus(allResults[count]).call();
 
                 console.log(typeof data_status);
 
-                if(data_status === "1")
+                if(data_status === "3")
                 {
 
                     getMRC = await contract.methods.getMRC(allResults[count]).call();
@@ -93,56 +74,77 @@ function ViewContractProposals(){
 
                     console.log("HASH IS HERE: " + typeof hash);
 
+                    clientAddress = getMRC.client
+                    console.log("CLIENT ADD: " + typeof clientAddress);
+                    console.log("CLIENT ACC: " + account);
+
+                    
                     for await (const chunk of IPFS.cat(hash)) {
                         console.log(chunk);
                         data.push(chunk); 
-                                            
+                                
+                                // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+            
                         info = Buffer.concat(data).toString();
                         console.log("INFO - " + info);
             
                         try {
                             const data = JSON.parse(info);
-                            console.log(data);
-                            if(alias === data.artist_name)
+                            //console.log("LABEL NAME: " + data.label_name);
+                            if(data.artist_name === alias)
                             {
-                                console.log("IS ARTIST: " + data.artist_name);
+                                console.log("ALIAS NAME: " + alias);
                                 temp_data.push(data);
-                            }                            
+                            }
+
+                            
+                            
+                            //setJsonObj(temp_data);
                             } catch (error) {
                             const position = parseInt(error.message.split(' ').pop(), 10);
                             const cleanJsonString = info.substring(0, position);
                             const data = JSON.parse(cleanJsonString);
                             console.log(temp_data);
                             temp_data.push(data);
+                            //setJsonObj(temp_data);
                             
                             }
                             
                             data.pop();
                     }
+                   
 
                 }
             }
+
+            console.log("Extraction successful!");
+
+            //console.log(allResults.size());
+            // if for loop doesnt work use while loop instead
+            // for await (const chunk of IPFS.cat(cid)) {
+            //   data.push(chunk);
+            // }
             
             
-            console.log("Extraction successful!");       
         
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
         console.log("temp_data datatype: " + data);
         setJsonObj(temp_data);
+        //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
-    
     }
-    
-    const [loading, setLoading] = useState(true);
-    
+
+
+
+
     return(
         <div class="row py-4 px-1 card-deck">
-            <CardProposal data={jsonObject} hash={ipfsHash}/>
+            <CardContract data={jsonObj}/>
         </div>
     );
 }
 
-export default ViewContractProposals;
+export default CommercialContracts;

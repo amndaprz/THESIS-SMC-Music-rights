@@ -4,9 +4,7 @@ import { json } from 'react-router-dom';
 import { unstable_ClassNameGenerator } from '@mui/material';
 import { decryptCrowdsaleJson } from 'ethers';
 
-import { FaSearch } from "react-icons/fa";
 
-import { Buffer } from 'buffer';
 
 
 function BuySongs(props){

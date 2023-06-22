@@ -1,4 +1,4 @@
-import CardContract from '../Cards/CardStreamContract'
+import CardContract from '../Cards/CardStreamingSold'
 import React, { useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';

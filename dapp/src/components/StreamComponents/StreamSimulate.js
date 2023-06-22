@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Button from 'react-bootstrap/Button';
-import ConfirmStream from "../Modals/ConfirmStream";
-import {contractAddress_Stream, contractABI_Stream, contract_RA, web3_Stream, contract_Stream} from '../../ContractProperties';
+import {contract_RA, web3_Stream, contract_Stream} from '../../ContractProperties';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
@@ -121,44 +119,6 @@ function StreamForm(){
 
 
     return(
-        // <div>
-            
-        //     <form className="mx-4 mt-5" onSubmit="">
-        //         <ConfirmStream
-        //             show={modalShow}
-        //             onHide={() => setModalShow(false)}
-        //         />
-        //         <div className="input_con">
-        //         <h3 className="mb-4 ">Stream simulation</h3>
-    
-        //         <div className="my-3 p-4 input_contract">
-        //             <p className="text_sub p-0 m-0">Enter SMRC address :
-        //             <input type="text" name="addr" className="inputfield_contract" placeholder="Type here"  value = {smrcAddress} onChange={handleSMRCAddress} />
-        //             </p>
-        //         </div>
-        //         <div className="my-3 p-4 input_contract">
-        //             <p className="text_sub p-0 m-0">Enter N streams :
-        //             <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value = {numStreams} onChange={handleNumStreams} />
-        //             </p>
-        //         </div>
-        //         <div>
-        //             <Button
-        //                 className="submit-button mt-3 py-3 px-5 btn_mod"
-        //                 onClick={() => setModalShow(true)}>
-        //                 Simulate
-        //             </Button>
-
-        //             <Button
-        //                 className="submit-button mt-3 py-3 px-5 btn_mod"
-        //                 onClick={simulateStreamPayout}>
-        //                 Simulate w/o Modal
-        //             </Button>
-        //         </div>
-        //         </div>
-        //     </form>
-
-        //     
-        //   </div> 
         <div className="stream_content">
             <div>
                 <h3 className="mb-4 ">Stream simulation</h3>
