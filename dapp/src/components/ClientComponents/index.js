@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import BuySongs from './BuySongs'
 import OwnedSongs from './OwnedSongs'
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 
 import { create } from 'ipfs-http-client';
@@ -20,6 +20,7 @@ import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from 
 
 let dataObject;
 let account;
+let role;
 
 function Client() {
 
@@ -28,24 +29,35 @@ function Client() {
     const [jsonObject, setJsonObj] = React.useState([]);
     const [tokenObject, setTokenObj] = React.useState("");
 
-    const getRole = async () => {
-        const getUsersList = await contract_RA.methods.getUsers().call();
+    const navigate = useNavigate();
+
+    const[userRole, setUserRole] = useState("")
+    
+    window.ethereum.on('accountsChanged', function () {
+        //getRole();
+        window.location.reload();
+    })
+
+    const getRole = async() => {
         const accounts = await web3_RA.eth.requestAccounts();
         const account = accounts[0];
-        let userRole;
-
-        console.log(getUsersList);
-        for(let i = 0; i < getUsersList.length; i++){
-            if(getUsersList[i][0] === account){
-                 userRole = getUsersList[i][2];
-                 console.log(getUsersList[i][2]);
-                 console.log("User Role " + userRole);
-            }
+        role = await contract_RA.methods.getRole(account).call();
+        setUserRole(role);
+        const prev_role = role;
+        console.log("User Role " + role);
+        switch(role){
+            /*
+                1-Label, 2-Artist, 3-Client, 4-Admin
+            */
+            case '1': navigate("../Label"); break;
+            case '2': navigate("../Artist"); break;
+            case '3': navigate("../Client"); break;
+            case '4': navigate('../Stream'); break;
+            default: navigate('../'); break;
         }
-        // console.log(typeof(userRole));
-        userRole = parseInt(userRole);
-        return userRole;
     };
+
+    
 
     const [roleString, setRoleString] = useState("Role");
         
@@ -54,38 +66,34 @@ function Client() {
     useEffect(() => {
         const fetchData = async () => {
           const t = setTimeout(() => {
+            
             setLoading(false);
           }, 3000);
-      
-          console.log("HERE");
-          switch (await getRole()) {
-            case 1:
-              setRoleString('Label');
-              break;
-            case 2:
-              setRoleString('Artist');
-              break;
-            case 3:
-              setRoleString('Client');
-              break;
-            case 4:
-              setRoleString('Admin');
-              break;
-          }
-      
           
+          console.log("HERE");
+          
+          getUserName();
+          getRole();
+          switch(userRole){
+            /*
+                1-Label, 2-Artist, 3-Client, 4-Admin
+            */
+            case '1': navigate("../Label"); console.log("aolaksfnasf"); break;
+            case '2': navigate("../Artist"); console.log("aolaksfnasf"); break;
+            case '3': navigate("../Client"); console.log("aolaksfnasf"); break;
+            case '4': navigate('../Stream');console.log("aolaksfnasf"); break;
+            default: navigate('../'); break;
+        }
 
           return () => {
             clearTimeout(t);
           };
         };
-        getUserName();
+        
         fetchData();
       }, []);
 
       const getUserName = async() => {
-        //window.location.reload();
-        //Window.location.reload();
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
         console.log("ACCOUNT" + account);
@@ -96,6 +104,8 @@ function Client() {
         }
         console.log("RESULT" + result);
         setUserName(result);
+
+        
     }
     
 
@@ -141,8 +151,6 @@ function Client() {
         let data_status;
         let getMRC = [];
         let hash;
-
-
         // iterates over allResults with tokenID and CID
     
 

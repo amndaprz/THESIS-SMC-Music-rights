@@ -192,7 +192,7 @@ function CardStream(props) {
                     <h4 className='search_title'>Search songs</h4>
                     <div className='input_search'>
                         <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
-                        <FaSearch className='mx-2 mb-1' />
+                        
                     </div>
 
                 </div>

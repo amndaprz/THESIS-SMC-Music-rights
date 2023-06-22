@@ -135,7 +135,7 @@ function SignUp(){
                     if(getAddressList[x] === account)
                     console.log("ADDRESS EXISTS IN SMC");
 
-                    const userRole = await contract_RA.methods.hasRole(account).call();
+                    const userRole = await contract_RA.methods.getRole(account).call();
                     switch(userRole){
                         /*
                             1-Label, 2-Artist, 3-Client, 4-Admin
@@ -143,9 +143,8 @@ function SignUp(){
                         case '1': navigate("../Label");  break;
                         case '2': navigate("../Artist"); break;
                         case '3': navigate("../Client");  break;
-                        case '4': navigate('/Stream'); break;
-                        default: console.log("ADDRESS FOUND ON LOAD. ERROR IN ROLE " + userRole); 
-                        break;
+                        case '4': navigate('../Stream'); break;
+                        default: navigate('../'); break; 
                     }
                 }
 

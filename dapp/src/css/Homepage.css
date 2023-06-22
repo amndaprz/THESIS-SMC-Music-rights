@@ -178,6 +178,14 @@ button {
   padding-right: 20px;
 }
 
+.card_deck_con{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
 .card {
   max-width: 450px;
   min-width: 450px;
@@ -565,7 +573,7 @@ button {
   border: none;
   outline: none;
   color: white;
-  width: 90%;
+  width: 100%;
 }
 
 .input_sort {
@@ -834,4 +842,18 @@ button {
 
 .logo_tab{
   width: 50px;
+}
+
+.addcontract_message{
+  text-align: center;
+}
+
+.addcontract_con{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.addcontract_btn_con{
+  align-self: center;
 }

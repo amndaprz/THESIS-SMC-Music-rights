@@ -92,7 +92,7 @@ function CardBuy(props){
                     onHide={() => setModalShow(false)}
                     data = {purchaseContent}
                 />
-            <Card key={(jsonObj.key)}>
+            <Card key={(jsonObj.keys)}>
                 
                 {loading ? (
                     <ContentLoader
@@ -168,7 +168,7 @@ function CardBuy(props){
                             Buy
                         </Button>*/}
                         
-                        <Button key={jsonObj.key} onClick={() => buySongModal(jsonObj.data, true)} variant="primary" className="py-2 px-5 mx-2 card_button">
+                        <Button key={jsonObj.keys} onClick={() => buySongModal(jsonObj.data, true)} variant="primary" className="py-2 px-5 mx-2 card_button">
                             Buy
                         </Button>
                     </Card.Footer>

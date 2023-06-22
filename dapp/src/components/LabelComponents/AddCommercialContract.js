@@ -116,8 +116,10 @@ function AddCommercialContract(props){
         error_PArtist   |   "!! Invalid Percentage Split !!  Must total to 100"
     */
     const [error_title, setErrorTitle] = useState('');
+    const [error_artistName, setErrorArtistName] = useState('');
     const [error_PLabel, setErrorPLabel] = useState('');
     const [error_PArtist, setErrorPArtist] = useState('');
+    const [error_totalFee, setErrorTotalFee] = useState('');
 
 
     /* 
@@ -129,19 +131,10 @@ function AddCommercialContract(props){
         DISABLE Error Message   |   State = 0
     */
     const [error_title_state, setErrorTitleState] = useState(0);
+    const [error_artistName_state, setErrorArtistNameState] = useState(0);
     const [error_PLabel_state, setErrorPercentLabelState] = useState(0);
     const [error_PArtist_state, setErrorPercentArtistState] = useState(0);
-
-
-    /*
-        clearStates Function
-            - sets all error messages state to 0 (hide all error messages)
-    */
-    const clearStates = () => {
-        setErrorTitleState(0);
-        setErrorPercentLabelState(0);
-        setErrorPercentArtistState(0);
-    };
+    const [error_totalFee_state, setErrorTotalFeeState] = useState(0);
 
     const ipfsClient = async() => {
         const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
@@ -186,28 +179,60 @@ function AddCommercialContract(props){
                 
             // Case 1: Percentages do NOT add to 100
             if(total != 100){          
-                setErrorPArtist("!! Invalid Percentage Split !!  Must total to 100");
-                setErrorPLabel("!! Invalid Percentage Split !!  Must total to 100");
+                setErrorPArtist("Invalid Percentage Split (Must total to 100)");
+                setErrorPLabel("Invalid Percentage Split (Must total to 100)");
 
                 setErrorPercentLabelState(1);
                 setErrorPercentArtistState(1);
                 // throw new Error("!! Invalid Percentage Split !!  Must total to 100");
                 error = true;
             }
+            else{
+                setErrorPercentLabelState(0);
+                setErrorPercentArtistState(0);
+            } 
             
             // Case 2: Song Title Cannot be Empty
             if(songTitle === ""){ 
-                setErrorTitle("song_title is empty");
+                setErrorTitle("Song title is required");
                 setErrorTitleState(1);
                 // throw new Error("!! Song Title is Empty !!");
                 error = true;
-            }               
-                
+            } 
+            else{
+                setErrorTitleState(0);
+            } 
+        
 
+            // Case 3: Artist Name Cannot be Empty
+            if(artistName === ""){
+                setErrorArtistName("Artist name is required");
+                setErrorArtistNameState(1);
+                error = true;
+            }   
+            else{
+                setErrorArtistNameState(0);
+            }
+
+            // Case 4: Total Fee Cannot be Empty
+            if(totalFee === ""){
+                setErrorTotalFee("Total fee is required");
+                setErrorTotalFeeState(1);
+                error = true;
+            } 
+            else{
+                setErrorTotalFeeState(0);
+            }
+            
+            
+                
+            
             // If an Error with the Cases above has occurred, return an error and cancel the try-catch
             if(error){
-                throw new Error("Invalid Inputs");
+                throw new Error("Invalid Inputs!");
+                
             }
+            
         
         
             /*
@@ -224,7 +249,6 @@ function AddCommercialContract(props){
             // Request for metamask account
             const accounts = await web3.eth.requestAccounts();
             account = accounts[0];
-            clearStates();
 
             let tokenID = await contract.methods.getTokenLength().call();
 
@@ -268,6 +292,7 @@ function AddCommercialContract(props){
 
         }catch(e){
             console.log(e.message);
+            notify(e.message);
         }
     }
 
@@ -306,6 +331,11 @@ function AddCommercialContract(props){
                 </div>
                 <div className="my-3">
                     <span className='mx-3 my-2'>Name of Artist</span>
+                    {
+                        error_artistName_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_artistName}</span>
+                        
+                    }
                     <p className="text_sub p-0 mt-2">
                     <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={artistName} onChange={handleNameArtist}/>
                     </p>
@@ -334,6 +364,11 @@ function AddCommercialContract(props){
                 </div>
                 <div className="my-3">
                     <span className='mx-3 my-2'>Total Fee</span>
+                    {
+                        error_totalFee_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_totalFee}</span>
+                        
+                    }
                     <p className="text_sub p-0 mt-2">
                         <input type="text" name="addr" className="inputfield_contract" placeholder="Type here" value={totalFee} onChange={handleTotalFee}/>
                     </p>
@@ -346,13 +381,19 @@ function AddCommercialContract(props){
                 </div>
                
           
-                <div className="py-4">
-                    <Button
-                        className="submit-button py-3 px-5 btn_mod"
-                        // onClick={() => setModalShow(true)}>
-                        onClick={mintERC721}>
-                        Add contract
-                    </Button>
+                <div className="py-4 addcontract_con">
+                    <div className='mb-3 addcontract_message'>
+                        Please review all fields before submitting.
+                    </div>
+                    <div className='addcontract_btn_con'>
+                        <Button
+                            className="submit-button py-3 px-5 btn_mod"
+                            // onClick={() => setModalShow(true)}>
+                            onClick={mintERC721}>
+                            Add contract
+                        </Button>
+                    </div>
+                    
                 </div>
             </div>
         </form>

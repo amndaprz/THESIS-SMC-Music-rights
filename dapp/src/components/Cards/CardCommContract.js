@@ -55,7 +55,7 @@ function CardCommContract(props) {
                 <div className='col search_con2'>
                     <h4 className='search_title2'>Search</h4>
                     <div className='input_search'>
-                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} /><FaSearch className='mx-2 mb-1' />
+                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
                         
                     </div>
 

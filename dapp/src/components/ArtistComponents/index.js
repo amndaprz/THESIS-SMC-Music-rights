@@ -9,9 +9,11 @@ import StreamingContracts from './StreamingContracts';
 import CommercialProposals from './CommercialProposals';
 
 import ContentLoader from 'react-content-loader'
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaFileContract, FaMoneyCheck, FaMusic, FaSignature } from 'react-icons/fa';
 let account;
+let accounts;
+let role;
 document.body.style.background = "#232226";
 
 function Artist() {
@@ -37,6 +39,36 @@ function Artist() {
 
     let username;
     let result;
+
+    const navigate = useNavigate();
+
+    const[userRole, setUserRole] = useState("")
+    
+    window.ethereum.on('accountsChanged', function () {
+        //getRole();
+        window.location.reload();
+    })
+    
+
+    const getRole = async() => {
+        const accounts = await web3.eth.requestAccounts();
+		account = accounts[0];
+        role = await contract_RA.methods.getRole(account).call();
+            switch(role){
+            /*
+                1-Label, 2-Artist, 3-Client, 4-Admin
+            */
+            case '1': navigate("../Label"); console.log("aolaksfnasf"); break;
+            case '2': navigate("../Artist"); console.log("aolaksfnasf"); break;
+            case '3': navigate("../Client"); console.log("aolaksfnasf"); break;
+            case '4': navigate('../Stream');console.log("aolaksfnasf"); break;
+            default: navigate('../'); break;
+        }
+          
+        setUserRole(role);
+        console.log("User Role " + role);
+        
+    };
     
     const [name, setUserName] = useState("");
     const [roleString, setRoleString] = useState("Role");
@@ -80,21 +112,32 @@ function Artist() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        
         const fetchData = async () => {
-          const t = setTimeout(() => {
+            
+            const t = setTimeout(() => {
             setLoading(false);
-          }, 3000);
+        }, 3000);
       
           console.log("HERE");
           
-
           getUserName();
+          getRole();
+          switch(userRole){
+            /*
+                1-Label, 2-Artist, 3-Client, 4-Admin
+            */
+            case '1': navigate("../Label"); break;
+            case '2': navigate("../Artist"); break;
+            case '3': navigate("../Client"); break;
+            case '4': navigate('../Stream'); break;
+            default: navigate('../'); break;
+        }
       
           return () => {
             clearTimeout(t);
           };
         };
-      
         fetchData();
       }, []);
 
