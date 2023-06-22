@@ -6,7 +6,7 @@ import Web3 from "web3";
 // import dotenv from "dotenv";
 
 // MusicRightsToken.sol -------------------------
-export const contractAddress = "0x92cD3061E61BcAe19D72CD69EfC4D5dF110cA0fA";
+export const contractAddress = "0xF8B97bAa22C16F3D5B4a0A5EBBf17122e194c1ae";
 
 export const contractABI = ERC721;
 export const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
@@ -15,7 +15,7 @@ export const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 
 // RoleAccess.sol ------------------
-export const contractAddress_RA = "0x55286bc6c99c646218a8c806ef260d2C819f8305";
+export const contractAddress_RA = "0xEAC14cC1d3776616ab307979F613cCe32641219E";
 
 export const contractABI_RA = ERC721_RA;
 export const web3_RA = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
@@ -24,7 +24,7 @@ export const contract_RA = new web3_RA.eth.Contract(contractABI_RA, contractAddr
 
 
 // Stream.sol ------------------
-export const contractAddress_Stream = "0xc9d3979ea59Cc2a7406647dBa9152B900cF16461";
+export const contractAddress_Stream = "0xD5fd49BaB06e198dBCbF61F28aabFd948A62B3e6";
 
 export const contractABI_Stream = ERC721_Stream;
 export const web3_Stream = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");

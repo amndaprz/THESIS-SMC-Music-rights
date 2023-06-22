@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader'
-
 import Button from 'react-bootstrap/Button';
-
 import AddCommercialContract from './AddCommercialContract';
 import AddStreamingContract from './AddStreamingContract';
 import ViewListedSongs from './ViewListedSongs';

@@ -1,9 +1,9 @@
 import CardList from '../Cards/CardListLabel';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
@@ -118,9 +118,7 @@ function ViewListedSongs() {
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-            
-            
-        
+
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
@@ -129,14 +127,9 @@ function ViewListedSongs() {
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
-            
-
-
-
     }
 
     return(
-
         <div class="row py-4 px-1 card-deck" >
             <CardList data={jsonObj}/>
         </div>

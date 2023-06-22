@@ -1,16 +1,15 @@
 import CardContract from '../Cards/CardStreamContract'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
+import { web3, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account;
 
 function ViewContracts(){
 
     useEffect(() => {
-    
         listSoldSongs();
 
         return () => {
@@ -61,25 +60,16 @@ function ViewContracts(){
 
             for (let count in allResults)
             {
-
                 console.log(typeof data_status);
 
-                
-
                 getMRC = await contract_Stream.methods.getStream(allResults[count]).call();
-
                 hash = getMRC.ipfsHash;
 
                 console.log("HASH IS HERE: " + typeof hash);
-
-                
-
-                
+    
                 for await (const chunk of IPFS.cat(hash)) {
                     console.log(chunk);
                     data.push(chunk); 
-                            
-                            // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
         
                     info = Buffer.concat(data).toString();
                     console.log("INFO - " + info);
@@ -87,41 +77,25 @@ function ViewContracts(){
                     try {
                         const data = JSON.parse(info);
                         //console.log("LABEL NAME: " + data.label_name);
-                        if(data.label_name === alias)
-                        {
+                        if(data.label_name === alias){
                             console.log("ALIAS NAME: " + alias);
                             temp_data.push(data);
                         }
-
-                        
-                        
                         //setJsonObj(temp_data);
                     } catch (error) {
-                    const position = parseInt(error.message.split(' ').pop(), 10);
-                    const cleanJsonString = info.substring(0, position);
-                    const data = JSON.parse(cleanJsonString);
-                    console.log(temp_data);
-                    temp_data.push(data);
-                    //setJsonObj(temp_data);
-                    
+                        const position = parseInt(error.message.split(' ').pop(), 10);
+                        const cleanJsonString = info.substring(0, position);
+                        const data = JSON.parse(cleanJsonString);
+                        console.log(temp_data);
+                        temp_data.push(data);
+                        //setJsonObj(temp_data);      
                     }
                         
                     data.pop();
-                    
-                   
-
                 }
             }
 
             console.log("Extraction successful!");
-
-            //console.log(allResults.size());
-            // if for loop doesnt work use while loop instead
-            // for await (const chunk of IPFS.cat(cid)) {
-            //   data.push(chunk);
-            // }
-            
-            
         
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
