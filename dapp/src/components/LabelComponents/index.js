@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader'
-
 import Button from 'react-bootstrap/Button';
-
 import AddCommercialContract from './AddCommercialContract';
 import AddStreamingContract from './AddStreamingContract';
 import ViewListedSongs from './ViewListedSongs';
 import CommercialContracts from './CommercialContracts';
 import StreamingContracts from './StreamingContracts';
 
-import { Link } from "react-router-dom";
-
-import {FaFileContract, FaMoneyCheck, FaMusic, FaPlus, FaSignature } from "react-icons/fa";
-import {contractAddress, contractABI, web3,web3_RA, contract, contract_RA} from '../../ContractProperties';
+import {FaFileContract, FaMusic, FaPlus} from "react-icons/fa";
+import {web3,web3_RA, contract_RA} from '../../ContractProperties';
 
 document.body.style.background = "#232226";
 let account;
@@ -71,18 +67,10 @@ function Label() {
       
           console.log("HERE");
           switch (await getRole()) {
-            case 1:
-              setRoleString('Label');
-              break;
-            case 2:
-              setRoleString('Artist');
-              break;
-            case 3:
-              setRoleString('Client');
-              break;
-            case 4:
-              setRoleString('Admin');
-              break;
+            case 1: setRoleString('Label');  break;
+            case 2: setRoleString('Artist'); break;
+            case 3: setRoleString('Client'); break;
+            case 4: setRoleString('Admin');  break;
           }
       
           return () => {
@@ -109,50 +97,6 @@ function Label() {
         setUserName(result);
     }
     
-
-    /*
-    useEffect(() => {
-        // declare the async data fetching function
-        const getUserName = async () => {
-          const accounts = await web3.eth.requestAccounts();
-          account = accounts[0];
-          console.log("ACCOUNT" + account);
-  
-          let result = await contract_RA.methods.getAlias(account).call();
-          console.log("RESULT" + result);
-          setUserName(result);
-        }
-      
-        // call the function
-        getUserName()
-          // make sure to catch any error
-          .catch(console.error);;
-      }, [])
-      */
-
-    //const [data, setData] = useState(null);
-    /*
-    const [isLoading, setIsLoading] = useState(false);
-    useEffect(() => {
-        async function getUserName() {
-            setIsLoading(true);
-            try {
-                const accounts = await web3.eth.requestAccounts();
-                account = accounts[0];
-                console.log("ACCOUNT" + account);
-                window.location.reload();
-                let result = await contract_RA.methods.getAlias(account).call();
-                console.log("RESULT" + result);
-                setUserName(result);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        getUserName();
-    }, []);
-    */
         return (
             <div onLoad={getUserName}>
                 <div className="row p-0 m-0 card_con">

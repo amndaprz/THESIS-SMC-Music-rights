@@ -1,9 +1,9 @@
 import CardContract from '../Cards/CardCommContract'
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import { web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
@@ -124,9 +124,7 @@ function ViewContracts(){
             // for await (const chunk of IPFS.cat(cid)) {
             //   data.push(chunk);
             // }
-            
-            
-        
+
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }

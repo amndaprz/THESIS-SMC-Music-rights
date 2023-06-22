@@ -5,7 +5,7 @@ import ConfirmAddContract from "../Modals/ConfirmAddContract";
 import {FaExclamationTriangle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {contractAddress_Stream, contractABI_Stream, web3_Stream, contract_Stream} from '../../ContractProperties';
+import { web3_Stream, contract_Stream} from '../../ContractProperties';
 
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
@@ -88,6 +88,7 @@ function AddStreamingContract(props){
         setErrorPercentArtistState(0);
     };
 
+    // Create IPFS client instance
     const ipfsClient = async() => {
         const projectId = '2NOlVoXpecazym067i0JgqK0UzU';
         const projectSecret = '208442d6bd98466af54320034f4d6087';
@@ -100,11 +101,12 @@ function AddStreamingContract(props){
                 authorization: auth,
             },
             
-        })
+        }) 
 
         return ipfs;
     }
 
+    // Save inputs to IPFS
     const saveInput = async(MRC) => {
         let ipfs = await ipfsClient();
         let mrcToString = Buffer.from(JSON.stringify(MRC));
