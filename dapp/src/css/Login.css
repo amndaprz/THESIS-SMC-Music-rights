@@ -229,7 +229,18 @@ option:active, option:hover {
     justify-content: space-around;
     align-content: center;
     align-items: center;
-    margin-top: 130px;
+    margin-top: 30px;
+}
+
+.team_names_cons{
+    margin-top: 100px;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.team_name{
+    text-align: center;
 }
 
 .team_con{

@@ -52,6 +52,21 @@ function Team() {
                 <img src="../tina_logo.png" alt="logo name" className="col mx-4 logo"/>
                 <img src="../logo_name.png" alt="logo name" className="col mx-4 team_logo_name"/>
             </div>
+
+            <div className="team_names_cons">
+                <h3 className="mx-2 team_name">
+                    Nicole Cheng
+                </h3>
+                <h3 className="mx-2 team_name">
+                    Timothy James Dela Cruz
+                </h3>
+                <h3 className="mx-2 team_name">
+                    Ina Patricia Evangelista
+                </h3>
+                <h3 className="mx-2 team_name">
+                    Amanda Gabrielle Perez
+                </h3>
+            </div>
             
 
         </div>
