@@ -3,6 +3,9 @@ import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import ContentLoader from 'react-content-loader'
 
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 import CardProposal from '../Cards/CardCommercialProposal';
 
 import {web3, contract, contract_RA} from '../../ContractProperties';

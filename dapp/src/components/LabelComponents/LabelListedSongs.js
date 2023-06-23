@@ -203,7 +203,7 @@ function ViewListedSongs() {
                 <>
                     {
                         !empty &&
-                        <div class="row py-4 px-1  card-deck" >
+                        <div class="row py-4 px-1 card-deck" >
                             {jsonObj.filter(song => {
                                 if (query === '') {
                                     return song;

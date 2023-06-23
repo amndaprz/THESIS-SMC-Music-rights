@@ -129,7 +129,8 @@ button {
   color: white;
   position: absolute;
   left: 19vw;
-  max-width: 80vw;
+  width: 80vw;
+  min-width: 50vw;
 }
 
 .stream_content {
@@ -172,6 +173,7 @@ button {
 }
 
 .card-deck {
+  max-width: 80vw;
   display: flex;
   justify-content: center;
   padding-left: 20px;
@@ -179,11 +181,14 @@ button {
 }
 
 .card_deck_con{
+  width: max-content;
   display: flex;
-  justify-content: center;
-  align-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
+  align-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-self: center;
 }
 
 .card {

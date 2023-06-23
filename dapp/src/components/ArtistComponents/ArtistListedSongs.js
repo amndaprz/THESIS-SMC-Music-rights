@@ -206,7 +206,7 @@ function ViewListedSongs() {
                 <>
                     {
                         !empty &&
-                        <div class="row py-4 px-1  card-deck" >
+                        <div class="row py-4 px-1 card-deck" >
                             {jsonObj.filter(song => {
                                 if (query === '') {
                                     return song;
@@ -220,11 +220,13 @@ function ViewListedSongs() {
                                     return song;
                                 }
                             }).map((song, index) => (
+                                
                                 <CardList
                                     keys={index}
                                     data={song} />
+                                    
                             ))}
-                        </div>
+                            </div>
                     }
                     {
                         empty &&
