@@ -26,6 +26,7 @@ function ProposalCommPopup(props){
         if(await contract.methods.rejectProposal(props.tokenID).send({from: account, sender: account })){
             console.log("Minting successful");
         }
+        window.location.reload();
     }
 
     return (

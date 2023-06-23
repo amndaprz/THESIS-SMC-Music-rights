@@ -24,7 +24,7 @@ export const contract_RA = new web3_RA.eth.Contract(contractABI_RA, contractAddr
 
 
 // Stream.sol ------------------
-export const contractAddress_Stream = "0x759D5CD9b543CA15837F7fa8C8071ba3183915f6";
+export const contractAddress_Stream = "0x507fd0F0D3BA12C1d252F1587DA8e8C9a20166ec";
 
 export const contractABI_Stream = ERC721_Stream;
 export const web3_Stream = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");

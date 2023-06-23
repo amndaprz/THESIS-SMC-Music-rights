@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
-
+import ContentLoader from 'react-content-loader'
 
 import CardProposal from '../Cards/CardCommercialProposal';
 
@@ -14,9 +14,11 @@ function ViewContractProposals(){
     const [jsonObject, setJsonObj] = React.useState([]);
     const [ipfsHash, setIPFS] = React.useState([]);
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const t = setTimeout(() => {
-            setLoading(false);
+            //setLoading(false);
             displayAllInfo();
         } , 3000);
 
@@ -61,6 +63,7 @@ function ViewContractProposals(){
         let getMRC = [];
         let hash;
 
+        let loading = true;
 
         // iterates over allResults with tokenID and CID
     
@@ -115,10 +118,8 @@ function ViewContractProposals(){
 
                 }
             }
-            
-            
             console.log("Extraction successful!");       
-        
+            
         } catch (err) {
             console.error("Error while retrieving data from IPFS:", err); // handle any errors
         }
@@ -126,15 +127,118 @@ function ViewContractProposals(){
         setJsonObj(temp_data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
-    
+        //loading = false;
+        setLoading(false);
     }
     
-    const [loading, setLoading] = useState(true);
+    const [query, setQuery] = useState("");
+
+    const getInitialSort = () => {
+        const sort = "a-z";
+        return sort;
+    };
+
+    const [sort, setValue] = useState(getInitialSort);
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
+
+    console.log(sort)
+
+    jsonObject.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
+    );
+
+    if (sort === "z-a") {
+        jsonObject.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
+        );
+    }
+
+    let empty = false;
     
+    console.log("LENGTH " + jsonObject.length);
+    if(jsonObject.length === 0){
+        empty = true;
+    }
+    else{
+        empty = false;
+    }
+
     return(
-        <div class="row py-4 px-1 card-deck">
-            <CardProposal data={jsonObject} hash={ipfsHash}/>
-        </div>
+        <>
+            <div className='row filter_con2'>
+                <div className='col search_con2'>
+                    <h4 className='search_title2'>Search</h4>
+                    <div className='input_search'>
+                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
+
+                    </div>
+
+                </div>
+                <div className='col sort_con2'>
+                    <h6 className='sort_title2'>Sort by</h6>
+                    <select value={sort} onChange={handleChange} className="input_sort select_signup">
+                        <option value="a-z">Song title, A-Z</option>
+                        <option value="z-a">Song title, Z-A</option>
+                    </select>
+
+                </div>
+            </div>
+            {loading ? (
+                <>
+                <div className='mt-5 text_sub'>Loading contract proposals...</div>
+                <ContentLoader
+                    width={450}
+                    height={185}
+                    speed={2}
+                    backgroundColor={'#383447'}
+                    foregroundColor={'#2B2833'}
+                >
+                    
+                    <rect x="20" y="15" rx="5" ry="5" width="390" height="30" />
+                </ContentLoader>
+                </>
+            ) : (
+                <>  
+                    {
+                        !empty && 
+                            <div class="row py-4 px-1  card-deck" >
+                                {jsonObject.filter(song => {
+                                    if (query === '') {
+                                        return song;
+                                    } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
+                                        return song;
+                                    }
+                                    else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
+                                        return song;
+                                    }
+                                    else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
+                                        return song;
+                                    }
+                                }).map((song, index) => (
+                                    <CardProposal
+                                        keys={index}
+                                        data={song} />
+                                ))}
+                            </div>
+                    }   
+                    {
+                        empty && 
+                            <div className='text_sub'>
+                                No contract proposals.
+                            </div>
+                    }
+                    
+                </>
+            )
+            }
+            {/*
+                loading &&
+                <h1 className='text_pop'>LOADINGGGGGG.</h1>
+        */}
+        </>
     );
 }
 

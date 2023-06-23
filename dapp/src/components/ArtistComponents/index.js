@@ -152,13 +152,13 @@ function Artist() {
                                 <Button
                                     className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(2)}>
-                                    <FaFileContract className='mx-3'/>View sold
+                                    <FaFileContract className='mx-3'/>View listed songs
                                 </Button>
 
                                 <Button
                                     className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                     onClick={() => toggleTab(3)}>
-                                    <FaSignature className='mx-3'/>View listed songs
+                                    <FaSignature className='mx-3'/>View sold
                                 </Button>
                             </div>
                         </>
@@ -198,6 +198,11 @@ function Artist() {
                     
                 </div>
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
+                    <h1>View listed songs</h1>
+                    <ViewListedSongs />
+                    
+                </div>
+                <div className={toggleState === 3 ? "content  active-content" : "content"}>
                     <h1>View sold</h1>
                     
                     <div className=" mt-5 mb-4">Choose a contract type below:</div>
@@ -223,10 +228,6 @@ function Artist() {
                     <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
                         <StreamingContracts />
                     </div>
-                </div>
-                <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <h1>View listed songs</h1>
-                    <ViewListedSongs />
                 </div>
             </div>
         </div>

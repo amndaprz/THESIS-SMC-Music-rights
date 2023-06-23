@@ -1,8 +1,8 @@
 import CardList from '../Cards/CardListedSongs';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
-
+import ContentLoader from 'react-content-loader'
 import {web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
@@ -35,6 +35,7 @@ function ViewListedSongs() {
     }
 
     const [jsonObj, setJsonObj] = React.useState([]);
+    const [loading, setLoading] = useState(true);
 
     const listLabelSongs = async() => {
         console.log("FCFGVH");
@@ -127,12 +128,112 @@ function ViewListedSongs() {
         //setJsonObj(data);
         console.log("TEMP_DATA" + typeof(temp_data));
         console.log(Buffer.concat(data).toString());
+        setLoading(false);
+    }
+
+    const [query, setQuery] = useState("");
+
+    const getInitialSort = () => {
+        const sort = "a-z";
+        return sort;
+    };
+
+    const [sort, setValue] = useState(getInitialSort);
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
+
+    console.log(sort)
+
+    jsonObj.sort((a, b) =>
+        a.song_title > b.song_title ? 1 : -1,
+    );
+
+    if (sort === "z-a") {
+        jsonObj.sort((a, b) =>
+            a.song_title > b.song_title ? -1 : 1,
+        );
+    }
+
+    let empty = false;
+
+    console.log("LENGTH SOLD stream " + jsonObj.length);
+    if(jsonObj.length === 0){
+        empty = true;
+    }
+    else{
+        empty = false;
     }
 
     return(
-        <div class="row py-4 px-1 card-deck" >
-            <CardList data={jsonObj}/>
-        </div>
+        <>
+            <div className='row filter_con2'>
+                <div className='col search_con2'>
+                    <h4 className='search_title2'>Search</h4>
+                    <div className='input_search'>
+                        <input className="inputfield_search" placeholder="Search" onChange={event => setQuery(event.target.value)} />
+
+                    </div>
+
+                </div>
+                <div className='col sort_con2'>
+                    <h6 className='sort_title2'>Sort by</h6>
+                    <select value={sort} onChange={handleChange} className="input_sort select_signup">
+                        <option value="a-z">Song title, A-Z</option>
+                        <option value="z-a">Song title, Z-A</option>
+                    </select>
+                </div>
+            </div>
+            {loading ? (
+                <>
+                    <div className='mt-5 text_sub'>Loading listed songs...</div>
+                    <ContentLoader
+                        width={450}
+                        height={185}
+                        speed={2}
+                        backgroundColor={'#383447'}
+                        foregroundColor={'#2B2833'}
+                    >
+
+                        <rect x="20" y="15" rx="5" ry="5" width="390" height="30" />
+                    </ContentLoader>
+                </>
+            ) : (
+                <>
+                    {
+                        !empty &&
+                        <div class="row py-4 px-1  card-deck" >
+                            {jsonObj.filter(song => {
+                                if (query === '') {
+                                    return song;
+                                } else if (song.song_title.toLowerCase().includes(query.toLowerCase())) {
+                                    return song;
+                                }
+                                else if (song.artist_name.toLowerCase().includes(query.toLowerCase())) {
+                                    return song;
+                                }
+                                else if (song.label_name.toLowerCase().includes(query.toLowerCase())) {
+                                    return song;
+                                }
+                            }).map((song, index) => (
+                                <CardList
+                                    keys={index}
+                                    data={song} />
+                            ))}
+                        </div>
+                    }
+                    {
+                        empty &&
+                        <div className='text_sub'>
+                            No songs listed.
+                        </div>
+                    }
+
+                </>
+            )
+            }
+        </>
     );
 }
 
