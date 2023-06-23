@@ -16,8 +16,8 @@ function Stream() {
     const[userRole, setUserRole] = useState("")
     
     window.ethereum.on("accountsChanged", () => {
-        //window.location.reload();
-        getRole();
+        window.location.reload();
+        //getRole();
       });
 
     const getRole = async() => {
@@ -27,9 +27,6 @@ function Stream() {
         setUserRole(role);
         console.log("User Role " + role);
         switch(role){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
             case '3': navigate("../Client"); break;
@@ -38,14 +35,18 @@ function Stream() {
         }
     };
 
+    if(role === ""){
+      window.location.reload();
+  }
+
     useEffect(() => {
-        const fetchData = async () => {
-          getRole();
-        };
-        fetchData();
+      getRole();
       }, []);
     return (
-        <StreamForm />
+        <div onLoad={getRole}>
+          <StreamForm />
+        </div>
+        
     );
 }
 

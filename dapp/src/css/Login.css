@@ -70,7 +70,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 450px;
-    width: 90%;
+    width: max-content;
+    padding-left: 50px;
+    padding-right: 50px;
     border-radius: 20px;
     margin-left: 50px;
     z-index: 99;

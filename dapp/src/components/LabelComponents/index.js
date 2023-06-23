@@ -23,21 +23,19 @@ function Label() {
     
 
     window.ethereum.on("accountsChanged", () => {
-        //window.location.reload();
-        getRole();
+        window.location.reload();
+        //getRole();
       });
 
     const getRole = async() => {
         const accounts = await web3_RA.eth.requestAccounts();
         const account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
+        
         setUserRole(role);
         console.log("User Role " + role);
         
         switch(role){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
             case '3': navigate("../Client"); break;
@@ -46,6 +44,9 @@ function Label() {
         }
         
     };
+    if(role === ""){
+        window.location.reload();
+    }
 
     const [roleString, setRoleString] = useState("Role");
         
@@ -72,13 +73,13 @@ function Label() {
     
     
     useEffect(() => {
+        getRole();
         const fetchData = async () => {
           const t = setTimeout(() => {
             setLoading(false);
           }, 3000);
       
           getUserName();
-          getRole();
           return () => {
             clearTimeout(t);
           };
@@ -104,7 +105,7 @@ function Label() {
     }
     
         return (
-            <div onLoad={getUserName}>
+            <div onLoad={getRole}>
 
                 <div className="row p-0 m-0 card_con">
                 

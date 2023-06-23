@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/"element={<Home />}/>
-          <Route exact path="/Client"element={<Client />}/>
+          <Route path="/Client"element={<Client />}/>
           <Route path="/Artist"element={<Artist />}/>
           <Route path="/Label"element={<Label />}/>
           <Route path="/Stream"element={<Stream />}/>

@@ -34,8 +34,8 @@ function Client() {
     const[userRole, setUserRole] = useState("")
     
     window.ethereum.on("accountsChanged", () => {
-        //window.location.reload();
-        getRole();
+        window.location.reload();
+        //getRole();
       });
 
     const getRole = async() => {
@@ -46,9 +46,6 @@ function Client() {
         const prev_role = role;
         console.log("User Role " + role);
         switch(role){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
             case '3': navigate("../Client"); break;
@@ -56,6 +53,10 @@ function Client() {
             default: navigate('../'); break;
         }
     };
+    
+    if(role === ""){
+        window.location.reload();
+    }
 
     
 
@@ -64,6 +65,8 @@ function Client() {
     const [name, setUserName] = useState("");
 
     useEffect(() => {
+        getRole();
+        displayAllInfo();
         const fetchData = async () => {
           const t = setTimeout(() => {
             
@@ -73,7 +76,7 @@ function Client() {
           console.log("HERE");
           
           getUserName();
-          getRole();
+          
 
           return () => {
             clearTimeout(t);
@@ -222,7 +225,7 @@ function Client() {
 
     
     return (
-    <div onLoad={displayAllInfo}>
+    <div onLoad={getRole}>
         {/*<NotificationContainer/>*/}
         <div className="row p-0 m-0 card_con">
             <div className="col-sm-2 p-0 m-0 nav_con">

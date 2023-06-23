@@ -8,6 +8,9 @@ import CommercialContracts from './ArtistCommercialSold';
 import StreamingContracts from './ArtistStreamingSold';
 import CommercialProposals from './ArtistCommercialProposal';
 
+import Label from '../LabelComponents';
+import Client from '../ClientComponents';
+
 import ContentLoader from 'react-content-loader'
 import {useNavigate } from "react-router-dom";
 import { FaFileContract, FaMusic, FaSignature } from 'react-icons/fa';
@@ -25,8 +28,8 @@ function Artist() {
     const[userRole, setUserRole] = useState("")
     
     window.ethereum.on("accountsChanged", () => {
-        //window.location.reload();
-        getRole();
+        window.location.reload();
+        //getRole();
       });
     
 
@@ -34,10 +37,8 @@ function Artist() {
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
+        
         switch(role){
-            /*
-                1-Label, 2-Artist, 3-Client, 4-Admin
-            */
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
             case '3': navigate("../Client"); break;
@@ -49,6 +50,10 @@ function Artist() {
         console.log("User Role " + role);
         
     };
+
+    if(role === ""){
+        window.location.reload();
+    }
     
     const [name, setUserName] = useState("");
     const [roleString, setRoleString] = useState("Role");
@@ -92,7 +97,7 @@ function Artist() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        
+        getRole();
         const fetchData = async () => {
             
             const t = setTimeout(() => {
@@ -102,7 +107,6 @@ function Artist() {
           console.log("HERE");
           
           getUserName();
-          getRole();
       
           return () => {
             clearTimeout(t);
@@ -112,7 +116,7 @@ function Artist() {
       }, []);
 
     return (
-        <div className="row p-0 m-0 card_con">
+        <div className="row p-0 m-0 card_con" onLoad={getRole}>
             <div className="col-sm-2 p-0 m-0 nav_con">
                 <div>
                     {loading ? (

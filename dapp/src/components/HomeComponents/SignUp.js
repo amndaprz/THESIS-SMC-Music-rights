@@ -123,7 +123,6 @@ function SignUp(){
         //window.location.reload();
         getRole();
       });
-    
 
     const getRole = async() => {
         const accounts = await web3.eth.requestAccounts();
