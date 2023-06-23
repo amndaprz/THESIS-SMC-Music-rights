@@ -33,7 +33,23 @@ function ConfirmPurchasePopup(props) {
         }
 
         console.log("TOTAL FEE: " + props.data.total_fee);
-        await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address, gas: 800000, value: parseInt(props.data.total_fee)});
+
+        const totalFeePay = props.data.total_fee;
+      
+        const pLabel = parseInt(props.data.percent_label);
+        const pArtist = parseInt(props.data.percent_artist);
+
+        const labelCut = totalFeePay * (pLabel / 100);
+        const artistCut = totalFeePay * (pArtist / 100);
+
+        const labelCutWei = web3.utils.toWei(labelCut.toString(), 'ether');
+        const artistCutWei = web3.utils.toWei(artistCut.toString(), 'ether');
+
+        const tx1Req = await web3.eth.sendTransaction({ from: account, to: label_address, value: labelCutWei}); // Label Cut
+        const tx2Req = await web3.eth.sendTransaction({ from: account, to: artist_address, value: artistCutWei }); // Artist Cut
+        
+        // await web3.eth.sendTransaction({ from: account, to: artist_address, value: artistCutWei }); // Artist Cut
+        await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address, value: artistCutWei});
             
 
         window.location.reload();

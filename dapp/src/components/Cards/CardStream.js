@@ -83,15 +83,11 @@ function CardStream(props) {
 
     }
 
-
-
     const [currCount, setCurrCount] = useState(0);
 
     const addStreamCount = async (value) => {
         const accounts = await web3_Stream.eth.requestAccounts();
         const account = accounts[0];
-
-
 
         notify(value.song_title, value.artist_name);
 
@@ -104,7 +100,6 @@ function CardStream(props) {
         // let update = await contract_Stream.methods.simulateStreams(0, parseInt(value.token_id)).call();
 
         console.log("UPDATE: " + update + typeof update);
-
 
 
         //const curr_stream = await contract_Stream.methods.getCurrStreams(value.token_id).call();
@@ -144,8 +139,22 @@ function CardStream(props) {
             }
 
             console.log("UPDATE2: " + update)
+            const valueTotal = parseFloat(value.total_fee) * 10;
+            // const valueInWei = web3_Stream.utils.toWei(valueTotal.toString(), 'ether');
 
-            await contract_Stream.methods.transferStream(parseInt(value.total_fee), parseInt(update), parseInt(value.percent_label), parseInt(value.percent_artist), artist_address, label_address).send({ from: account, to: label_address, gas: 800000, value: parseInt(value.total_fee) })
+            const pLabel = parseInt(value.percent_label);
+            const pArtist = parseInt(value.percent_artist);
+
+            const labelCut = valueTotal * (pLabel / 100);
+            const artistCut = valueTotal * (pArtist / 100);
+
+            const labelCutWei = web3_Stream.utils.toWei(labelCut.toString(), 'ether');
+            const artistCutWei = web3_Stream.utils.toWei(artistCut.toString(), 'ether');
+
+            const tx1Req = await web3_Stream.eth.sendTransaction({ from: account, to: label_address, value: labelCutWei}); // Label Cut
+            const tx2Req = await web3_Stream.eth.sendTransaction({ from: account, to: artist_address, value: artistCutWei }); // Artist Cut
+            
+            // await contract_Stream.methods.transferStream(parseInt(value.total_fee), parseInt(update), parseInt(value.percent_label), parseInt(value.percent_artist), artist_address, label_address).send({ from: account, to: label_address, gas: 800000, value: valueInWei })
             //await contract_Stream.methods.transferStream(parseInt(value.total_fee), parseInt(update), parseInt(value.percent_label), parseInt(value.percent_artist), artist_address, label_address).send({from: account, to: artist_address, gas: 800000, value: parseInt(value.total_fee)})
             if (await contract_Stream.methods.clearUpdate(parseInt(value.token_id)).send({ from: account, sender: account })) {
                 // num_update = 0;
