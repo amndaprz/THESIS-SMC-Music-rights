@@ -1,14 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-//import CardBuy from '../Cards/CardBuy';
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA} from '../../ContractProperties';
 
 let account;
 
 function ConfirmPurchasePopup(props) {
     console.log(typeof props.data.total_fee)
-    //const cardBuy = new CardBuy();
-    //cardBuy.buy
 
     const buySong = async() => {
 
@@ -33,19 +30,16 @@ function ConfirmPurchasePopup(props) {
                 console.log("good")
                 label_address = addresses[key];
             }
-
-            
-            
         }
 
         console.log("TOTAL FEE: " + props.data.total_fee);
         await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address, gas: 800000, value: parseInt(props.data.total_fee)});
+            
 
         window.location.reload();
 
         props.onHide();
     }
-
 
     return (
         <Modal
@@ -55,6 +49,7 @@ function ConfirmPurchasePopup(props) {
           aria-labelledby="contained-modal-title-vcenter modal_view"
           centered
         >
+            
             <Modal.Header closeButton className='pb-0'>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <h3>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import StreamForm from "./StreamSimulate";
+import StreamSimulate from "./StreamSimulate";
 
 import {useNavigate } from "react-router-dom";
 
@@ -44,7 +44,7 @@ function Stream() {
       }, []);
     return (
         <div onLoad={getRole}>
-          <StreamForm />
+          <StreamSimulate />
         </div>
         
     );

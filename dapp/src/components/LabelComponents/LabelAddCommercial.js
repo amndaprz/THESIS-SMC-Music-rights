@@ -231,7 +231,6 @@ function AddCommercialContract(props){
             }
             
         
-        
             /*
                 Store these in IPFS
             */
@@ -268,7 +267,7 @@ function AddCommercialContract(props){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify("Adding contract...");
+            notify("Opening MetaMask...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -280,6 +279,7 @@ function AddCommercialContract(props){
             if(await contract.methods.nonMint(mrcResult).send({from:account, sender:account})){
                 console.log("Initial contract minting successful");
                 clearInputs();
+                notify("Contract sent to " + artistName)
             }
 
             // const balance = await contract.methods.balanceOf(account).call();

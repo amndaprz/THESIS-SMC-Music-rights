@@ -228,12 +228,12 @@ function SignUp(){
         event.preventDefault();
         let errorblank = false;
         let errorexist = false;
+        let exist = false;
         try{
-            const accounts = await web3_RA.eth.requestAccounts();
-            const account = accounts[0];
+            
     
             // MAY BE USED FOR FOR-LOOP CODE -- Amanda
-            const getAddressList = await contract_RA.methods.getAddresses().call();
+            //const getAddressList = await contract_RA.methods.getAddresses().call();
             // console.log(getAddressList);
 
             if (username===""){
@@ -246,7 +246,7 @@ function SignUp(){
             }
 
             let users = await contract_RA.methods.getAddresses().call();
-            let exist;
+
             for(let x in users){
                 let user = await contract_RA.methods.getAlias(users[x]).call();
                 if(user === username){
@@ -271,10 +271,13 @@ function SignUp(){
 
             if(exist){ throw new Error("Invalid username!"); }
           
-            const exists = await isUserExisting();
+            //const exists = await isUserExisting();
+
             // Sign Up First Time if user is not yet signed up
             if(exist){
             }else{
+                const accounts = await web3_RA.eth.requestAccounts();
+                const account = accounts[0];
                 // giveRole
                 console.log("-----------giveRole----------");
                 console.log("Signup role: " + signupRole);
@@ -287,7 +290,7 @@ function SignUp(){
                 
                         // MAY BE USED FOR FOR-LOOP CODE -- Amanda
                         const userRole = await contract_RA.methods.getRole(account).call();
-
+                        notify("Signing in...");
                         switch(userRole){
                             /*
                                 1-Label, 2-Artist, 3-Client, 4-Admin

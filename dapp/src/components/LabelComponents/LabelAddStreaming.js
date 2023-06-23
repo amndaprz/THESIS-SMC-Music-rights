@@ -232,7 +232,7 @@ function AddStreamingContract(props){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify("Adding contract...");
+            notify("Opening MetaMask...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -243,6 +243,7 @@ function AddStreamingContract(props){
             
             if(await contract_Stream.methods.addStream(mrcResult).send({from:account, sender:account})){
                 console.log("Stream contract creation successful");
+                notify("Contract sent to " + artistName)
                 clearInputs();
             }
 
