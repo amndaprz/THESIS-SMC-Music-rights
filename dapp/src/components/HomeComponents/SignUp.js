@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import {useNavigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import {FaExclamationTriangle} from "react-icons/fa";
-import {web3_RA, contract_RA} from '../../ContractProperties';
+import {web3, web3_RA, contract_RA} from '../../ContractProperties';
 import { ToastContainer, toast } from 'react-toastify';
 
 /*
@@ -115,6 +115,33 @@ function SignUp(){
     };
 
     const navigate = useNavigate();
+    
+    let account;
+    let role;
+
+    window.ethereum.on("accountsChanged", () => {
+        //window.location.reload();
+        getRole();
+      });
+    
+
+    const getRole = async() => {
+        const accounts = await web3.eth.requestAccounts();
+		account = accounts[0];
+        role = await contract_RA.methods.getRole(account).call();
+        switch(role){
+            /*
+                1-Label, 2-Artist, 3-Client, 4-Admin
+            */
+            case '1': navigate("../Label"); break;
+            case '2': navigate("../Artist"); break;
+            case '3': navigate("../Client"); break;
+            case '4': navigate('../Stream'); break;
+            default: navigate('../'); break;
+        }
+        console.log("User Role " + role);
+        
+    };
     
     // ON LOAD CHECK IF USER ADDRESS WALLET ALREADY HAS AN EXISTING ACCOUNT
     useEffect(() => {
