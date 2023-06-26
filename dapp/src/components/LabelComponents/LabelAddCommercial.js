@@ -55,7 +55,7 @@ function AddCommercialContract(props){
 
         if (regexUsername.test(value) || value === '')  setLabelName(event.target.value);
     }
-    
+
     /*
         Input listener for Artist Address
 
@@ -64,7 +64,8 @@ function AddCommercialContract(props){
     const handleNameArtist = (event) => {
         const value = event.target.value;
         const regexUsername = /^[a-zA-Z0-9]*$/;
-        
+
+
         if (regexUsername.test(value) || value === '') setArtistName(event.target.value);
     }  
 
@@ -114,6 +115,7 @@ function AddCommercialContract(props){
     */
     const [error_title, setErrorTitle] = useState('');
     const [error_artistName, setErrorArtistName] = useState('');
+    const [error_artistName2, setErrorArtistName2] = useState('');
     const [error_PLabel, setErrorPLabel] = useState('');
     const [error_PArtist, setErrorPArtist] = useState('');
     const [error_totalFee, setErrorTotalFee] = useState('');
@@ -129,6 +131,7 @@ function AddCommercialContract(props){
     */
     const [error_title_state, setErrorTitleState] = useState(0);
     const [error_artistName_state, setErrorArtistNameState] = useState(0);
+    const [error_artistName2_state, setErrorArtistName2State] = useState(0);
     const [error_PLabel_state, setErrorPercentLabelState] = useState(0);
     const [error_PArtist_state, setErrorPercentArtistState] = useState(0);
     const [error_totalFee_state, setErrorTotalFeeState] = useState(0);
@@ -160,8 +163,8 @@ function AddCommercialContract(props){
         return result.path;
     }
 
-
-    // Minting 
+    const [existArtist, setExistArtist] = useState(0);
+    let exist_artist = 1;
     // Generates IPFS hash
     const mintERC721 = async() => {
 
@@ -206,9 +209,30 @@ function AddCommercialContract(props){
                 setErrorArtistName("Artist name is required");
                 setErrorArtistNameState(1);
                 error = true;
-            }   
+            } 
             else{
                 setErrorArtistNameState(0);
+            }
+
+            let addresses = await contract_RA.methods.getAddresses().call();
+
+            for(let x in addresses){
+                let artist = await contract_RA.methods.getAlias(addresses[x]).call();
+                let role = await contract_RA.methods.getRole(addresses[x]).call();
+                if(artist === artistName && role === "2"){
+                    exist_artist = 0;
+                }
+            }
+            
+
+            if (exist_artist === 1 && artistName !== ""){
+                setErrorArtistName2("Invalid artist");
+                setErrorArtistName2State(1)
+                error = true;
+            }
+            else{
+                setErrorArtistName2State(0);
+                //existArtist = 0;
             }
 
             // Case 4: Total Fee Cannot be Empty
@@ -337,6 +361,11 @@ function AddCommercialContract(props){
                     {
                         error_artistName_state === 1 && 
                             <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_artistName}</span>
+                        
+                    }
+                    {
+                        error_artistName2_state === 1 && 
+                            <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_artistName2}</span>
                         
                     }
                     <p className="text_sub p-0 mt-2">
