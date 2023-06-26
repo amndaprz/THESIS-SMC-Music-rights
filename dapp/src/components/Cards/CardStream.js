@@ -83,6 +83,7 @@ function CardStream(props) {
 
     }
 
+
     const [currCount, setCurrCount] = useState(0);
 
     const addStreamCount = async (value) => {
@@ -194,11 +195,9 @@ function CardStream(props) {
 
                     </Card.Text>
                 </Card.Body>
-                {/*
                     <Card.Footer>
                     <h5 className='text_pop'>{currCount} stream(s)</h5>
                 </Card.Footer>
-                */}
             </Card>                 
         </>
 

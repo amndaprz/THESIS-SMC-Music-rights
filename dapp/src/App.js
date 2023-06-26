@@ -15,16 +15,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 document.body.style.background = "#232226";
 function App() {
-  var role = "client";
   return (
     <div className>
       <BrowserRouter>
         <Routes>
           <Route exact path="/"element={<Home />}/>
-          <Route path="/Client"element={<Client />}/>
-          <Route path="/Artist"element={<Artist />}/>
-          <Route path="/Label"element={<Label />}/>
-          <Route path="/Stream"element={<Stream />}/>
+          <Route path="/Client"element={<Client />} caseSensitive={false} />
+          <Route path="/Artist"element={<Artist />} caseSensitive={false}/>
+          <Route path="/Label"element={<Label />} caseSensitive={false}/>
+          <Route path="/Stream"element={<Stream />} caseSensitive={false}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

@@ -33,6 +33,31 @@ function Client() {
 
     const [userRole, setUserRole] = useState("")
 
+    
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(() => {
+        getRole();
+        displayAllInfo();
+        const fetchData = async () => {
+            const t = setTimeout(() => {
+
+                setLoading(false);
+            }, 3000);
+
+            //console.log("HERE");
+
+            getUserName();
+
+
+            return () => {
+                clearTimeout(t);
+            };
+        };
+
+        fetchData();
+    }, []);
+
     window.ethereum.on("accountsChanged", () => {
         window.location.reload();
         //getRole();
@@ -44,7 +69,7 @@ function Client() {
         role = await contract_RA.methods.getRole(account).call();
         setUserRole(role);
         const prev_role = role;
-        console.log("User Role " + role);
+        //console.log("User Role " + role);
         switch (role) {
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
@@ -64,38 +89,18 @@ function Client() {
 
     const [name, setUserName] = useState("");
 
-    useEffect(() => {
-        getRole();
-        displayAllInfo();
-        const fetchData = async () => {
-            const t = setTimeout(() => {
-
-                setLoading(false);
-            }, 3000);
-
-            console.log("HERE");
-
-            getUserName();
-
-
-            return () => {
-                clearTimeout(t);
-            };
-        };
-
-        fetchData();
-    }, []);
+   
 
     const getUserName = async () => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        console.log("ACCOUNT" + account);
+        //console.log("ACCOUNT" + account);
 
         let result = await contract_RA.methods.getAlias(account).call();
         if (result === "") {
             window.location.reload();
         }
-        console.log("RESULT" + result);
+        //console.log("RESULT" + result);
         setUserName(result);
 
 
@@ -219,7 +224,6 @@ function Client() {
         setLoadingCard(false);
     }
 
-    const [loading, setLoading] = useState(true);
 
     const [query, setQuery] = useState("");
 

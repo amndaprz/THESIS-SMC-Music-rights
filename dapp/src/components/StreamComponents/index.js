@@ -14,6 +14,10 @@ function Stream() {
     const navigate = useNavigate();
 
     const[userRole, setUserRole] = useState("")
+
+    useEffect(() => {
+      getRole();
+      }, []);
     
     window.ethereum.on("accountsChanged", () => {
         window.location.reload();
@@ -25,7 +29,7 @@ function Stream() {
         const account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
         setUserRole(role);
-        console.log("User Role " + role);
+        //console.log("User Role " + role);
         switch(role){
             case '1': navigate("../Label"); break;
             case '2': navigate("../Artist"); break;
@@ -39,9 +43,7 @@ function Stream() {
       window.location.reload();
   }
 
-    useEffect(() => {
-      getRole();
-      }, []);
+   
     return (
         <div onLoad={getRole}>
           <StreamSimulate />

@@ -23,6 +23,27 @@ function Artist() {
     let username;
     let result;
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getRole();
+        const fetchData = async () => {
+            
+            const t = setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+      
+          //console.log("HERE");
+          
+          getUserName();
+      
+          return () => {
+            clearTimeout(t);
+          };
+        };
+        fetchData();
+      }, []);
+
     const navigate = useNavigate();
 
     const[userRole, setUserRole] = useState("")
@@ -47,7 +68,7 @@ function Artist() {
         }
           
         setUserRole(role);
-        console.log("User Role " + role);
+        //console.log("User Role " + role);
         
     };
 
@@ -63,13 +84,13 @@ function Artist() {
         //Window.location.reload();
         const accounts = await web3.eth.requestAccounts();
 		account = accounts[0];
-        console.log("ACCOUNT" + account);
+        //console.log("ACCOUNT" + account);
 
         let result = await contract_RA.methods.getAlias(account).call();
         if(result === ""){
             window.location.reload();
         }
-        console.log("RESULT" + result);
+        //console.log("RESULT" + result);
         setUserName(result);
     }
     
@@ -94,26 +115,7 @@ function Artist() {
     };
 
 
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        getRole();
-        const fetchData = async () => {
-            
-            const t = setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-      
-          console.log("HERE");
-          
-          getUserName();
-      
-          return () => {
-            clearTimeout(t);
-          };
-        };
-        fetchData();
-      }, []);
+    
 
     return (
         <div className="row p-0 m-0 card_con" onLoad={getRole}>
