@@ -593,6 +593,10 @@ button {
   padding: 20px;
 }
 
+.input_sort option{
+  background-color: #2B2833;
+}
+
 
 .search_con{
   display: flex;
