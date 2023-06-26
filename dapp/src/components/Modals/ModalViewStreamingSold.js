@@ -37,7 +37,7 @@ function ContractStreamPopup(props){
                     </tr>
                     <tr>
                         <td className='table_header'>End date:</td>
-                        <td className='table_date text_sub'>{props.data.end_data}</td>
+                        <td className='table_date text_sub'>{props.data.end_date}</td>
                     </tr>
                     <tr>
                         <td className='table_header'>Fee per stream:</td>

@@ -7,6 +7,7 @@ import ViewListedSongs from './ArtistListedSongs';
 import CommercialContracts from './ArtistCommercialSold';
 import StreamingContracts from './ArtistStreamingSold';
 import CommercialProposals from './ArtistCommercialProposal';
+import StreamingProposals from './ArtistStreamingProposal'
 
 import Label from '../LabelComponents';
 import Client from '../ClientComponents';
@@ -194,8 +195,29 @@ function Artist() {
                         </>
                         
                     )}
-                    <div className={toggleState4 === 1 ? "content active-content" : "content"}>
+                    
+                    <div className=" mt-5 mb-4">Choose a contract type below:</div>
+                    <div className="row">
+                        <div className="col">
+                            <Button
+                                className={toggleState4 === 1 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab4(1)}>
+                                Commercial
+                            </Button>
+                        </div>
+                        <div className="col">
+                            <Button
+                                className={toggleState4 === 2 ? "tabs_contract atabs_contract py-3 px-5" : "tabs_contract py-3 px-5"}
+                                onClick={() => toggleTab4(2)}>
+                                Streaming
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={toggleState4 === 1 ? "content  active-content" : "content"}>
                         <CommercialProposals />
+                    </div>
+                    <div className={toggleState4 === 2 ? "content  active-content" : "content"}>
+                        <StreamingProposals />
                     </div>
                     
                 </div>
