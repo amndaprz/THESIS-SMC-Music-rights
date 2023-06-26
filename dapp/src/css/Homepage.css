@@ -140,7 +140,6 @@ button {
   align-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 50px;
   width: 100vw;
 }
 
@@ -176,8 +175,6 @@ button {
   max-width: 80vw;
   display: flex;
   justify-content: center;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .card_deck_con{
