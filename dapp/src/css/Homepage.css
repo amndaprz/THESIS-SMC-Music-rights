@@ -863,3 +863,7 @@ button {
 .addcontract_btn_con{
   align-self: center;
 }
+
+.balance_con{
+  text-align: center;
+}

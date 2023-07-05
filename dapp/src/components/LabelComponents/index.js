@@ -6,10 +6,11 @@ import AddStreamingContract from './LabelAddStreaming';
 import ViewListedSongs from './LabelListedSongs';
 import CommercialContracts from './LabelCommercialSold';
 import StreamingContracts from './LabelStreamingSold';
+import ViewBalance from './LabelBalance';
 
 import {useNavigate } from "react-router-dom";
 
-import {FaFileContract, FaMusic, FaPlus } from "react-icons/fa";
+import {FaFileContract, FaMusic, FaPlus, FaWallet } from "react-icons/fa";
 import {web3,web3_RA, contract_RA} from '../../ContractProperties';
 
 document.body.style.background = "#232226";
@@ -48,7 +49,12 @@ function Label() {
         const accounts = await web3_RA.eth.requestAccounts();
         const account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
-        
+        const balance = await web3.eth.getBalance(account);
+
+        const balance2 = web3.utils.fromWei(balance , 'ether');
+
+        console.log("BALANCEEE = " + balance2);
+
         setUserRole(role);
         //console.log("User Role " + role);
         
@@ -109,7 +115,7 @@ function Label() {
             <div onLoad={getRole}>
 
                 <div className="row p-0 m-0 card_con">
-                
+
                     <div className="col-sm-2 p-0 m-0 nav_con">
                         {loading ? (
                             <ContentLoader
@@ -129,6 +135,7 @@ function Label() {
                             </ContentLoader>
                         ) : (
                             <>
+                            
                                 <div className="px-4 pt-5 pb-3 user_con">
                                     <img src="../ritmo_logo.png" alt="logo" className="mt-3 logo_tab" />
                                     <h2 className="mx-4 mt-5 client_name">{name}</h2>
@@ -152,6 +159,12 @@ function Label() {
                                         className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                         onClick={() => toggleTab(3)}>
                                         <FaFileContract className='mx-3'/>View sold
+                                    </Button>
+
+                                    <Button
+                                        className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+                                        onClick={() => toggleTab(4)}>
+                                        <FaWallet className='mx-3'/>View Balance
                                     </Button>
                                 </div>
                             </>
@@ -241,6 +254,11 @@ function Label() {
                                     <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
                                         <StreamingContracts />
                                     </div>
+                                </div>
+
+                                <div className={toggleState === 4 ? "content  active-content" : "content"}>
+                                    <h1>View Balance</h1>
+                                    <ViewBalance />
                                 </div>
                             </>
                         )}

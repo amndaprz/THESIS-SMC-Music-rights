@@ -12,8 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 
-import { FaCartPlus, FaShoppingBag } from 'react-icons/fa';
+import { FaCartPlus, FaShoppingBag, FaWallet } from 'react-icons/fa';
 import { web3, web3_RA, contract, contract_RA } from '../../ContractProperties';
+import ViewBalance from './ClientBalance';
 
 
 // let connectIPFS = new ConnectIPFS();
@@ -303,6 +304,12 @@ function Client() {
                                     <FaShoppingBag className='mx-3' />Owned songs
                                 </Button>
 
+                                <Button
+                                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(3)}>
+                                    <FaWallet className='mx-3' />View Balance
+                                </Button>
+
                                 {/* Replace with on website refresh */}
                                 {/* <Button
                                 onClick={displayAllInfo}>
@@ -413,6 +420,10 @@ function Client() {
                             <h1>Owned Songs</h1>
                         )}
                         <OwnedSongs/>
+                    </div>
+                    <div className={toggleState === 3 ? "content  active-content" : "content"}>
+                        <h1>View Balance</h1>
+                        <ViewBalance/>
                     </div>
                 </div>
 

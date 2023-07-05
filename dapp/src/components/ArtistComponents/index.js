@@ -8,13 +8,11 @@ import CommercialContracts from './ArtistCommercialSold';
 import StreamingContracts from './ArtistStreamingSold';
 import CommercialProposals from './ArtistCommercialProposal';
 import StreamingProposals from './ArtistStreamingProposal'
-
-import Label from '../LabelComponents';
-import Client from '../ClientComponents';
+import ViewBalance from './ArtistBalance';
 
 import ContentLoader from 'react-content-loader'
 import {useNavigate } from "react-router-dom";
-import { FaFileContract, FaMusic, FaSignature } from 'react-icons/fa';
+import { FaFileContract, FaMusic, FaSignature, FaWallet } from 'react-icons/fa';
 let account;
 let role;
 document.body.style.background = "#232226";
@@ -163,6 +161,11 @@ function Artist() {
                                     onClick={() => toggleTab(3)}>
                                     <FaSignature className='mx-3'/>View sold
                                 </Button>
+                                <Button
+                                    className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+                                    onClick={() => toggleTab(4)}>
+                                    <FaWallet className='mx-3'/>View Balance
+                                </Button>
                             </div>
                         </>
                     )}
@@ -252,6 +255,12 @@ function Artist() {
                     <div className={toggleState3 === 2 ? "content  active-content" : "content"}>
                         <StreamingContracts />
                     </div>
+                </div>
+
+                <div className={toggleState === 4 ? "content  active-content" : "content"}>
+                    <h1>View Balance</h1>
+                    <ViewBalance />
+                    
                 </div>
             </div>
         </div>
