@@ -42,6 +42,14 @@ contract StreamContract {
         streams[streamId].status = 2;
     }
 
+    function rejectStream(uint256 streamId) public {
+        streams[streamId].status = 3;
+    }
+
+    function getStatus(uint256 streamId) public view returns (uint256){
+        return streams[streamId].status;
+    }
+
 
 /*
     simulateStreams Function
@@ -59,12 +67,14 @@ contract StreamContract {
     function simulateStreams (uint256 nStreams, uint256 streamId) public{
        
         streams [streamId].currStream = streams [streamId].currStream + nStreams;
+
+        uint256 remainder = streams [streamId].currStream % 10;
         
-        if (  streams [streamId].currStream >= 10) {
+        if (remainder == 0) {
                 // if the difference between previous and current stream is equal to or greater than 10, return update count
-               streams [streamId].update =  streams [streamId].currStream;
+               streams [streamId].update =  10;
                streams [streamId].prevStream += streams [streamId].currStream;
-               streams [streamId].currStream = 0;
+               //streams [streamId].currStream = 0;
 
         }
 
