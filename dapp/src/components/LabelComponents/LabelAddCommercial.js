@@ -291,7 +291,7 @@ function AddCommercialContract(props){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify("Opening MetaMask...");
+            notify("Adding contract...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -314,7 +314,7 @@ function AddCommercialContract(props){
 
         }catch(e){
             console.log(e.message);
-            notify(e.message);
+            notifyWarn(e.message);
         }
     }
 
@@ -328,7 +328,15 @@ function AddCommercialContract(props){
     }
 
     const notify = (message) => {
-        toast(message);
+        toast(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
+    }
+
+    const notifyWarn = (message) => {
+        toast.warn(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
     }
 
     return(

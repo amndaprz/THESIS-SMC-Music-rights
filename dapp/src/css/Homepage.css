@@ -879,3 +879,7 @@ button {
   padding-right: 50px;
   margin-top: 30px;
 }
+
+.Toastify__progress-bar--info {
+  background-color:#9988FF;
+}

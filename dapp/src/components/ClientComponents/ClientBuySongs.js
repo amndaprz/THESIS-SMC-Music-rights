@@ -19,11 +19,9 @@ function BuySongs(props){
   console.log("jsonObject 0000000001" + jsonObj.data.song_title);
 
   return (
-      
-          <CardBuy
-            keys={jsonObj.keys}
-            data={jsonObj.data} />
-      
+      <CardBuy
+        keys={jsonObj.keys}
+        data={jsonObj.data} />
     );
   
         

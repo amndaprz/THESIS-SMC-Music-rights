@@ -1,5 +1,10 @@
 [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -24,98 +29,6 @@
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "streamId",
-				"type": "uint256"
-			}
-		],
-		"name": "signStream",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "nStreams",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "streamId",
-				"type": "uint256"
-			}
-		],
-		"name": "simulateStreams",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address payable",
-				"name": "recipientAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "transferETH",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "totalFeePerStream",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "nStreams",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "percentLabel",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "percentArtist",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address payable",
-				"name": "artist",
-				"type": "address"
-			},
-			{
-				"internalType": "address payable",
-				"name": "label",
-				"type": "address"
-			}
-		],
-		"name": "transferStream",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"inputs": [],
@@ -158,6 +71,25 @@
 			}
 		],
 		"name": "getPrevStreams",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "streamId",
+				"type": "uint256"
+			}
+		],
+		"name": "getStatus",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -249,6 +181,106 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "streamId",
+				"type": "uint256"
+			}
+		],
+		"name": "rejectStream",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "streamId",
+				"type": "uint256"
+			}
+		],
+		"name": "signStream",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "nStreams",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "streamId",
+				"type": "uint256"
+			}
+		],
+		"name": "simulateStreams",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "recipientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferETH",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalFeePerStream",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "nStreams",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percentLabel",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "percentArtist",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address payable",
+				"name": "artist",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "label",
+				"type": "address"
+			}
+		],
+		"name": "transferStream",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	}
 ]

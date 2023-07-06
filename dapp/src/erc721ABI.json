@@ -119,19 +119,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "MINT_PRICE",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -603,33 +590,33 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "total_fee",
+				"name": "totalFee",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "percent_label",
+				"name": "percentLabel",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "percent_artist",
+				"name": "percentArtist",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "artist",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
+				"internalType": "address payable",
 				"name": "label",
 				"type": "address"
 			}
 		],
 		"name": "transferBuyout",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{

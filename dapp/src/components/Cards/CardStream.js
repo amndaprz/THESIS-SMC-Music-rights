@@ -35,7 +35,9 @@ function CardStream(props) {
 
     const notify = (title, artist) => {
         new Audio(Sound).play()
-        toast("Now playing:  " + title + " by " + artist);
+        toast("Now playing:  " + title + " by " + artist, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
         //console.log(event.target);
     }
 
@@ -170,13 +172,13 @@ function CardStream(props) {
 
     return (
         <>  
-            {/*
+            
             <ToastContainer
                 theme="dark"
                 closeOnClick={true}
                 autoClose={2000}
             />
-            */}
+            
             
             <Card key={(jsonObj.keys)}>
                 <Card.Body>

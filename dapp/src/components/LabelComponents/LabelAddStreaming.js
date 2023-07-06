@@ -257,7 +257,7 @@ function AddStreamingContract(props){
             // const users = await contract_RA.methods.getUsers().call();
             // console.log(users);
 
-            notify("Opening MetaMask...");
+            notify("Adding contract...");
 
             console.log(MRC.song_title);
             console.log(MRC);
@@ -281,7 +281,7 @@ function AddStreamingContract(props){
         }catch(e){
             // Error Message
             console.log(e.message);
-            notify(e.message);
+            notifyWarn(e.message);
         }
     };
 
@@ -295,7 +295,15 @@ function AddStreamingContract(props){
     }
 
     const notify = (message) => {
-        toast(message);
+        toast(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+        });
+    }
+
+    const notifyWarn = (message) => {
+        toast.warn(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+        });
     }
 
     return(

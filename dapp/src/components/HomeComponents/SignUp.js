@@ -309,12 +309,20 @@ function SignUp(){
             }                   
         }catch(e){
             console.log(e.message);
-            notify(e.message);
+            notifyWarn(e.message);
         }
     }
 
     const notify = (message) => {
-        toast(message);
+        toast(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
+    }
+
+    const notifyWarn = (message) => {
+        toast.warn(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
     }
 
     return(
