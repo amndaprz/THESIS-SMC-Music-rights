@@ -4,6 +4,7 @@ import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import ContentLoader from 'react-content-loader'
 import {web3, web3_RA, contract, contract_RA} from '../../ContractProperties';
+import Button from 'react-bootstrap/Button';
 
 let account;
 
@@ -28,6 +29,7 @@ function ViewBalance() {
         const res = web3.utils.fromWei(val , 'ether');
         setBalance(res);
         console.log("BALANCEEE2 = " + balance + typeof(balance));
+        setTime(new Date());
     }
 
     return(
@@ -37,6 +39,7 @@ function ViewBalance() {
                 <h3 className='mt-3 text_pop'>
                     {balance} ETH
                 </h3>
+                <Button className='refresh_btn' onClick={getBalance}>Refresh</Button>
             </div>
         </>
     );

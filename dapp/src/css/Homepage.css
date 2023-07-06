@@ -369,7 +369,8 @@ button {
 .card_button:hover,
 .modal_btn:hover,
 .modal_btn_sub:hover,
-.card_button_delete:hover{
+.card_button_delete:hover,
+.refresh_btn:hover{
   background-color: #2C264B;
   
   transition: 0.2s;
@@ -866,4 +867,15 @@ button {
 
 .balance_con{
   text-align: center;
+}
+
+.refresh_btn{
+  border-radius: 20px;
+  background-color: #9988FF;
+  color: white;
+  border: none;
+  padding: 12px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 30px;
 }
