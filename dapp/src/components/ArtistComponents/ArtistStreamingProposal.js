@@ -3,11 +3,7 @@ import { create } from 'ipfs-http-client';
 import { Buffer } from 'buffer';
 import ContentLoader from 'react-content-loader'
 
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-
 import CardProposal from '../Cards/CardStreamingProposal';
-
 import {web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account;

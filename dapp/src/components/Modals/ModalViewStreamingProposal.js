@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
+import { ToastContainer, toast } from 'react-toastify';
 import {contractAddress, contractABI, web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account; 
@@ -9,21 +9,37 @@ function ProposalStreamPopup(props){
     console.log("HATDOG");
     console.log(props.tokenID);
     const mintWithToken = async() => {
+        notify("Signing contract...");
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
         if(await contract_Stream.methods.signStream(props.tokenID).send({from: account, sender: account })){
+            notify("Signed contract");
             console.log("Minting successful");
         }
         window.location.reload();
     }
 
     const rejectProposal = async() => {
+        notify("Declining contract...");
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
         if(await contract_Stream.methods.rejectStream(props.tokenID).send({from: account, sender: account })){
+            notify("Declined contract");
             console.log("Minting successful");
         }
         window.location.reload();
+    }
+
+    const notify = (message) => {
+        toast(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
+    }
+
+    const notifyWarn = (message) => {
+        toast.warn(message, {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
     }
 
     return (
@@ -34,6 +50,16 @@ function ProposalStreamPopup(props){
         aria-labelledby="contained-modal-title-vcenter modal_view"
         centered
       >
+        <ToastContainer
+                    theme="dark"
+                    closeOnClick={true}
+                    autoClose={2000}
+                    toastStyle={{ backgroundColor: "#232226", 
+                                    marginBottom: "-170px", 
+                                    marginLeft:"-640px",
+                                    bottom:"0px", 
+                                    position:"absolute"}}
+                />
         <Modal.Header closeButton className='pb-0'>
             <h4 className='col-sm-6'>{props.songs.song_title}</h4>
             <div className='col-sm-6 text_pop modal_contracttype'>Streaming</div>
