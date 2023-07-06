@@ -49,11 +49,6 @@ function Label() {
         const accounts = await web3_RA.eth.requestAccounts();
         const account = accounts[0];
         role = await contract_RA.methods.getRole(account).call();
-        const balance = await web3.eth.getBalance(account);
-
-        const balance2 = web3.utils.fromWei(balance , 'ether');
-
-        console.log("BALANCEEE = " + balance2);
 
         setUserRole(role);
         //console.log("User Role " + role);

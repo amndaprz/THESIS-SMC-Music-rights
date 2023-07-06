@@ -70,7 +70,7 @@ function ConfirmPurchasePopup(props) {
         else{
             notifyWarn("Purchase unsuccessful");
         };
-
+        
         window.location.reload();
 
         props.onHide();

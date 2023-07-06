@@ -141,6 +141,10 @@ function SignUp(){
         console.log("User Role " + role);
         
     };
+
+    if(role === ""){
+        window.location.reload();
+    }
     
     // ON LOAD CHECK IF USER ADDRESS WALLET ALREADY HAS AN EXISTING ACCOUNT
     useEffect(() => {

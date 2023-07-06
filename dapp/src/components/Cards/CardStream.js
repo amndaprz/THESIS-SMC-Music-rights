@@ -172,13 +172,11 @@ function CardStream(props) {
 
     return (
         <>  
-            
-            <ToastContainer
+            {/* <ToastContainer
                 theme="dark"
                 closeOnClick={true}
                 autoClose={2000}
-            />
-            
+            /> */}
             
             <Card key={(jsonObj.keys)}>
                 <Card.Body>
