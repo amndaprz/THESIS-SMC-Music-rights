@@ -9,6 +9,7 @@ contract StreamContract {
         uint256 prevStream; //paid stream count
         uint256 currStream; //unpaid stream count
         string ipfsHash;
+        uint256 status; //0- undefind, 1- pending, 2-signed, 3 - declined
         uint256 streamId;
         uint256 update; // number of streams that needs to- be paid for
     }
@@ -19,6 +20,7 @@ contract StreamContract {
      constructor() {
          _streamCounter = 0;
     }
+
 
 /*
     addStream Function
@@ -31,13 +33,14 @@ contract StreamContract {
 */ 
     function addStream( string memory ipfsHash) public {
         _streamCounter = _streamCounter + 1;
-        uint256 prevStream = 0;
-        uint256 currStream = 0;
-        uint256 update =0;
-        streams[ _streamCounter] = Stream(prevStream, currStream, ipfsHash, _streamCounter, update);
+        streams[ _streamCounter] = Stream(0, 0, ipfsHash, 1, _streamCounter, 0);
         streamID.push(_streamCounter);
     }
 
+
+    function signStream(uint256 streamId) public {
+        streams[streamId].status = 2;
+    }
 
 
 /*
