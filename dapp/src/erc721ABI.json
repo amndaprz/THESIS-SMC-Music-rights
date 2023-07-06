@@ -617,19 +617,19 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "address payable",
+				"internalType": "address",
 				"name": "artist",
 				"type": "address"
 			},
 			{
-				"internalType": "address payable",
+				"internalType": "address",
 				"name": "label",
 				"type": "address"
 			}
 		],
 		"name": "transferBuyout",
 		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

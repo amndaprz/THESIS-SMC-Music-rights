@@ -49,7 +49,7 @@ function ConfirmPurchasePopup(props) {
         const tx2Req = await web3.eth.sendTransaction({ from: account, to: artist_address, value: artistCutWei }); // Artist Cut
         
         // await web3.eth.sendTransaction({ from: account, to: artist_address, value: artistCutWei }); // Artist Cut
-        await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address, value: artistCutWei});
+        await contract.methods.transferBuyout(account, parseInt(props.data.token_id), parseInt(props.data.total_fee), parseInt(props.data.percent_label), parseInt(props.data.percent_artist), artist_address, label_address).send({from: account, to: label_address});
             
 
         window.location.reload();
