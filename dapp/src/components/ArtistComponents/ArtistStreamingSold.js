@@ -61,56 +61,51 @@ function StreamingContracts(){
 
             for (let count in allResults)
             {
-
+                data_status = await contract_Stream.methods.getStatus(allResults[count]).call();
                 console.log(typeof data_status);
 
-                
+                if(data_status === "2"){
+                    getMRC = await contract_Stream.methods.getStream(allResults[count]).call();
 
-                getMRC = await contract_Stream.methods.getStream(allResults[count]).call();
+                    hash = getMRC.ipfsHash;
 
-                hash = getMRC.ipfsHash;
+                    console.log("HASH IS HERE: " + typeof hash);
+                    
+                    for await (const chunk of IPFS.cat(hash)) {
+                        console.log(chunk);
+                        data.push(chunk); 
+                                
+                                // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
+            
+                        info = Buffer.concat(data).toString();
+                        console.log("INFO - " + info);
+            
+                        try {
+                            const data = JSON.parse(info);
+                            //console.log("LABEL NAME: " + data.label_name);
+                            if(data.artist_name === alias)
+                            {
+                                console.log("ALIAS NAME: " + alias);
+                                temp_data.push(data);
+                            }
 
-                console.log("HASH IS HERE: " + typeof hash);
-
-                
-
-                
-                for await (const chunk of IPFS.cat(hash)) {
-                    console.log(chunk);
-                    data.push(chunk); 
                             
-                            // temp_data.push(JSON.parse(Buffer.concat(chunk).toString()));
-        
-                    info = Buffer.concat(data).toString();
-                    console.log("INFO - " + info);
-        
-                    try {
-                        const data = JSON.parse(info);
-                        //console.log("LABEL NAME: " + data.label_name);
-                        if(data.artist_name === alias)
-                        {
-                            console.log("ALIAS NAME: " + alias);
-                            temp_data.push(data);
-                        }
-
-                        
-                        
+                            
+                            //setJsonObj(temp_data);
+                        } catch (error) {
+                        const position = parseInt(error.message.split(' ').pop(), 10);
+                        const cleanJsonString = info.substring(0, position);
+                        const data = JSON.parse(cleanJsonString);
+                        console.log(temp_data);
+                        temp_data.push(data);
                         //setJsonObj(temp_data);
-                    } catch (error) {
-                    const position = parseInt(error.message.split(' ').pop(), 10);
-                    const cleanJsonString = info.substring(0, position);
-                    const data = JSON.parse(cleanJsonString);
-                    console.log(temp_data);
-                    temp_data.push(data);
-                    //setJsonObj(temp_data);
-                    
-                    }
                         
-                    data.pop();
-                    
-                   
-
+                        }
+                            
+                        data.pop();
+                    }
                 }
+                
             }
 
             console.log("Extraction successful!");

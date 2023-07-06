@@ -5,6 +5,8 @@ import ContractStreamPopup from '../Modals/ModalViewStreamingSold';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+import {contractAddress, contractABI, web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
+
 function CardStreamContract(props) {
 
     const jsonObj = props;
@@ -16,7 +18,7 @@ function CardStreamContract(props) {
     const clickedContract  = (value, isOpen) =>{
         console.log("clicked", value);
         setModalShow(isOpen);   
-        setContractContent(value)
+        setContractContent(value);
     }
 
 

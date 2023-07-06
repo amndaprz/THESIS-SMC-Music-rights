@@ -7,6 +7,7 @@ import CardStream from "../Cards/CardStream";
 
 
 let account;
+let data_status;
 
 function StreamForm(){
 
@@ -62,6 +63,11 @@ function StreamForm(){
         try{
             for(let key in allStreamID)
             {
+                data_status = await contract_Stream.methods.getStatus(allStreamID[key]).call();
+                console.log(typeof data_status);
+
+                if(data_status === "2"){
+                    
                 let stream = await contract_Stream.methods.getStream(allStreamID[key]).call();
 
                 hash = stream.ipfsHash;
@@ -89,6 +95,8 @@ function StreamForm(){
                         
                         data.pop();
                 }   
+                }
+
                 
             }
         }catch(err){
@@ -155,7 +163,7 @@ function StreamForm(){
     return(
         <div className="stream_content">
             <div>
-                <h3 className="mb-4 ">Stream simulation</h3>
+                <h3 className="mb-4 mt-5">Stream simulation</h3>
             </div>
             <div className='row filter_con2'>
                 <div className='col search_con2'>

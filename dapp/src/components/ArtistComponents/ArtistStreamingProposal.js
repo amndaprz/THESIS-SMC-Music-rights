@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 
 import CardProposal from '../Cards/CardStreamingProposal';
 
-import {web3, contract, contract_RA} from '../../ContractProperties';
+import {web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account;
 
@@ -61,9 +61,9 @@ function ViewContractProposals(){
         let info = [];
         const data =[];
         const temp_data = [];
-        let allResults = await contract.methods.getTokens().call();
+        let allResults = await contract_Stream.methods.getAllStreamId().call();
         let data_status;
-        let getMRC = [];
+        let getStream = [];
         let hash;
 
         let loading = true;
@@ -79,16 +79,16 @@ function ViewContractProposals(){
             for (let count in allResults)
             {
                 console.log("AAAAAAAAAA");
-                data_status = await contract.methods.getStatus(allResults[count]).call();
+                data_status = await contract_Stream.methods.getStatus(allResults[count]).call();
 
                 console.log(typeof data_status);
 
                 if(data_status === "1")
                 {
 
-                    getMRC = await contract.methods.getMRC(allResults[count]).call();
+                    getStream = await contract_Stream.methods.getStream(allResults[count]).call();
 
-                    hash = getMRC.ipfsHash;
+                    hash = getStream.ipfsHash;
 
                     console.log("HASH IS HERE: " + typeof hash);
 

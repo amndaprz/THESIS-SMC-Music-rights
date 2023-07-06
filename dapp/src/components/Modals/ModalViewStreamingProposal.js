@@ -1,20 +1,17 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-import {contractAddress, contractABI, web3, contract, contract_RA} from '../../ContractProperties';
+import {contractAddress, contractABI, web3, contract, contract_RA, contract_Stream} from '../../ContractProperties';
 
 let account; 
 function ProposalStreamPopup(props){
 
     console.log("HATDOG");
     console.log(props.tokenID);
-
-    
-
     const mintWithToken = async() => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.safeMintWithToken(props.tokenID).send({from: account, sender: account })){
+        if(await contract_Stream.methods.signStream(props.tokenID).send({from: account, sender: account })){
             console.log("Minting successful");
         }
         window.location.reload();
@@ -23,7 +20,7 @@ function ProposalStreamPopup(props){
     const rejectProposal = async() => {
         const accounts = await web3.eth.requestAccounts();
         account = accounts[0];
-        if(await contract.methods.rejectProposal(props.tokenID).send({from: account, sender: account })){
+        if(await contract_Stream.methods.rejectStream(props.tokenID).send({from: account, sender: account })){
             console.log("Minting successful");
         }
         window.location.reload();

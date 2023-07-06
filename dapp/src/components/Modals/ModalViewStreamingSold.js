@@ -1,7 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 
 function ContractStreamPopup(props){
-
     return (
       <Modal
         contentClassName="modal_box_contract"
