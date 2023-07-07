@@ -45,7 +45,7 @@ const giveRole = async(address, username,role) => {
     const getAddressList = await contract_RA.methods.getAddresses().call();
     let result = [];
     for (const x in getAddressList){
-        const temp = await contract_RA.methods.getAlias(x).send({ from: account });
+        const temp = await contract_RA.methods.getAlias(x).call();
         result.push(temp);
     }
     console.log(result);
@@ -103,7 +103,7 @@ function SignUp(){
         const getAddressList = await contract_RA.methods.getAddresses().call();
         const getUsersList = [];
         for (const x in getAddressList){
-            const temp = await contract_RA.methods.getAlias(x).send({ from: account });
+            const temp = await contract_RA.methods.getAlias(x).call();
             getUsersList.push(temp);
             console.log(temp);
         }
