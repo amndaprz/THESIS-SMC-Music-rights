@@ -403,7 +403,7 @@ function AddCommercialContract(props){
                     </p>
                 </div>
                 <div className="my-3">
-                    <span className='mx-3 my-2'>Total Fee</span>
+                    <span className='mx-3 my-2'>Total Fee (in ETH)</span>
                     {
                         error_totalFee_state === 1 && 
                             <span className="mx-2 error_contract"><FaExclamationTriangle /> {error_totalFee}</span>
