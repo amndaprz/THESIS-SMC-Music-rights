@@ -2,12 +2,12 @@
 pragma solidity >=0.5.17;
  
 import "@openzeppelin/contracts@4.8.2/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts@4.8.2/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts@4.8.2/security/Pausable.sol";
+import "@openzeppelin/contracts@4.8.2/token/ERC721/extensions/ERC721Enumerable.sol"; 
+import "@openzeppelin/contracts@4.8.2/security/Pausable.sol" ;
  
 contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
  
-    uint256 public MAX_SUPPLY = 10000;
+    uint256 public maxSupply = 10000;
  
     struct MRC {
         uint256 tokenId;
@@ -17,8 +17,8 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     }
  
     uint256 public tokenIdCounter;
-    mapping(uint256 => MRC) internal _MRC;
-    uint256[] public Tokens;
+    mapping(uint256 => MRC) internal mrtMapping;
+    uint256[] public mrtToken;
  
     constructor() ERC721("MusicRights Token", "MRT") {
         //  Start token ID incrementor
@@ -37,11 +37,11 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
     function nonMint(string calldata ipfsHash) public  {
          uint256 newTokenCounter = tokenIdCounter + 1;
  
-        if(newTokenCounter < MAX_SUPPLY){
+        if(newTokenCounter < maxSupply){
  
-            _MRC[newTokenCounter] = MRC(newTokenCounter,ipfsHash,1,"");
+            mrtMapping[newTokenCounter] = MRC(newTokenCounter,ipfsHash,1,"");
             tokenIdCounter = newTokenCounter;
-            Tokens.push(tokenIdCounter);
+            mrtToken.push(tokenIdCounter);
         }
     }
  
@@ -55,7 +55,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
 */
     function safeMintWithToken(uint256 tokenId) public {
  
-        _MRC[tokenId].status = 2;
+        mrtMapping[tokenId].status = 2;
         _safeMint(msg.sender, tokenId);
     }
  
@@ -69,7 +69,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
                           the MRT item they are trying to reject
 */
     function rejectProposal(uint256 tokenId) public {
-        _MRC[tokenId].status = 4;
+        mrtMapping[tokenId].status = 4;
     }
  
  
@@ -101,7 +101,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
  
 */
  
-    function transferBuyout(string calldata client, uint256 tokenId, uint256 totalFee, uint256 percentLabel, uint256 percentArtist, address payable artist, address payable label)payable public {
+    function transferBuyout(string calldata client, uint256 tokenId, uint256 totalFee, uint256 percentLabel, uint256 percentArtist, address payable artist, address payable label) public payable  {
  
         require(_exists(tokenId), "Token ID does not exist");
  
@@ -109,9 +109,9 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
         transferETH (artist, totalFee*(percentArtist/100));
         transferETH (label, totalFee*(percentLabel/100));
         //Change the status to 3 - Bought
-        _MRC[tokenId].status = 3;
+        mrtMapping[tokenId].status = 3;
         //Set the token client address attribute to the address of the client
-        _MRC[tokenId].client = client;
+        mrtMapping[tokenId].client = client;
         //transfers the token from the Artist to the Client
         _setApprovalForAll(msg.sender, artist, true);
         _approve(msg.sender, tokenId);
@@ -129,12 +129,12 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
  
     function getStatus(uint256 tokenId) public view returns (uint256){
  
-        return _MRC[tokenId].status;
+        return mrtMapping[tokenId].status;
     }
  
 /*
     getTokenLength Function
-    Returns the number of tokens stored in the smart contract as metadata
+    Returns the number of mrtToken stored in the smart contract as metadata
  
     Returns: 
 */
@@ -145,15 +145,15 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
  
  
 /*
-    getTokens Function
+    getmrtToken Function
     Returns the array of token ids that are stoed in the smart contract
  
     Returns: 
         uint256[]         | An array of uint256 that corresponds to the array of token ids
  
 */
-    function getTokens() public view returns (uint256[] memory){
-        return Tokens;
+    function getmrtToken() public view returns (uint256[] memory){
+        return mrtToken;
     }
  
  
@@ -170,7 +170,7 @@ contract MusicRightsToken is ERC721, ERC721Enumerable, Pausable{
 */   
     function getMRC(uint256 tokenId) public view returns (MRC memory) {
  
-        return _MRC[tokenId];
+        return mrtMapping[tokenId];
     }
  
  

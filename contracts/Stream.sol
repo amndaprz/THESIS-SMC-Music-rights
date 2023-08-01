@@ -10,12 +10,12 @@ contract StreamContract {
         uint256 currStream; //unpaid stream count
         string ipfsHash;
         uint256 status; //0- undefind, 1- pending, 2-signed, 3 - declined
-        uint256 streamId;
+        uint256 streamIndex;
         uint256 update; // number of streams that needs to- be paid for
     }
     // Stores all stream struct
     mapping(uint256 => Stream) streams;
-    uint256[] streamID;
+    uint256[] streamIdArray;
 
      constructor() {
          _streamCounter = 0;
@@ -34,20 +34,20 @@ contract StreamContract {
     function addStream( string memory ipfsHash) public {
         _streamCounter = _streamCounter + 1;
         streams[ _streamCounter] = Stream(0, 0, ipfsHash, 1, _streamCounter, 0);
-        streamID.push(_streamCounter);
+        streamIdArray.push(_streamCounter);
     }
 
 
-    function signStream(uint256 streamId) public {
-        streams[streamId].status = 2;
+    function signStream(uint256 streamIndex) public {
+        streams[streamIndex].status = 2;
     }
 
-    function rejectStream(uint256 streamId) public {
-        streams[streamId].status = 3;
+    function rejectStream(uint256 streamIndex) public {
+        streams[streamIndex].status = 3;
     }
 
-    function getStatus(uint256 streamId) public view returns (uint256){
-        return streams[streamId].status;
+    function getStatus(uint256 streamIndex) public view returns (uint256){
+        return streams[streamIndex].status;
     }
 
 
@@ -57,24 +57,24 @@ contract StreamContract {
     If the number of prevStreams is 10 streams lesser than the current stream, then the function returns the number of streams that must be paid for
 
     Parameters:
-        nStreams                | UINT256 input for the number of streams to be added to the currStreams parameter of the streaming contract
-        streamId                | UINT256 input for the id corresponding to the index of the STREAM struct that is being queried
+        addStreams              | UINT256 input for the number of streams to be added to the currStreams parameter of the streaming contract
+        streamIndex             | UINT256 input for the id corresponding to the index of the STREAM struct that is being queried
    
     Returns:  
         uint256                 | number of streams that has to be paid for
 
 */  
-    function simulateStreams (uint256 nStreams, uint256 streamId) public{
+    function simulateStreams (uint256 addStreams, uint256 streamIndex) public{
        
-        streams [streamId].currStream = streams [streamId].currStream + nStreams;
+        streams [streamIndex].currStream = streams [streamIndex].currStream + addStreams;
 
-        uint256 remainder = streams [streamId].currStream % 10;
+        uint256 remainder = streams [streamIndex].currStream % 10;
         
         if (remainder == 0) {
                 // if the difference between previous and current stream is equal to or greater than 10, return update count
-               streams [streamId].update =  10;
-               streams [streamId].prevStream += streams [streamId].currStream;
-               //streams [streamId].currStream = 0;
+               streams [streamIndex].update =  10;
+               streams [streamIndex].prevStream += streams [streamIndex].currStream;
+               //streams [streamIndex].currStream = 0;
 
         }
 
@@ -102,17 +102,17 @@ contract StreamContract {
     
     Parameters:
         totalFeePerStream| UINT256 input for the token id of the corresponding MRC contract that the client wants to buy
-        nStreams         | UINT256 input for the total fee to be paid by the client (msg.sender), as requested by the label and artist
+        addStreams         | UINT256 input for the total fee to be paid by the client (msg.sender), as requested by the label and artist
         percentLabel     | UINT256 input for the peercentage that the Label is entitled to
         percentArtist    | UINT256 input for the percetnage that the Artist is entitles to
         artist           | ADDRESS PAYABLE input for the address of the Artist wallet/account
         label            | ADDRESS PAYABLE input for the address of the Label wallent/account
 
 */
-    function transferStream( uint256 totalFeePerStream, uint256 nStreams, uint256 percentLabel, uint256 percentArtist, address payable artist, address payable label)payable public {
+    function transferStream( uint256 totalFeePerStream, uint256 addStreams, uint256 percentLabel, uint256 percentArtist, address payable artist, address payable label)payable public {
         // Split total_fee
-        transferETH (artist, totalFeePerStream*nStreams*(percentArtist/100));
-        transferETH (label, totalFeePerStream*nStreams**(percentLabel/100));
+        transferETH (artist, totalFeePerStream*addStreams*(percentArtist/100));
+        transferETH (label, totalFeePerStream*addStreams**(percentLabel/100));
     }
 
 /*
@@ -140,7 +140,7 @@ contract StreamContract {
 
 */
     function getAllStreamId() public view returns (uint256[] memory){
-        return streamID;
+        return streamIdArray;
     }
 
 
@@ -164,8 +164,8 @@ contract StreamContract {
         uint256           | An int representing the current number of simulated streams that have yet to be paid for
 
 */
-    function getCurrStreams(uint256 streamId) public view returns (uint256){
-        return streams[streamId].currStream;
+    function getCurrStreams(uint256 streamIndex) public view returns (uint256){
+        return streams[streamIndex].currStream;
     }
 
 
@@ -177,8 +177,8 @@ contract StreamContract {
         uint256           | An int representing the previous number of simulated streams that have already been paid for
 
 */
-    function getPrevStreams(uint256 streamId) public view returns (uint256){
-        return streams[streamId].prevStream;
+    function getPrevStreams(uint256 streamIndex) public view returns (uint256){
+        return streams[streamIndex].prevStream;
     }
 
 
@@ -191,9 +191,9 @@ contract StreamContract {
         uint256           | An int representing the number of simulated streams that the Admin must pay for
 
 */
-    function getUpdate(uint256 streamId) public view returns (uint256){
+    function getUpdate(uint256 streamIndex) public view returns (uint256){
 
-        return streams[streamId].update;
+        return streams[streamIndex].update;
     }
 
 
@@ -208,8 +208,8 @@ contract StreamContract {
 
 */
 
-    function clearUpdate (uint256 streamId) public {
-        streams[streamId].update = 0;
+    function clearUpdate (uint256 streamIndex) public {
+        streams[streamIndex].update = 0;
     }
 
    
